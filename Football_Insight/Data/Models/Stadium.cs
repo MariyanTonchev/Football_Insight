@@ -1,16 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static Football_Insight.Data.DataConstants;
 
 namespace Football_Insight.Data.Models
 {
-    public class Venue
+    public class Stadium
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(StadiumNameMaxLength)]
         public string Name { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(StadiumAddressMaxLength)]
         public string Address { get; set; } = string.Empty;
 
         [Required]

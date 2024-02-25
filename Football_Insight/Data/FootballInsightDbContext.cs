@@ -12,7 +12,6 @@ namespace Football_Insight.Data
         {
 
         }
-
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<League> Leagues { get; set; }
         public DbSet<Match> Matches { get; set; }
@@ -21,10 +20,12 @@ namespace Football_Insight.Data
         public DbSet<Position> Positions { get; set; }
         public DbSet<PlayerMatch> PlayerMatches { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<Venue> Venues { get; set; }
+        public DbSet<Stadium> Stadiums { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<PlayerMatch>()
                 .HasKey(pm => new { pm.PlayerId, pm.MatchId });
 
@@ -52,8 +53,6 @@ namespace Football_Insight.Data
                 .HasOne(ps => ps.Player)
                 .WithMany(p => p.PlayerStatistics)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            base.OnModelCreating(builder);
         }
     }
 }

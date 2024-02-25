@@ -18,7 +18,7 @@ namespace Football_Insight.Data.Models
         public int AwayTeamId { get; set; }
 
         [Required]
-        public int VenueId { get; set; }
+        public int StadiumId { get; set; }
 
         [Required]
         public int HomeScore { get; set; }
@@ -32,8 +32,8 @@ namespace Football_Insight.Data.Models
         [ForeignKey(nameof(AwayTeamId))]
         public Team AwayTeam { get; set; } = null!;
 
-        [ForeignKey(nameof(VenueId))]
-        public Venue Venue { get; set; } = null!;
+        [ForeignKey(nameof(StadiumId))]
+        public Stadium Venue { get; set; } = null!;
 
         public ICollection<PlayerMatch> PlayersMatches { get; set; } = new List<PlayerMatch>();
     }

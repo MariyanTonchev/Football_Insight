@@ -35,13 +35,18 @@ namespace Football_Insight.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Trophies")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -92,7 +97,7 @@ namespace Football_Insight.Migrations
                     b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VenueId")
+                    b.Property<int>("StadiumId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -101,7 +106,7 @@ namespace Football_Insight.Migrations
 
                     b.HasIndex("HomeTeamId");
 
-                    b.HasIndex("VenueId");
+                    b.HasIndex("StadiumId");
 
                     b.ToTable("Matches");
                 });
@@ -119,11 +124,13 @@ namespace Football_Insight.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("PositionId")
                         .HasColumnType("int");
@@ -203,11 +210,41 @@ namespace Football_Insight.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Positions");
+                });
+
+            modelBuilder.Entity("Football_Insight.Data.Models.Stadium", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(96)
+                        .HasColumnType("nvarchar(96)");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("YearBuilt")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stadiums");
                 });
 
             modelBuilder.Entity("Football_Insight.Data.Models.Team", b =>
@@ -226,45 +263,19 @@ namespace Football_Insight.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("VenueId")
+                    b.Property<int>("StadiumId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LeagueId");
 
-                    b.HasIndex("VenueId");
+                    b.HasIndex("StadiumId");
 
                     b.ToTable("Teams");
-                });
-
-            modelBuilder.Entity("Football_Insight.Data.Models.Venue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("YearBuilt")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Venues");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -494,9 +505,9 @@ namespace Football_Insight.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Football_Insight.Data.Models.Venue", "Venue")
+                    b.HasOne("Football_Insight.Data.Models.Stadium", "Venue")
                         .WithMany("Matches")
-                        .HasForeignKey("VenueId")
+                        .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -572,15 +583,15 @@ namespace Football_Insight.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Football_Insight.Data.Models.Venue", "Venue")
+                    b.HasOne("Football_Insight.Data.Models.Stadium", "Stadium")
                         .WithMany("Teams")
-                        .HasForeignKey("VenueId")
+                        .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("League");
 
-                    b.Navigation("Venue");
+                    b.Navigation("Stadium");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -656,6 +667,13 @@ namespace Football_Insight.Migrations
                     b.Navigation("Players");
                 });
 
+            modelBuilder.Entity("Football_Insight.Data.Models.Stadium", b =>
+                {
+                    b.Navigation("Matches");
+
+                    b.Navigation("Teams");
+                });
+
             modelBuilder.Entity("Football_Insight.Data.Models.Team", b =>
                 {
                     b.Navigation("AwayMatches");
@@ -666,13 +684,6 @@ namespace Football_Insight.Migrations
                     b.Navigation("HomeMatches");
 
                     b.Navigation("Players");
-                });
-
-            modelBuilder.Entity("Football_Insight.Data.Models.Venue", b =>
-                {
-                    b.Navigation("Matches");
-
-                    b.Navigation("Teams");
                 });
 #pragma warning restore 612, 618
         }

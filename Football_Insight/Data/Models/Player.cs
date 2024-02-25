@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static Football_Insight.Data.DataConstants;
 
 namespace Football_Insight.Data.Models
 {
@@ -9,9 +10,11 @@ namespace Football_Insight.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(PersonFirstNameMaxLength)]
         public string FirstName { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(PersonLastNameMaxLength)]
         public string LastName { get; set; } = string.Empty;
 
         [Required]
@@ -30,7 +33,6 @@ namespace Football_Insight.Data.Models
         public Position Position { get; set; } = null!;
 
         public ICollection<PlayerStatistic> PlayerStatistics { get; set; } = new List<PlayerStatistic>();
-
         public ICollection<PlayerMatch> PlayersMatches { get; set; } = new List<PlayerMatch>();
     }
 }
