@@ -1,5 +1,4 @@
-﻿using Football_Insight.Data.Configurations;
-using Football_Insight.Data.Models;
+﻿using Football_Insight.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -16,12 +15,11 @@ namespace Football_Insight.Data
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<League> Leagues { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<Team> Teams { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<PlayerStatistic> PlayerStatistics { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<PlayerMatch> PlayerMatches { get; set; }
-        
+        public DbSet<Team> Teams { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -55,13 +53,6 @@ namespace Football_Insight.Data
                 .HasOne(ps => ps.Player)
                 .WithMany(p => p.PlayerStatistics)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            builder.ApplyConfiguration(new LeagueConfiguration());
-            builder.ApplyConfiguration(new StadiumConfiguration());
-            builder.ApplyConfiguration(new CoachConfiguration());
-            builder.ApplyConfiguration(new TeamConfiguration());
-            builder.ApplyConfiguration(new PlayerConfiguration());
-            builder.ApplyConfiguration(new PositionConfiguration());
         }
     }
 }

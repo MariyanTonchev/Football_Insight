@@ -59,118 +59,6 @@ namespace Football_Insight.Migrations
                         .IsUnique();
 
                     b.ToTable("Coaches");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateOfBirth = new DateTime(1971, 1, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Pep",
-                            LastName = "Guardiola",
-                            Salary = 20000m,
-                            TeamId = 1,
-                            Trophies = 30
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateOfBirth = new DateTime(1972, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Zinedine",
-                            LastName = "Zidane",
-                            Salary = 19000m,
-                            TeamId = 2,
-                            Trophies = 11
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DateOfBirth = new DateTime(1967, 6, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Jurgen",
-                            LastName = "Klopp",
-                            Salary = 18000m,
-                            TeamId = 3,
-                            Trophies = 9
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DateOfBirth = new DateTime(1959, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Carlo",
-                            LastName = "Ancelotti",
-                            Salary = 16000m,
-                            TeamId = 4,
-                            Trophies = 20
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DateOfBirth = new DateTime(1970, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Diego",
-                            LastName = "Simeone",
-                            Salary = 14000m,
-                            TeamId = 5,
-                            Trophies = 8
-                        },
-                        new
-                        {
-                            Id = 6,
-                            DateOfBirth = new DateTime(1972, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Mauricio",
-                            LastName = "Pochettino",
-                            Salary = 12000m,
-                            TeamId = 6,
-                            Trophies = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            DateOfBirth = new DateTime(1972, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Mauricio",
-                            LastName = "Pochettino",
-                            Salary = 12000m,
-                            TeamId = 7,
-                            Trophies = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            DateOfBirth = new DateTime(1973, 8, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Thomas",
-                            LastName = "Tuchel",
-                            Salary = 16000m,
-                            TeamId = 8,
-                            Trophies = 6
-                        },
-                        new
-                        {
-                            Id = 9,
-                            DateOfBirth = new DateTime(1972, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Mauricio",
-                            LastName = "Pochettino",
-                            Salary = 12000m,
-                            TeamId = 9,
-                            Trophies = 2
-                        },
-                        new
-                        {
-                            Id = 10,
-                            DateOfBirth = new DateTime(1972, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Mauricio",
-                            LastName = "Pochettino",
-                            Salary = 12000m,
-                            TeamId = 10,
-                            Trophies = 2
-                        },
-                        new
-                        {
-                            Id = 11,
-                            DateOfBirth = new DateTime(1983, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Mikel",
-                            LastName = "Arteta",
-                            Salary = 16000m,
-                            TeamId = 11,
-                            Trophies = 4
-                        });
                 });
 
             modelBuilder.Entity("Football_Insight.Data.Models.League", b =>
@@ -188,33 +76,6 @@ namespace Football_Insight.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Leagues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Premier League"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "La Liga"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Bundesliga"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Serie A"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Ligue 1"
-                        });
                 });
 
             modelBuilder.Entity("Football_Insight.Data.Models.Match", b =>
@@ -296,74 +157,6 @@ namespace Football_Insight.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateOfBirth = new DateTime(1993, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Harry",
-                            LastName = "Maguire",
-                            PositionId = 2,
-                            Price = 0m,
-                            Salary = 0m,
-                            TeamId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateOfBirth = new DateTime(1996, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Marcus",
-                            LastName = "Rashford",
-                            PositionId = 4,
-                            Price = 0m,
-                            Salary = 0m,
-                            TeamId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DateOfBirth = new DateTime(1995, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Andre",
-                            LastName = "Onana",
-                            PositionId = 1,
-                            Price = 0m,
-                            Salary = 0m,
-                            TeamId = 1
-                        },
-                        new
-                        {
-                            Id = 31,
-                            DateOfBirth = new DateTime(2000, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Bukayo",
-                            LastName = "Saka",
-                            PositionId = 4,
-                            Price = 0m,
-                            Salary = 0m,
-                            TeamId = 11
-                        },
-                        new
-                        {
-                            Id = 32,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "William",
-                            LastName = "Salliba",
-                            PositionId = 2,
-                            Price = 0m,
-                            Salary = 0m,
-                            TeamId = 11
-                        },
-                        new
-                        {
-                            Id = 33,
-                            DateOfBirth = new DateTime(1998, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Ben",
-                            LastName = "White",
-                            PositionId = 2,
-                            Price = 0m,
-                            Salary = 0m,
-                            TeamId = 11
-                        });
                 });
 
             modelBuilder.Entity("Football_Insight.Data.Models.PlayerMatch", b =>
@@ -435,28 +228,6 @@ namespace Football_Insight.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Positions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Goalkeeper"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Defender"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Midfielder"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Forward"
-                        });
                 });
 
             modelBuilder.Entity("Football_Insight.Data.Models.Stadium", b =>
@@ -486,64 +257,6 @@ namespace Football_Insight.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stadiums");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Highbury House, 75 Drayton Park, London",
-                            Capacity = 60704,
-                            Name = "Emirates Stadium",
-                            YearBuilt = 2006
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Sir Matt Busby Way, Manchester",
-                            Capacity = 74879,
-                            Name = "Old Trafford",
-                            YearBuilt = 1910
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "C. d'Aristides Maillol, 12, Barcelona",
-                            Capacity = 99354,
-                            Name = "Camp Nou",
-                            YearBuilt = 1957
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Address = "London, HA9 0WS",
-                            Capacity = 90000,
-                            Name = "Wembley Stadium",
-                            YearBuilt = 2007
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Address = "Av. Pres. Castelo Branco, Rio de Janeiro",
-                            Capacity = 78838,
-                            Name = "Maracanã",
-                            YearBuilt = 1950
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Address = "Piazzale Angelo Moratti, Milan",
-                            Capacity = 80018,
-                            Name = "San Siro",
-                            YearBuilt = 1926
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Address = "Calz. de Tlalpan 3665, Mexico City",
-                            Capacity = 87523,
-                            Name = "Estadio Azteca",
-                            YearBuilt = 1966
-                        });
                 });
 
             modelBuilder.Entity("Football_Insight.Data.Models.Team", b =>
@@ -575,96 +288,6 @@ namespace Football_Insight.Migrations
                     b.HasIndex("StadiumId");
 
                     b.ToTable("Teams");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Founded = 1878,
-                            LeagueId = 1,
-                            Name = "Manchester United",
-                            StadiumId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Founded = 1902,
-                            LeagueId = 2,
-                            Name = "Real Madrid",
-                            StadiumId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Founded = 1900,
-                            LeagueId = 3,
-                            Name = "FC Bayern Munich",
-                            StadiumId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Founded = 1899,
-                            LeagueId = 4,
-                            Name = "AC Milan",
-                            StadiumId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Founded = 1970,
-                            LeagueId = 5,
-                            Name = "Paris Saint-Germain",
-                            StadiumId = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Founded = 1905,
-                            LeagueId = 1,
-                            Name = "Chelsea FC",
-                            StadiumId = 6
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Founded = 1899,
-                            LeagueId = 2,
-                            Name = "FC Barcelona",
-                            StadiumId = 7
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Founded = 1909,
-                            LeagueId = 3,
-                            Name = "Borussia Dortmund",
-                            StadiumId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Founded = 1908,
-                            LeagueId = 4,
-                            Name = "Inter Milan",
-                            StadiumId = 4
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Founded = 1950,
-                            LeagueId = 5,
-                            Name = "Olympique Lyonnais",
-                            StadiumId = 3
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Founded = 1886,
-                            LeagueId = 1,
-                            Name = "Arsenal",
-                            StadiumId = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
