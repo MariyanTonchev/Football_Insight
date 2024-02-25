@@ -4,6 +4,7 @@ using Football_Insight.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Football_Insight.Migrations
 {
     [DbContext(typeof(FootballInsightDbContext))]
-    partial class FootballInsightDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240225085456_UpdatePlayerAndCoachModel")]
+    partial class UpdatePlayerAndCoachModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static Football_Insight.Data.DataConstants;
 
@@ -19,6 +20,14 @@ namespace Football_Insight.Data.Models
 
         [Required]
         public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [Precision(TotalDigitsDecimalPrecision, DigitsAfterDecimalPoint)]
+        public decimal Price { get; set; }
+
+        [Required]
+        [Precision(TotalDigitsDecimalPrecision, DigitsAfterDecimalPoint)]
+        public decimal Salary { get; set; }
 
         [Required]
         public int PositionId { get; set; }

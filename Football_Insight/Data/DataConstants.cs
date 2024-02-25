@@ -22,5 +22,8 @@
 
         public const int StadiumMinRange = 1;
         public const int StadiumMaxRange = 150000;
+
+        public const int TotalDigitsDecimalPrecision = 14;
+        public const int DigitsAfterDecimalPoint = 2;
     }
 }
