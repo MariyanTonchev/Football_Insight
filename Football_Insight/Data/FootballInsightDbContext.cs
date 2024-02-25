@@ -21,7 +21,6 @@ namespace Football_Insight.Data
         public DbSet<PlayerStatistic> PlayerStatistics { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<PlayerMatch> PlayerMatches { get; set; }
-        
         public DbSet<Stadium> Stadiums { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

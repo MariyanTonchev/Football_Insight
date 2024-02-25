@@ -1,20 +1,37 @@
-﻿using Football_Insight.Models;
+﻿using Football_Insight.Data;
+using Football_Insight.Models;
+using Football_Insight.Models.League;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Football_Insight.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+    public class HomeController : BaseController
+    {
+        private readonly FootballInsightDbContext context;
+        private readonly ILogger<HomeController> logger;
+
+        public HomeController(FootballInsightDbContext Context, ILogger<HomeController> Loggerr) : base(Context)
         {
-            _logger = logger;
+            context = Context;
+            logger = Loggerr;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var leagues = await context.Leagues
+                            .Select(l => new
+                            {
+                                l.Id,
+                                l.Name,
+                            })
+                            .ToListAsync();
+
+            ViewData["Leagues"] = leagues;
+
             return View();
         }
 
