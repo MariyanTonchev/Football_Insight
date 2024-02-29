@@ -13,15 +13,15 @@ namespace Football_Insight.Data
         {
 
         }
-        public DbSet<Coach> Coaches { get; set; }
-        public DbSet<League> Leagues { get; set; }
-        public DbSet<Match> Matches { get; set; }
-        public DbSet<Team> Teams { get; set; }
-        public DbSet<Player> Players { get; set; }
-        public DbSet<PlayerStatistic> PlayerStatistics { get; set; }
-        public DbSet<Position> Positions { get; set; }
-        public DbSet<PlayerMatch> PlayerMatches { get; set; }
-        public DbSet<Stadium> Stadiums { get; set; }
+        public DbSet<Coach> Coaches { get; set; } = null!;
+        public DbSet<League> Leagues { get; set; } = null!;
+        public DbSet<Match> Matches { get; set; } = null!;
+        public DbSet<Team> Teams { get; set; } = null!;
+        public DbSet<Player> Players { get; set; } = null!;
+        public DbSet<PlayerStatistic> PlayerStatistics { get; set; } = null!;
+        public DbSet<Position> Positions { get; set; } = null!;
+        public DbSet<PlayerMatch> PlayerMatches { get; set; } = null!;
+        public DbSet<Stadium> Stadiums { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

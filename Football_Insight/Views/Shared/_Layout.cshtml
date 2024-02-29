@@ -21,10 +21,24 @@
     <link href="~/layouts/horizontal-dark-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
     <link href="~/layouts/horizontal-dark-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
+
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link href="~/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css">
     <link href="~/src/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
     <link href="~/src/assets/css/dark/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+
+
+    <link href="~/src/plugins/src/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/src/plugins/src/filepond/filepond.min.css">
+    <link rel="stylesheet" href="~/src/plugins/src/filepond/FilePondPluginImagePreview.min.css">
+
+    <link href="~/src/plugins/css/light/filepond/custom-filepond.css" rel="stylesheet" type="text/css" />
+    <link href="~/src/plugins/css/light/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+    <link href="~/src/assets/css/light/apps/invoice-add.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/src/plugins/css/dark/filepond/custom-filepond.css" rel="stylesheet" type="text/css" />
+    <link href="~/src/plugins/css/dark/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+    <link href="~/src/assets/css/dark/apps/invoice-add.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 </head>
 <body class="layout-boxed enable-secondaryNav">
@@ -122,13 +136,14 @@
                         </a>
                         <ul class="dropdown-menu submenu list-unstyled" id="dashboard" data-bs-parent="#accordionExample">
                             <li>
-                                <a href="./index.html"> Players </a>
+                                <a href="#"> Players </a>
                             </li>
                             <li>
-                                <a href="./index.html"> Teams </a>
+                                <a href="#"> Teams </a>
                             </li>
                         </ul>
                     </li>
+
                     <li class="menu menu-heading">
                         <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>APPLICATIONS</span></div>
                     </li>
@@ -183,10 +198,23 @@
     <script src="~/src/plugins/src/waves/waves.min.js"></script>
     <script src="~/layouts/horizontal-dark-menu/app.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
+
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="~/src/plugins/src/apex/apexcharts.min.js"></script>
     <script src="~/src/assets/js/dashboard/dash_1.js"></script>
+
+    <script src="~/src/plugins/src/filepond/filepond.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImagePreview.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageCrop.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageResize.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageTransform.min.js"></script>
+    <script src="~/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js"></script>
+    <script src="~/src/plugins/src/flatpickr/flatpickr.js"></script>
+    <script src="~/src/assets/js/apps/invoice-add.js"></script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+
     @await Html.PartialAsync("_ValidationScriptsPartial")
     @RenderSection("Scripts", required: false)
 </body>

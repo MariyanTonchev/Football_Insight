@@ -11,5 +11,7 @@ namespace Football_Insight.Data.Models
         public string Name { get; set; } = string.Empty;
 
         public ICollection<Team> Teams { get; set; } = new List<Team>();
+
+        public ICollection<Match> Match { get; set; } = new List<Match>();
     }
 }

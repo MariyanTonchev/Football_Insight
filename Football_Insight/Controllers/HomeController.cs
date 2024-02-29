@@ -1,8 +1,6 @@
 ﻿using Football_Insight.Data;
 using Football_Insight.Models;
-using Football_Insight.Models.League;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 

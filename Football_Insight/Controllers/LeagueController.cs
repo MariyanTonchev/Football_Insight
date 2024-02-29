@@ -24,7 +24,29 @@ namespace Football_Insight.Controllers
                 {
                     Id = t.Id,
                     Name = t.Name,
+                    Wins =
+                        t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore > am.HomeScore).Count(),
+                    Draws =
+                        t.HomeMatches.Where(hm => hm.HomeScore == hm.AwayScore).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore == am.HomeScore).Count(),
+                    Losses =
+                        t.HomeMatches.Where(hm => hm.HomeScore < hm.AwayScore).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore < am.HomeScore).Count(),
+                    GoalsAgainst =
+                        t.AwayMatches.Sum(am => am.HomeScore) +
+                        t.HomeMatches.Sum(hm => hm.AwayScore),
+                    GoalsFor =
+                        t.AwayMatches.Sum(am => am.AwayScore) +
+                        t.HomeMatches.Sum(hm => hm.HomeScore),
+                    Logo = t.LogoURL,
+                    Points =
+                        t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore).Count() * 3 +
+                        t.AwayMatches.Where(am => am.AwayScore > am.HomeScore).Count() * 3 +
+                        t.HomeMatches.Where(hm => hm.HomeScore == hm.AwayScore).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore == am.HomeScore).Count(),
                 })
+                .OrderBy(t => t.Points)
                 .ToListAsync();
 
             return View(teams);

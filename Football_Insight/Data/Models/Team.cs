@@ -17,6 +17,9 @@ namespace Football_Insight.Data.Models
         public int Founded { get; set; }
 
         [Required]
+        public string LogoURL { get; set; } = string.Empty;
+
+        [Required]
         public int LeagueId { get; set; }
 
         [Required]
@@ -33,6 +36,6 @@ namespace Football_Insight.Data.Models
         public ICollection<Player> Players { get; set; } = new List<Player>();
         public ICollection<Match> HomeMatches { get; set; } = new List<Match>();
         public ICollection<Match> AwayMatches { get; set; } = new List<Match>();
-        public ICollection<TeamStatistic> TeamStatistics { get; set; } = new List<TeamStatistic>();
+
     }
 }

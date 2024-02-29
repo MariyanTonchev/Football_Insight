@@ -4,6 +4,7 @@ using Football_Insight.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Football_Insight.Migrations
 {
     [DbContext(typeof(FootballInsightDbContext))]
-    partial class FootballInsightDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240226084511_AddLogo")]
+    partial class AddLogo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,13 +242,7 @@ namespace Football_Insight.Migrations
                     b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LeagueId")
-                        .HasColumnType("int");
-
                     b.Property<int>("StadiumId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -254,8 +250,6 @@ namespace Football_Insight.Migrations
                     b.HasIndex("AwayTeamId");
 
                     b.HasIndex("HomeTeamId");
-
-                    b.HasIndex("LeagueId");
 
                     b.HasIndex("StadiumId");
 
@@ -690,6 +684,42 @@ namespace Football_Insight.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Football_Insight.Data.Models.TeamStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Draws")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GoalsAgainst")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GoalsFor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamStatistic");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -917,13 +947,7 @@ namespace Football_Insight.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Football_Insight.Data.Models.League", "League")
-                        .WithMany("Match")
-                        .HasForeignKey("LeagueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Football_Insight.Data.Models.Stadium", "Stadium")
+                    b.HasOne("Football_Insight.Data.Models.Stadium", "Venue")
                         .WithMany("Matches")
                         .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -933,9 +957,7 @@ namespace Football_Insight.Migrations
 
                     b.Navigation("HomeTeam");
 
-                    b.Navigation("League");
-
-                    b.Navigation("Stadium");
+                    b.Navigation("Venue");
                 });
 
             modelBuilder.Entity("Football_Insight.Data.Models.Player", b =>
@@ -1014,6 +1036,17 @@ namespace Football_Insight.Migrations
                     b.Navigation("Stadium");
                 });
 
+            modelBuilder.Entity("Football_Insight.Data.Models.TeamStatistic", b =>
+                {
+                    b.HasOne("Football_Insight.Data.Models.Team", "Team")
+                        .WithMany("TeamStatistics")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1067,8 +1100,6 @@ namespace Football_Insight.Migrations
 
             modelBuilder.Entity("Football_Insight.Data.Models.League", b =>
                 {
-                    b.Navigation("Match");
-
                     b.Navigation("Teams");
                 });
 
@@ -1106,6 +1137,8 @@ namespace Football_Insight.Migrations
                     b.Navigation("HomeMatches");
 
                     b.Navigation("Players");
+
+                    b.Navigation("TeamStatistics");
                 });
 #pragma warning restore 612, 618
         }
