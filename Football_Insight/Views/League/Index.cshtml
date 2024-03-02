@@ -8,43 +8,43 @@
 
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
-        <div class="row layout-top-spacing">
-            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
-                <div class="widget-content widget-content-area br-8">
-                    <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                        <div class="table-responsive">
-                            <table id="zero-config" class="table table-striped dt-table-hover dataTable" style="width: 100%;" role="grid" aria-describedby="zero-config_info">
+        <div class="seperator-header layout-top-spacing">
+            <h4>League Table</h4>
+        </div>
+        <div class="row layout-spacing">
+            <div class="col-lg-12">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-content widget-content-area">
+                        <div id="individual-col-search_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <table id="individual-col-search" class="table dt-table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
                                 <thead>
                                     <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 174px;">Position</th>
-                                        <th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 314px;">Team</th>
-                                        <th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 160px;">Wins</th>
-                                        <th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 60px;">Draws</th>
-                                        <th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 140px;">Losses</th>
-                                        <th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 60px;">Goals</th>
-                                        <th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 138px;">Points</th>
+                                        <th class="text-center sorting_asc" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 67.0938px;">Position</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 170.203px;">Name</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 50.266px;">Match Played</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 50.922px;">Wins</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 50.0938px;">Draws</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 50.828px;">Losses</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 75.7812px;">Goals</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 75.7812px;">GD</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 75.7812px;">Points</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach(var team in Model)
                                     {
                                         <tr role="row">
-                                            <td></td>
-                                            <td class="sorting_1">
-                                                <div class="d-flex">
-                                                    <div class="usr-img-frame me-2 rounded-circle">
-                                                        <img alt="avatar" class="img-fluid rounded-circle" src="@team.Logo">
-                                                    </div>
-                                                    <p class="align-self-center mb-0 admin-name"> @team.Name </p>
-                                                </div>
-                                            </td>
+                                            <td class="text-center sorting_1">@team.Position</td>
+                                            <td>@team.Logo @team.Name</td>
+                                            <td>@(team.Wins + team.Draws + team.Losses)</td>
                                             <td>@team.Wins</td>
                                             <td>@team.Draws</td>
                                             <td>@team.Losses</td>
                                             <td>@team.GoalsFor:@team.GoalsAgainst</td>
+                                            <td>@(team.GoalsFor - @team.GoalsAgainst)</td>
                                             <td>@team.Points</td>
                                         </tr>
-                                    }
+                                    }                          
                                 </tbody>
                             </table>
                         </div>

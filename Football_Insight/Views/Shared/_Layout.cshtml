@@ -20,6 +20,7 @@
     <link href="~/src/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/layouts/horizontal-dark-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
     <link href="~/layouts/horizontal-dark-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
@@ -38,6 +39,13 @@
     <link href="~/src/plugins/css/dark/filepond/custom-filepond.css" rel="stylesheet" type="text/css" />
     <link href="~/src/plugins/css/dark/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
     <link href="~/src/assets/css/dark/apps/invoice-add.css" rel="stylesheet" type="text/css" />
+
+    <!-- TABLE -->
+    <link rel="stylesheet" type="text/css" href="~/src/plugins/src/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="~/src/plugins/css/light/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/src/plugins/css/light/table/datatable/custom_dt_miscellaneous.css">
+    <link rel="stylesheet" type="text/css" href="~/src/plugins/css/dark/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/src/plugins/css/dark/table/datatable/custom_dt_miscellaneous.css">
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 </head>
 <body class="layout-boxed enable-secondaryNav">
@@ -214,6 +222,14 @@
     <script src="~/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js"></script>
     <script src="~/src/plugins/src/flatpickr/flatpickr.js"></script>
     <script src="~/src/assets/js/apps/invoice-add.js"></script>
+
+    <!--TABLE-->
+    <script src="~/src/plugins/src/table/datatable/datatables.js"></script>
+    <script src="~/src/plugins/src/table/datatable/button-ext/dataTables.buttons.min.js"></script>
+    <script src="~/src/plugins/src/table/datatable/button-ext/jszip.min.js"></script>
+    <script src="~/src/plugins/src/table/datatable/button-ext/buttons.html5.min.js"></script>
+    <script src="~/src/plugins/src/table/datatable/button-ext/buttons.print.min.js"></script>
+    <script src="~/src/plugins/src/table/datatable/custom_miscellaneous.js"></script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
     @await Html.PartialAsync("_ValidationScriptsPartial")

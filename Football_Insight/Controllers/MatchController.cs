@@ -21,6 +21,12 @@ namespace Football_Insight.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create(int leagueId)
         {
             var viewModel = new CreateMatchViewModel();

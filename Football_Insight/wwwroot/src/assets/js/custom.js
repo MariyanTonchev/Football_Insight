@@ -27,7 +27,9 @@ function checkall(clickchk, relChkbox) {
 */
 
 /*
-    This MultiCheck Function is recommanded for datatable
+    This MultiCheck Function is recommanded for 
+
+
 */
 
 function multiCheck(tb_var) {
