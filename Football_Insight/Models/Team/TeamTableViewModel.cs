@@ -21,8 +21,5 @@
         public int GoalsAgainst { get; set; }
 
         public int Points { get; set; }
-
-        //Breadcrumb purpose
-        public string League { get; set; } = string.Empty;
     }
 }

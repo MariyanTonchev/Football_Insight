@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Data;
+using Football_Insight.Data.Enums;
 using Football_Insight.Models.Team;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,14 @@ namespace Football_Insight.Controllers
                     Id = t.Id,
                     Name = t.Name,
                     Wins =
-                        t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore).Count() +
-                        t.AwayMatches.Where(am => am.AwayScore > am.HomeScore).Count(),
+                        t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore && hm.Status == MatchStatus.Finished).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore > am.HomeScore && am.Status == MatchStatus.Finished).Count(),
                     Draws =
-                        t.HomeMatches.Where(hm => hm.HomeScore == hm.AwayScore).Count() +
-                        t.AwayMatches.Where(am => am.AwayScore == am.HomeScore).Count(),
+                        t.HomeMatches.Where(hm => hm.HomeScore == hm.AwayScore && hm.Status == MatchStatus.Finished).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore == am.HomeScore && am.Status == MatchStatus.Finished).Count(),
                     Losses =
-                        t.HomeMatches.Where(hm => hm.HomeScore < hm.AwayScore).Count() +
-                        t.AwayMatches.Where(am => am.AwayScore < am.HomeScore).Count(),
+                        t.HomeMatches.Where(hm => hm.HomeScore < hm.AwayScore && hm.Status == MatchStatus.Finished).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore < am.HomeScore && am.Status == MatchStatus.Finished).Count(),
                     GoalsAgainst =
                         t.AwayMatches.Sum(am => am.HomeScore) +
                         t.HomeMatches.Sum(hm => hm.AwayScore),
@@ -41,10 +42,10 @@ namespace Football_Insight.Controllers
                         t.HomeMatches.Sum(hm => hm.HomeScore),
                     Logo = t.LogoURL,
                     Points =
-                        t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore).Count() * 3 +
-                        t.AwayMatches.Where(am => am.AwayScore > am.HomeScore).Count() * 3 +
-                        t.HomeMatches.Where(hm => hm.HomeScore == hm.AwayScore).Count() +
-                        t.AwayMatches.Where(am => am.AwayScore == am.HomeScore).Count(),
+                        t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore && hm.Status == MatchStatus.Finished).Count() * 3 +
+                        t.AwayMatches.Where(am => am.AwayScore > am.HomeScore && am.Status == MatchStatus.Finished).Count() * 3 +
+                        t.HomeMatches.Where(hm => hm.HomeScore == hm.AwayScore && hm.Status == MatchStatus.Finished).Count() +
+                        t.AwayMatches.Where(am => am.AwayScore == am.HomeScore && am.Status == MatchStatus.Finished).Count(),
                 })
                 .OrderBy(t => t.Points)
                 .ToListAsync();

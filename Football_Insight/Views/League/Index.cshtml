@@ -1,50 +1,15 @@
 ﻿@model List<TeamTableViewModel>
+    
 
 @{
+    var leagueId = ViewContext.RouteData.Values["id"];
     ViewData["Title"] = "Home Page";
 }
 
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
-        <!-- BREADCRUMB -->
-        <div class="page-meta">
-            <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Leagues</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"></li>
-                </ol>
-            </nav>
-        </div>
-        <!-- /BREADCRUMB -->
-        <!--  BEGIN BREADCRUMBS  -->
-        <div class="secondary-nav">
-            <div class="breadcrumbs-container" data-page-heading="Analytics">
-                <header class="header navbar navbar-expand-sm">
-                    <a href="javascript:void(0);" class="btn-toggle sidebarCollapse" data-placement="bottom">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                    </a>
-                    <div class="d-flex breadcrumb-content">
-                        <div class="page-header">
-
-                            <div class="page-title">
-                            </div>
-
-                            <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Leagues</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Team</li>
-                                </ol>
-                            </nav>
-
-                        </div>
-                    </div>
-                </header>
-            </div>
-        </div>
-        <!--  END BREADCRUMBS  -->
-
         <div class="row layout-top-spacing">
-            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-8">
                     <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                         <div class="table-responsive">
@@ -88,29 +53,10 @@
             </div>
         </div>
         <form asp-action="Create" asp-controller="Match" method="get">
+            <input type="hidden" name="leagueId" value="@leagueId" />
             <button type="submit" class="btn btn-outline-success mb-2 me-4">
                 <span class="btn-text-inner">Create Match</span>
             </button>
         </form>
     </div>
 </div>
-
-<!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-<script src="../src/plugins/src/global/vendors.min.js"></script>
-<script src="../src/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="../src/plugins/src/mousetrap/mousetrap.min.js"></script>
-<script src="../src/plugins/src/waves/waves.min.js"></script>
-<script src="../layouts/horizontal-dark-menu/app.js"></script>
-<!-- END GLOBAL MANDATORY SCRIPTS -->
-
-<script src="../src/plugins/src/filepond/filepond.min.js"></script>
-<script src="../src/plugins/src/filepond/FilePondPluginFileValidateType.min.js"></script>
-<script src="../src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js"></script>
-<script src="../src/plugins/src/filepond/FilePondPluginImagePreview.min.js"></script>
-<script src="../src/plugins/src/filepond/FilePondPluginImageCrop.min.js"></script>
-<script src="../src/plugins/src/filepond/FilePondPluginImageResize.min.js"></script>
-<script src="../src/plugins/src/filepond/FilePondPluginImageTransform.min.js"></script>
-<script src="../src/plugins/src/filepond/filepondPluginFileValidateSize.min.js"></script>
-<script src="../src/plugins/src/flatpickr/flatpickr.js"></script>
-<script src="../src/assets/js/apps/invoice-add.js"></script>
