@@ -41,7 +41,7 @@ namespace Football_Insight.Controllers
         {
             if (model.HomeTeamId == model.AwayTeamId)
             {
-                ModelState.AddModelError("", "The home team and away team cannot be the same.");
+                ModelState.AddModelError(string.Empty, "The home team and away team cannot be the same.");
             }
 
             if (!ModelState.IsValid)

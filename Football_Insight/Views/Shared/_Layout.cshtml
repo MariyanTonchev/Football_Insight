@@ -46,6 +46,13 @@
     <link rel="stylesheet" type="text/css" href="~/src/plugins/css/light/table/datatable/custom_dt_miscellaneous.css">
     <link rel="stylesheet" type="text/css" href="~/src/plugins/css/dark/table/datatable/dt-global_style.css">
     <link rel="stylesheet" type="text/css" href="~/src/plugins/css/dark/table/datatable/custom_dt_miscellaneous.css">
+
+    <!--USER PROFILE-->
+    <link href="~/src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
+    <link href="~/src/assets/css/light/users/user-profile.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
+    <link href="~/src/assets/css/dark/users/user-profile.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 </head>
 <body class="layout-boxed enable-secondaryNav">
@@ -59,6 +66,7 @@
     </div>
     <!--  END LOADER -->
     <!--  BEGIN NAVBAR  -->
+
     <div class="header-container container-xxl">
         <header class="header navbar navbar-expand-sm expand-header">
 
@@ -75,8 +83,10 @@
                 </li>
             </ul>
 
-            <div class="search-animated toggle-search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <div class="search-animated toggle-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <form class="form-inline search-full form-inline search" role="search">
                     <div class="search-bar">
                         <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search...">
@@ -85,6 +95,7 @@
                 </form>
                 <span class="badge badge-secondary">Ctrl + /</span>
             </div>
+            }
 
             <ul class="navbar-item flex-row ms-lg-auto ms-0 action-area">
                 <li class="nav-item theme-toggle-item">
@@ -100,6 +111,7 @@
             </ul>
         </header>
     </div>
+ 
     <!--  END NAVBAR  -->
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
@@ -110,6 +122,8 @@
 
 
         <!--  BEGIN SIDEBAR  -->
+        @if(User.Identity != null && User.Identity.IsAuthenticated)
+        {
         <div class="sidebar-wrapper sidebar-theme">
 
             <nav id="sidebar">
@@ -183,6 +197,7 @@
             </nav>
 
         </div>
+        }
         <!--  END SIDEBAR  -->
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
@@ -231,6 +246,7 @@
     <script src="~/src/plugins/src/table/datatable/button-ext/buttons.print.min.js"></script>
     <script src="~/src/plugins/src/table/datatable/custom_miscellaneous.js"></script>
     <script src="~/js/site.js"></script>
+ 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
     @await Html.PartialAsync("_ValidationScriptsPartial")

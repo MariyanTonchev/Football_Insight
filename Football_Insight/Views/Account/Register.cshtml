@@ -1,0 +1,59 @@
+﻿@model RegisterViewModel
+
+<div class="auth-container d-flex">
+    <div class="container mx-auto align-self-center">
+        <div class="row">
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+                <div class="card mt-3 mb-3">
+                    <div class="card-body">
+                        <form asp-controller="Account" asp-action="Register" method="post">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <h2>Sign Up</h2>
+                                    <p>Enter your email and password to register</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" asp-for="Email">Email</label>
+                                        <input type="email" class="form-control" asp-for="Email" id="Email">
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" asp-for="Password">Password</label>
+                                        <input type="password" class="form-control" asp-for="Password" id="Password">
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" asp-for="ConfirmPassword">Confirm Password</label>
+                                        <input type="password" class="form-control" asp-for="ConfirmPassword" id="Password">
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-secondary w-100">SIGN UP</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <p class="mb-0">Already have an account ? <a asp-action="Login" asp-controller="Account" class="text-warning">Sign in</a></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 ﻿using Football_Insight.Data;
 using Football_Insight.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -18,8 +19,14 @@ namespace Football_Insight.Controllers
             logger = Loggerr;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            if(User.Identity != null && !User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             var leagues = await context.Leagues
                             .Select(l => new
                             {
