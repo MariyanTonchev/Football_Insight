@@ -1,5 +1,7 @@
 ﻿using Football_Insight.Data;
 using Football_Insight.Data.Enums;
+using Football_Insight.Models.League;
+using Football_Insight.Models.Match;
 using Football_Insight.Models.Team;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +52,24 @@ namespace Football_Insight.Controllers
                 .OrderBy(t => t.Points)
                 .ToListAsync();
 
-            return View(teams);
+            var matches = await context.Matches
+                .Where(m => m.LeagueId == id)
+                .OrderByDescending(m => m.Date)
+                .Select(m => new MatchLeagueViewModel()
+                {
+                    HomeTeamName = m.HomeTeam.Name,
+                    AwayTeamName = m.AwayTeam.Name,
+                    DateAndTime = m.Date.ToString("HH:mm dd/MM/yyyy")
+                })
+                .ToListAsync();
+
+            var viewModel = new DetailedLeagueViewModel
+            {
+                Matches = matches,
+                Teams = teams
+            };
+
+            return View(viewModel);
         }
     }
 }
