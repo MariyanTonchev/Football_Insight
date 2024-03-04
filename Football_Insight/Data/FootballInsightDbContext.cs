@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 
 namespace Football_Insight.Data
 {
-    public class FootballInsightDbContext : IdentityDbContext
+    public class FootballInsightDbContext : IdentityDbContext<ApplicationUser>
     {
         public FootballInsightDbContext(DbContextOptions<FootballInsightDbContext> options)
             : base(options)

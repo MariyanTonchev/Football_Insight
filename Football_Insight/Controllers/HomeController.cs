@@ -1,5 +1,6 @@
 ﻿using Football_Insight.Data;
 using Football_Insight.Models;
+using Football_Insight.Models.League;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,16 +27,6 @@ namespace Football_Insight.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-
-            var leagues = await context.Leagues
-                            .Select(l => new
-                            {
-                                l.Id,
-                                l.Name,
-                            })
-                            .ToListAsync();
-
-            ViewData["Leagues"] = leagues;
 
             return View();
         }

@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Data;
+using Football_Insight.Models.League;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -19,9 +20,15 @@ namespace Football_Insight.Controllers
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            ViewData["Leagues"] = await data.Leagues
-                .Select(l => new { l.Id, l.Name })
+            var leagues = await data.Leagues
+                .Select(l => new LeagueViewModel
+                {
+                    Id = l.Id,
+                    Name = l.Name
+                })
                 .ToListAsync();
+
+            ViewBag.Leagues = leagues;
 
             await next();
         }

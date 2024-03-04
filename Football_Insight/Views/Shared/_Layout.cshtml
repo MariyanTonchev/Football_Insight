@@ -1,5 +1,5 @@
 ﻿@{
-    var leagues = ViewData["Leagues"] as IEnumerable<dynamic>;
+    var leagues = ViewBag.Leagues as List<LeagueViewModel>;
 }
 
 <!DOCTYPE html>
@@ -21,24 +21,13 @@
     <link href="~/layouts/horizontal-dark-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
     <link href="~/layouts/horizontal-dark-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link href="~/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css">
     <link href="~/src/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
     <link href="~/src/assets/css/dark/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
-
-    <link href="~/src/plugins/src/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="~/src/plugins/src/filepond/filepond.min.css">
-    <link rel="stylesheet" href="~/src/plugins/src/filepond/FilePondPluginImagePreview.min.css">
-
-    <link href="~/src/plugins/css/light/filepond/custom-filepond.css" rel="stylesheet" type="text/css" />
-    <link href="~/src/plugins/css/light/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
-    <link href="~/src/assets/css/light/apps/invoice-add.css" rel="stylesheet" type="text/css" />
-
-    <link href="~/src/plugins/css/dark/filepond/custom-filepond.css" rel="stylesheet" type="text/css" />
-    <link href="~/src/plugins/css/dark/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
-    <link href="~/src/assets/css/dark/apps/invoice-add.css" rel="stylesheet" type="text/css" />
 
     <!-- TABLE -->
     <link rel="stylesheet" type="text/css" href="~/src/plugins/src/table/datatable/datatables.css">
@@ -53,6 +42,30 @@
 
     <link href="~/src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
     <link href="~/src/assets/css/dark/users/user-profile.css" rel="stylesheet" type="text/css" />
+
+    <!--USER EDIT-->
+    <link href="~/src/plugins/src/notification/snackbar/snackbar.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/src/plugins/src/sweetalerts2/sweetalerts2.css">
+
+    <link href="~/src/assets/css/light/components/tabs.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/src/assets/css/light/elements/alert.css">
+
+    <link href="~/src/plugins/css/light/sweetalerts2/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="~/src/plugins/css/light/notification/snackbar/custom-snackbar.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/src/assets/css/light/forms/switches.css">
+    <link href="~/src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
+
+    <link href="~/src/assets/css/light/users/account-setting.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/src/assets/css/dark/components/tabs.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/src/assets/css/dark/elements/alert.css">
+
+    <link href="~/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="~/src/plugins/css/dark/notification/snackbar/custom-snackbar.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/src/assets/css/dark/forms/switches.css">
+    <link href="~/src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
+
+    <link href="~/src/assets/css/dark/users/account-setting.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 </head>
 <body class="layout-boxed enable-secondaryNav">
@@ -235,8 +248,6 @@
     <script src="~/src/plugins/src/filepond/FilePondPluginImageResize.min.js"></script>
     <script src="~/src/plugins/src/filepond/FilePondPluginImageTransform.min.js"></script>
     <script src="~/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js"></script>
-    <script src="~/src/plugins/src/flatpickr/flatpickr.js"></script>
-    <script src="~/src/assets/js/apps/invoice-add.js"></script>
 
     <!--TABLE-->
     <script src="~/src/plugins/src/table/datatable/datatables.js"></script>
@@ -246,7 +257,19 @@
     <script src="~/src/plugins/src/table/datatable/button-ext/buttons.print.min.js"></script>
     <script src="~/src/plugins/src/table/datatable/custom_miscellaneous.js"></script>
     <script src="~/js/site.js"></script>
- 
+
+    <!--USER EDIT-->
+    <script src="~/src/plugins/src/filepond/filepond.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImagePreview.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageCrop.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageResize.min.js"></script>
+    <script src="~/src/plugins/src/filepond/FilePondPluginImageTransform.min.js"></script>
+    <script src="~/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js"></script>
+    <script src="~/src/plugins/src/notification/snackbar/snackbar.min.js"></script>
+    <script src="~/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
+    <script src="~/src/assets/js/users/account-settings.js"></script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
     @await Html.PartialAsync("_ValidationScriptsPartial")

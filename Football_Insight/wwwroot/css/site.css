@@ -16,3 +16,28 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.file-upload-wrapper {
+    position: relative;
+}
+
+.file-upload-input {
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.file-upload-button {
+    display: inline-block;
+    padding: 8px 20px;
+    text-align: center;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
