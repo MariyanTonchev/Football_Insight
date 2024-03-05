@@ -11,9 +11,9 @@ namespace Football_Insight.Models.Account
 
         public string? LastName { get; set; }
 
-        public string? FavoriteTeam { get; set; }
+        public int? FavoriteTeamId { get; set; }
 
-        public string? FavoritePlayer { get; set; }
+        public int? FavoritePlayerId { get; set; }
 
         public string? Country { get; set; }
 
@@ -25,7 +25,7 @@ namespace Football_Insight.Models.Account
         [EmailAddress]
         public string? Email { get; set; }
 
-        public IFormFile Photo { get; set; } = null!;
+        public IFormFile? Photo { get; set; }
 
         public string? PhotoPath { get; set; }
 

@@ -39,6 +39,11 @@ namespace Football_Insight.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await GetUserAsync();
+            var players = await GetPlayersAsync();
+            var teams = await GetTeamsAsync();
+            var userPhotoPath = await GetUserPhotoPath();
+            var userFavoritePlayer = players?.Where(p => p.Id == user.FavoritePlayerId)?.Select(p => p.Name).FirstOrDefault()?.ToString();
+            var userFavoriteTeam = teams?.Where(p => p.Id == user.FavoriteTeamId).Select(p => p.Name).FirstOrDefault()?.ToString();
 
             if (user == null)
             {
@@ -51,11 +56,11 @@ namespace Football_Insight.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 City = user.City,
-                Phone = user.Phone,
+                Phone = user.PhoneNumber,
                 Country = user.Country,
-                FavoritePlayer = user.FavoritePlayer,
-                FavoriteTeam = user.FavoriteTeam,
-                PhotoPath = await GetUserPhotoPath()
+                FavoritePlayer = userFavoritePlayer,
+                FavoriteTeam = userFavoriteTeam,
+                PhotoPath = userPhotoPath
             };
 
             return View(viewModel);
@@ -127,6 +132,9 @@ namespace Football_Insight.Controllers
         public async Task<IActionResult> Edit()
         {
             var user = await GetUserAsync();
+            var players = await GetPlayersAsync();
+            var teams = await GetTeamsAsync();
+            var userPhotoPath = await GetUserPhotoPath();
 
             if (user == null)
             {
@@ -139,9 +147,13 @@ namespace Football_Insight.Controllers
                 LastName = user.LastName,
                 City = user.City,
                 Email = user.Email,
-                PhotoPath = await GetUserPhotoPath(),
-                Teams = await GetTeamsAsync(),
-                Players = await GetPlayersAsync()
+                PhotoPath = userPhotoPath,
+                Teams = teams,
+                Players = players,
+                Country = user.Country,
+                Phone = user.PhoneNumber,
+                FavoritePlayerId = user.FavoritePlayerId,
+                FavoriteTeamId = user.FavoriteTeamId
             };
 
             return View(viewModel);
@@ -151,6 +163,8 @@ namespace Football_Insight.Controllers
         public async Task<IActionResult> Edit(UserEditViewModel model)
         {
             var user = await GetUserAsync();
+            var players = await GetPlayersAsync();
+            var teams = await GetTeamsAsync();
 
             if (user == null)
             {
@@ -162,7 +176,9 @@ namespace Football_Insight.Controllers
                 var viewModel = new UserEditViewModel
                 {
                     Email = user.Email,
-                    PhotoPath = user.PhotoPath
+                    PhotoPath = user.PhotoPath,
+                    Teams = teams,
+                    Players = players
                 };
 
                 return View(viewModel);
@@ -203,9 +219,11 @@ namespace Football_Insight.Controllers
 
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
-            user.PhoneNumber = model.Phone;
             user.City = model.City;
             user.Country = model.Country;
+            user.FavoritePlayerId = model.FavoritePlayerId;
+            user.FavoriteTeamId = model.FavoriteTeamId;
+            user.PhoneNumber = model.Phone; 
 
             await context.SaveChangesAsync();
 

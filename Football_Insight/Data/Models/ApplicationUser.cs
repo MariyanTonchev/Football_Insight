@@ -8,15 +8,13 @@ namespace Football_Insight.Data.Models
 
         public string? LastName { get; set; } = string.Empty;
 
-        public string? FavoriteTeam { get; set; } = string.Empty;
+        public int? FavoriteTeamId { get; set; }
 
-        public string? FavoritePlayer { get; set; } = string.Empty;
+        public int? FavoritePlayerId { get; set; }
 
         public string? Country {  get; set; } = string.Empty;
 
         public string? City { get; set; } = string.Empty;
-
-        public string? Phone { get; set; } = string.Empty;
 
         public string? PhotoPath { get; set; } = string.Empty;
     }
