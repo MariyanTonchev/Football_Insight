@@ -4,7 +4,6 @@ using Football_Insight.Data.Models;
 using Football_Insight.Models.Match;
 using Football_Insight.Models.Team;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Football_Insight.Controllers

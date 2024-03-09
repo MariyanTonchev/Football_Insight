@@ -17,20 +17,5 @@ namespace Football_Insight.Controllers
         {
             data = context;
         }
-
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-        {
-            var leagues = await data.Leagues
-                .Select(l => new LeagueViewModel
-                {
-                    Id = l.Id,
-                    Name = l.Name
-                })
-                .ToListAsync();
-
-            ViewBag.Leagues = leagues;
-
-            await next();
-        }
     }
 }

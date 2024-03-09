@@ -4,8 +4,6 @@
     {
         public int Id { get; set; }
 
-        public int Position { get; set; }
-
         public string Logo {  get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
