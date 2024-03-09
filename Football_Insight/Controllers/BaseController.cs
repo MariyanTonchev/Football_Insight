@@ -11,11 +11,6 @@ namespace Football_Insight.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        private readonly FootballInsightDbContext data;
 
-        public BaseController(FootballInsightDbContext context)
-        {
-            data = context;
-        }
     }
 }

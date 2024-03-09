@@ -1,9 +1,7 @@
 ﻿using Football_Insight.Data;
 using Football_Insight.Models;
-using Football_Insight.Models.League;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Football_Insight.Controllers
@@ -14,7 +12,7 @@ namespace Football_Insight.Controllers
         private readonly FootballInsightDbContext context;
         private readonly ILogger<HomeController> logger;
 
-        public HomeController(FootballInsightDbContext Context, ILogger<HomeController> Loggerr) : base(Context)
+        public HomeController(FootballInsightDbContext Context, ILogger<HomeController> Loggerr)
         {
             context = Context;
             logger = Loggerr;

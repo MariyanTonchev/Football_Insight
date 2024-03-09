@@ -11,7 +11,7 @@ namespace Football_Insight.Controllers
         private readonly FootballInsightDbContext context;
         private readonly ILogger<TeamController> logger;
 
-        public TeamController(FootballInsightDbContext Context, ILogger<TeamController> Logger) : base(Context)
+        public TeamController(FootballInsightDbContext Context, ILogger<TeamController> Logger) 
         {
             context = Context;
             logger = Logger;

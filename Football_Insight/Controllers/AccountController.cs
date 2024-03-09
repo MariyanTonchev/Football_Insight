@@ -27,7 +27,6 @@ namespace Football_Insight.Controllers
                                 ILogger<HomeController> Logger,
                                 UserManager<ApplicationUser> UserManager,
                                 SignInManager<ApplicationUser> SignInManager) 
-            : base(Context)
         {
             userManager = UserManager;
             signInManager = SignInManager;

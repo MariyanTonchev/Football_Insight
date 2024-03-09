@@ -13,7 +13,7 @@ namespace Football_Insight.Controllers
         private readonly FootballInsightDbContext context;
         private readonly ILogger<MatchController> logger;
 
-        public MatchController(FootballInsightDbContext Context, ILogger<MatchController> Logger) : base(Context)
+        public MatchController(FootballInsightDbContext Context, ILogger<MatchController> Logger)
         {
             logger = Logger;
             context = Context;
