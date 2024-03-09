@@ -17,7 +17,7 @@ namespace Football_Insight.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var leagues = await context.Leagues
-                .Select(l => new LeagueViewModel
+                .Select(l => new LeagueTeamsViewModel
                 {
                     Id = l.Id,
                     Name = l.Name,

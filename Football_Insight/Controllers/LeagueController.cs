@@ -63,7 +63,7 @@ namespace Football_Insight.Controllers
                 })
                 .ToListAsync();
 
-            var viewModel = new DetailedLeagueViewModel
+            var viewModel = new LeagueMatchesViewModel
             {
                 Matches = matches,
                 Teams = teams

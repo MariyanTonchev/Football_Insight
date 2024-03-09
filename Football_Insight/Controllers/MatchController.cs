@@ -70,11 +70,11 @@ namespace Football_Insight.Controllers
             return RedirectToAction("Index", "League", new { id = model.LeagueId});
         }
 
-        private async Task<List<TeamViewModel>> GetTeamsAsync(int id)
+        private async Task<List<SimpleTeamViewModel>> GetTeamsAsync(int id)
         {
             var teams = await context.Teams
               .Where(t => t.LeagueId == id)
-              .Select(t => new TeamViewModel()
+              .Select(t => new SimpleTeamViewModel()
               {
                   Id = t.Id,
                   Name = t.Name,

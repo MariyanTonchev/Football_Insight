@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Football_Insight.Models;
-using Football_Insight.Models.Team;
+﻿using Football_Insight.Models.Team;
+using System.ComponentModel.DataAnnotations;
 
 namespace Football_Insight.Models.Match
 {
@@ -18,7 +17,7 @@ namespace Football_Insight.Models.Match
         [Required]
         public int LeagueId { get; set; }
 
-        public ICollection<TeamViewModel> Teams { get; set; } = new List<TeamViewModel>();
+        public ICollection<SimpleTeamViewModel> Teams { get; set; } = new List<SimpleTeamViewModel>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

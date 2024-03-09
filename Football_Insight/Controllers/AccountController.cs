@@ -244,10 +244,10 @@ namespace Football_Insight.Controllers
             return DefaultPhotoPath;
         }
 
-        private async Task<List<TeamViewModel>> GetTeamsAsync()
+        private async Task<List<SimpleTeamViewModel>> GetTeamsAsync()
         {
             return await context.Teams
-                .Select(t => new TeamViewModel
+                .Select(t => new SimpleTeamViewModel
                 {
                     Id = t.Id,
                     Name = t.Name

@@ -1,6 +1,7 @@
 ﻿using Football_Insight.Data.Models;
 using Football_Insight.Models.Player;
 using Football_Insight.Models.Team;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace Football_Insight.Models.Account
@@ -25,11 +26,12 @@ namespace Football_Insight.Models.Account
         [EmailAddress]
         public string? Email { get; set; }
 
+        [FromForm]
         public IFormFile? Photo { get; set; }
 
         public string? PhotoPath { get; set; }
 
-        public List<TeamViewModel> Teams { get; set; } = new List<TeamViewModel>();
+        public List<SimpleTeamViewModel> Teams { get; set; } = new List<SimpleTeamViewModel>();
 
         public List<PlayerDropdownViewModel> Players { get; set; } = new List<PlayerDropdownViewModel>();
     }
