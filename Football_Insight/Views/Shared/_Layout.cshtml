@@ -1,8 +1,4 @@
-﻿@{
-    var leagues = ViewBag.Leagues as List<LeagueViewModel>;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -78,153 +74,26 @@
         </div>
     </div>
     <!--  END LOADER -->
-    <!--  BEGIN NAVBAR  -->
 
-    <div class="header-container container-xxl">
-        <header class="header navbar navbar-expand-sm expand-header">
-
-            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
-
-            <ul class="navbar-item theme-brand flex-row  text-center">
-                <li class="nav-item theme-logo">
-                    <a asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/src/assets/img/logo2.svg" class="navbar-logo" alt="logo">
-                    </a>
-                </li>
-                <li class="nav-item theme-text">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link"> CORK </a>
-                </li>
-            </ul>
-
-            @if (User.Identity != null && User.Identity.IsAuthenticated)
-            {
-                <div class="search-animated toggle-search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <form class="form-inline search-full form-inline search" role="search">
-                    <div class="search-bar">
-                        <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search...">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x search-close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </div>
-                </form>
-                <span class="badge badge-secondary">Ctrl + /</span>
-            </div>
-            }
-
-            <ul class="navbar-item flex-row ms-lg-auto ms-0 action-area">
-                <li class="nav-item theme-toggle-item">
-                    <a href="javascript:void(0);" class="nav-link theme-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon dark-mode"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun light-mode"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    </a>
-                </li>
-
-                <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
-                    <partial name="_LoginPartial" class="dropdown-menu position-absolute" />
-                </li>
-            </ul>
-        </header>
-    </div>
+    <!--  HEADER VIEW  -->
+    @await Component.InvokeAsync(nameof(HeaderComponent));
  
-    <!--  END NAVBAR  -->
-    <!--  BEGIN MAIN CONTAINER  -->
+    <!-- MAIN CONTAINER  -->
     <div class="main-container" id="container">
 
         <div class="overlay"></div>
         <div class="cs-overlay"></div>
         <div class="search-overlay"></div>
 
+        <!-- MENU -->
+        @await Component.InvokeAsync(nameof(MenuComponent));
 
-        <!--  BEGIN SIDEBAR  -->
-        @if(User.Identity != null && User.Identity.IsAuthenticated)
-        {
-        <div class="sidebar-wrapper sidebar-theme">
-
-            <nav id="sidebar">
-
-                <div class="navbar-nav theme-brand flex-row  text-center">
-                    <div class="nav-logo">
-                        <div class="nav-item theme-logo">
-                            <a asp-area="" asp-controller="Home" asp-action="Index">
-                                <img src="~/src/assets/img/logo.svg" class="navbar-logo" alt="logo">
-                            </a>
-                        </div>
-                        <div class="nav-item theme-text">
-                            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link"> Football Insight </a>
-                        </div>
-                    </div>
-                    <div class="nav-item sidebar-toggle">
-                        <div class="btn-toggle sidebarCollapse">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-left"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="shadow-bottom"></div>
-                <ul class="list-unstyled menu-categories" id="accordionExample">
-                    <li class="menu active">
-                        <a asp-area="" asp-controller="Home" asp-action="Index" data-bs-toggle="dropdown" aria-expanded="true" class="dropdown-toggle">
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                <span>Dashboard</span>
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu submenu list-unstyled" id="dashboard" data-bs-parent="#accordionExample">
-                            <li>
-                                <a href="#"> Players </a>
-                            </li>
-                            <li>
-                                <a href="#"> Teams </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu menu-heading">
-                        <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>APPLICATIONS</span></div>
-                    </li>
-
-                    <li class="menu">
-                        <a data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                                <span>Leagues</span>
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu submenu list-unstyled" id="apps" data-bs-parent="#accordionExample">
-                            @if(leagues != null)
-                            {
-                                @foreach (var league in leagues)
-                                {
-                                    <li>
-                                        <a asp-area="" asp-controller="League" asp-action="Index" asp-route-id="@league.Id"> @league.Name </a>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-
-        </div>
-        }
-        <!--  END SIDEBAR  -->
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
 
              @RenderBody()
- 
-            <div class="footer-wrapper">
-                <div class="footer-section f-section-1">
-                    <p class="">Copyright © <span class="dynamic-year">2024</span> <a target="_blank" href="https://designreset.com/cork-admin/">Mariyan Tonchev</a>, All rights reserved.</p>
-                </div>
-                <div class="footer-section f-section-2">
-                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
-                </div>
-            </div>
+
+            @await Component.InvokeAsync(nameof(FooterComponent));
         </div>
     </div>
     <!-- END MAIN CONTAINER -->
