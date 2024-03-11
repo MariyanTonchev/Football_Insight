@@ -124,7 +124,7 @@ namespace Football_Insight.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction(nameof(Login));
         }
 
         [HttpGet]
@@ -199,15 +199,6 @@ namespace Football_Insight.Controllers
 
                 var savePath = Path.Combine(userFolderPath, newFileName);
 
-                if (!string.IsNullOrEmpty(user.PhotoPath))
-                {
-                    var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", user.PhotoPath);
-                    if (System.IO.File.Exists(oldFilePath))
-                    {
-                        System.IO.File.Delete(oldFilePath);
-                    }
-                }
-
                 using (var fileStream = new FileStream(savePath, FileMode.Create))
                 {
                     await model.Photo.CopyToAsync(fileStream);
@@ -216,12 +207,13 @@ namespace Football_Insight.Controllers
                 user.PhotoPath = $"/photos/{userFolder}/{newFileName}";
             }
 
+            user.Country = model.Country != "None" ? model.Country : null;
+            user.FavoritePlayerId = model.FavoritePlayerId != -1 ? model.FavoritePlayerId : null;
+            user.FavoriteTeamId = model.FavoriteTeamId != -1 ? model.FavoriteTeamId : null;
+
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.City = model.City;
-            user.Country = model.Country;
-            user.FavoritePlayerId = model.FavoritePlayerId;
-            user.FavoriteTeamId = model.FavoriteTeamId;
             user.PhoneNumber = model.Phone; 
 
             await context.SaveChangesAsync();
@@ -235,12 +227,7 @@ namespace Football_Insight.Controllers
         {
             var user = await GetUserAsync();
 
-            if (!string.IsNullOrEmpty(user.PhotoPath))
-            {
-                return user.PhotoPath;
-            }
-
-            return DefaultPhotoPath;
+            return !string.IsNullOrEmpty(user.PhotoPath) ? user.PhotoPath : DefaultPhotoPath;
         }
 
         private async Task<List<SimpleTeamViewModel>> GetTeamsAsync()
