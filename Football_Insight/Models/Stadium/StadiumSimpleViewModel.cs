@@ -1,6 +1,6 @@
-﻿namespace Football_Insight.Models.Player
+﻿namespace Football_Insight.Models.Stadium
 {
-    public class PlayerDropdownViewModel
+    public class StadiumSimpleViewModel
     {
         public int Id { get; set; }
 

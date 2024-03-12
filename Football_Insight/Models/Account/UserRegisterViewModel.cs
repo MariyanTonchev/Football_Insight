@@ -2,7 +2,7 @@
 
 namespace Football_Insight.Models.Account
 {
-    public class RegisterViewModel
+    public class UserRegisterViewModel
     {
         [Required]
         [EmailAddress]

@@ -1,6 +1,6 @@
 ﻿namespace Football_Insight.Models.Team
 {
-    public class SimpleTeamViewModel
+    public class TeamSimpleViewModel
     {
         public int Id { get; set; }
 

@@ -6,6 +6,6 @@ namespace Football_Insight.Models.League
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public ICollection<SimpleTeamViewModel> Teams { get; set; } = new List<SimpleTeamViewModel>();
+        public ICollection<TeamSimpleViewModel> Teams { get; set; } = new List<TeamSimpleViewModel>();
     }
 }

@@ -28,7 +28,7 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(int leagueId)
         {
-            var viewModel = new CreateMatchViewModel();
+            var viewModel = new MatchCreateViewModel();
             viewModel.Teams = await GetTeamsAsync(leagueId);
             viewModel.LeagueId = leagueId;
 
@@ -36,7 +36,7 @@ namespace Football_Insight.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateMatchViewModel model)
+        public async Task<IActionResult> Create(MatchCreateViewModel model)
         {
             if (model.HomeTeamId == model.AwayTeamId)
             {
@@ -45,7 +45,7 @@ namespace Football_Insight.Controllers
 
             if (!ModelState.IsValid)
             {
-                var viewModel = new CreateMatchViewModel();
+                var viewModel = new MatchCreateViewModel();
                 viewModel.Teams = await GetTeamsAsync(model.LeagueId);
                 viewModel.LeagueId = model.LeagueId;
 
@@ -70,11 +70,11 @@ namespace Football_Insight.Controllers
             return RedirectToAction("Index", "League", new { id = model.LeagueId});
         }
 
-        private async Task<List<SimpleTeamViewModel>> GetTeamsAsync(int id)
+        private async Task<List<TeamSimpleViewModel>> GetTeamsAsync(int id)
         {
             var teams = await context.Teams
               .Where(t => t.LeagueId == id)
-              .Select(t => new SimpleTeamViewModel()
+              .Select(t => new TeamSimpleViewModel()
               {
                   Id = t.Id,
                   Name = t.Name,

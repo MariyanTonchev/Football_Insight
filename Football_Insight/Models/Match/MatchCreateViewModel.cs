@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Football_Insight.Models.Match
 {
-    public class CreateMatchViewModel : IValidatableObject
+    public class MatchCreateViewModel : IValidatableObject
     {
         [Required]
         public DateTime DateTime { get; set; } = DateTime.Today;
@@ -17,7 +17,7 @@ namespace Football_Insight.Models.Match
         [Required]
         public int LeagueId { get; set; }
 
-        public ICollection<SimpleTeamViewModel> Teams { get; set; } = new List<SimpleTeamViewModel>();
+        public ICollection<TeamSimpleViewModel> Teams { get; set; } = new List<TeamSimpleViewModel>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

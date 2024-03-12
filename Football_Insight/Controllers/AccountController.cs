@@ -73,7 +73,7 @@ namespace Football_Insight.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(UserRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace Football_Insight.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(UserLoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -230,10 +230,10 @@ namespace Football_Insight.Controllers
             return !string.IsNullOrEmpty(user.PhotoPath) ? user.PhotoPath : DefaultPhotoPath;
         }
 
-        private async Task<List<SimpleTeamViewModel>> GetTeamsAsync()
+        private async Task<List<TeamSimpleViewModel>> GetTeamsAsync()
         {
             return await context.Teams
-                .Select(t => new SimpleTeamViewModel
+                .Select(t => new TeamSimpleViewModel
                 {
                     Id = t.Id,
                     Name = t.Name
@@ -242,10 +242,10 @@ namespace Football_Insight.Controllers
                 .ToListAsync();
         }
 
-        private async Task<List<PlayerDropdownViewModel>> GetPlayersAsync()
+        private async Task<List<PlayerSimpleViewModel>> GetPlayersAsync()
         {
             return await context.Players
-                .Select(p => new PlayerDropdownViewModel
+                .Select(p => new PlayerSimpleViewModel
                 {
                     Id = p.Id,
                     Name = $"{p.FirstName} {p.LastName}"

@@ -31,8 +31,8 @@ namespace Football_Insight.Models.Account
 
         public string? PhotoPath { get; set; }
 
-        public List<SimpleTeamViewModel> Teams { get; set; } = new List<SimpleTeamViewModel>();
+        public List<TeamSimpleViewModel> Teams { get; set; } = new List<TeamSimpleViewModel>();
 
-        public List<PlayerDropdownViewModel> Players { get; set; } = new List<PlayerDropdownViewModel>();
+        public List<PlayerSimpleViewModel> Players { get; set; } = new List<PlayerSimpleViewModel>();
     }
 }
