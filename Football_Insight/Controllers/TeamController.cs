@@ -98,5 +98,24 @@ namespace Football_Insight.Controllers
 
             return View(teamFixtures);
         }
+
+        public async Task<IActionResult> Squad(int Id)
+        {
+            var players = await context.Players
+                .Where(p => p.TeamId == Id)
+                .Select(p => new PlayerSquadViewModel
+                {
+
+                })
+                .ToListAsync();
+
+            var teamSquad = new TeamSquadViewModel
+            {
+                TeamId = Id,
+                Players = players
+            };
+
+            return View(teamSquad);
+        }
     }
 }

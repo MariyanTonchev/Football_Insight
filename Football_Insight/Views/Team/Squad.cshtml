@@ -1,0 +1,114 @@
+﻿@model TeamSquadViewModel
+
+@await Component.InvokeAsync(nameof(TeamMenuComponent), new { Id = Model.TeamId });
+
+<div class="layout-px-spacing">
+    <div class="middle-content container-xxl p-0">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-content widget-content-area">
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="dt--top-section">
+                                <div class="row">
+                                <table class="multi-table table dt-table-hover dataTable" style="width: 100%;" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <thead>
+                                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 219px;">Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 374px;">Position</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 157px;">Office</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 80px;">Age</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 151px;">Salary</th>
+                                            <th class="text-center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 111px;">Status</th>
+                                            <th class="text-center dt-no-sorting sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 153px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr role="row">
+                                            <td class="sorting_1">Cedric Kelly</td>
+                                            <td>Senior Javascript Developer</td>
+                                            <td>Edinburgh</td>
+                                            <td>22</td>
+                                            <td>$433,060</td>
+                                            <td>
+                                                <div class="t-dot bg-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-original-title="Low"></div>
+                                            </td>
+                                            <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                        </tr>
+                                        <tr role="row">
+                                            <td class="sorting_1">Dai Rios</td>
+                                            <td>Personnel Lead</td>
+                                            <td>Edinburgh</td>
+                                            <td>35</td>
+                                            <td>$217,500</td>
+                                            <td>
+                                                <div class="t-dot bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-original-title="Normal"></div>
+                                            </td>
+                                            <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                        </tr>
+                                        <tr role="row">
+                                            <td class="sorting_1">Gavin Joyce</td>
+                                            <td>Developer</td>
+                                            <td>Edinburgh</td>
+                                            <td>42</td>
+                                            <td>$92,575</td>
+                                            <td>
+                                                <div class="t-dot bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-original-title="High"></div>
+                                            </td>
+                                            <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                        </tr>
+                                        <tr role="row">
+                                            <td class="sorting_1">Jennifer Acosta</td>
+                                            <td>Junior Javascript Developer</td>
+                                            <td>Edinburgh</td>
+                                            <td>43</td>
+                                            <td>$75,650</td>
+                                            <td>
+                                                <div class="t-dot bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-original-title="High"></div>
+                                            </td>
+                                            <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                        </tr>
+                                        <tr role="row">
+                                            <td class="sorting_1">Martena Mccray</td>
+                                            <td>Post-Sales support</td>
+                                            <td>Edinburgh</td>
+                                            <td>46</td>
+                                            <td>$324,050</td>
+                                            <td>
+                                                <div class="t-dot bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-original-title="Medium"></div>
+                                            </td>
+                                            <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                        </tr>
+                                        <tr role="row">
+                                            <td class="sorting_1">Quinn Flynn</td>
+                                            <td>Support Lead</td>
+                                            <td>Edinburgh</td>
+                                            <td>22</td>
+                                            <td>$342,000</td>
+                                            <td>
+                                                <div class="t-dot bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-original-title="High"></div>
+                                            </td>
+                                            <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                        </tr>
+                                        <tr role="row">
+                                            <td class="sorting_1">Shad Decker</td>
+                                            <td>Regional Director</td>
+                                            <td>Edinburgh</td>
+                                            <td>51</td>
+                                            <td>$183,000</td>
+                                            <td>
+                                                <div class="t-dot bg-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-original-title="Low"></div>
+                                            </td>
+                                            <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr><th rowspan="1" colspan="1">Name</th><th rowspan="1" colspan="1">Position</th><th rowspan="1" colspan="1">Office</th><th rowspan="1" colspan="1">Age</th><th rowspan="1" colspan="1">Salary</th><th class="text-center" rowspan="1" colspan="1">Status</th><th class="text-center" rowspan="1" colspan="1">Action</th></tr>
+                                    </tfoot>
+                                </table>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

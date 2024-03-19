@@ -1,5 +1,9 @@
 ﻿@model TeamDetailedViewModel
 
+@{
+    var currentAction = ViewContext?.RouteData?.Values["action"]?.ToString();
+}
+
 <div class="container-xl col-12 col-md-6">
     <div class="card style-3">
         <img src="@Model.LogoURL" class="card-img-top" alt="LOGO" style="width: 150px;">
@@ -16,9 +20,15 @@
         </div>
         <div class="card-body px-0 py-0 align-self-center" style="text-align: right;">
             <div class="d-inline-block text-start">
-                <a asp-action="Fixtures" asp-controller="Team" asp-route-id="@Model.Id" class="btn btn-outline-primary mb-2 d-block w-100" id="btnFixtures">Fixtures</a>
-                <a asp-action="Results" asp-controller="Team" asp-route-id="@Model.Id" class="btn btn-outline-primary mb-2 d-block w-100" id="btnResults">Results</a>
-                <a asp-action="Players" asp-controller="Team" asp-route-id="@Model.Id" class="btn btn-outline-primary mb-2 d-block w-100" id="btnSquad">Squad</a>
+                <a asp-action="Fixtures" asp-controller="Team" asp-route-id="@Model.Id"
+                   class="btn btn-outline-primary mb-2 d-block w-100 @(currentAction == "Fixtures" ? "active" : "")"
+                   id="btnFixtures">Fixtures</a>
+                <a asp-action="Results" asp-controller="Team" asp-route-id="@Model.Id"
+                   class="btn btn-outline-primary mb-2 d-block w-100 @(currentAction == "Results" ? "active" : "")"
+                   id="btnResults">Results</a>
+                <a asp-action="Squad" asp-controller="Team" asp-route-id="@Model.Id"
+                   class="btn btn-outline-primary mb-2 d-block w-100 @(currentAction == "Squad" ? "active" : "")"
+                   id="btnSquad">Squad</a>
             </div>
         </div>
     </div>
