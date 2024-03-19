@@ -9,6 +9,8 @@ namespace Football_Insight.Models.Team
 {
     public class TeamDetailedViewModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; } = string.Empty;
 
         public int Founded { get; set; }
@@ -20,9 +22,5 @@ namespace Football_Insight.Models.Team
         public LeagueSimpleViewModel League { get; set; } = null!;
 
         public StadiumSimpleViewModel Stadium { get; set; } = null!;
-
-        public ICollection<PlayerSimpleViewModel> Players { get; set; } = new List<PlayerSimpleViewModel>();
-        public ICollection<MatchSimpleViewModel> Results { get; set; } = new List<MatchSimpleViewModel>();
-        public ICollection<MatchSimpleViewModel> Fixtures { get; set; } = new List<MatchSimpleViewModel>();
     }
 }

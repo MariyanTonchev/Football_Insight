@@ -19,7 +19,7 @@
                         <ul class="list-unstyled">
                             @foreach(var team in Model[i].Teams)
                                 {
-                                    <li><a asp-controller="Team" asp-action="Index" asp-route-id="@team.Id" class="">@team.Name</a></li>
+                                    <li><a asp-controller="Team" asp-action="Index" asp-route-TeamId="@team.Id" class="">@team.Name</a></li>
                                 }
                         </ul>
                     </div>

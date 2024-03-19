@@ -1,0 +1,25 @@
+﻿@model TeamDetailedViewModel
+
+<div class="container-xl col-12 col-md-6">
+    <div class="card style-3">
+        <img src="@Model.LogoURL" class="card-img-top" alt="LOGO" style="width: 150px;">
+        <div class="card-body px-0 py-0 align-self-center">
+            <h5 class="card-title mb-3">@Model.Name</h5>
+            <p class="card-category mb-1">@Model.Founded</p>
+            <div class="media mt-4 mb-0 pt-1">
+                <img src="./assets/img/profile-2.jpeg" class="card-media-image me-3" alt="">
+                <div class="media-body">
+                    <h4 class="media-heading mb-1">@Model.Coach.Name</h4>
+                    <p class="media-text">14 Mar</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body px-0 py-0 align-self-center" style="text-align: right;">
+            <div class="d-inline-block text-start">
+                <a asp-action="Fixtures" asp-controller="Team" asp-route-id="@Model.Id" class="btn btn-outline-primary mb-2 d-block w-100" id="btnFixtures">Fixtures</a>
+                <a asp-action="Results" asp-controller="Team" asp-route-id="@Model.Id" class="btn btn-outline-primary mb-2 d-block w-100" id="btnResults">Results</a>
+                <a asp-action="Players" asp-controller="Team" asp-route-id="@Model.Id" class="btn btn-outline-primary mb-2 d-block w-100" id="btnSquad">Squad</a>
+            </div>
+        </div>
+    </div>
+</div>

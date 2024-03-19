@@ -8,6 +8,7 @@ using Football_Insight.Models.Stadium;
 using Football_Insight.Models.Team;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 
 namespace Football_Insight.Controllers
 {
@@ -22,48 +23,9 @@ namespace Football_Insight.Controllers
             logger = Logger;
         }
 
-        public async Task<IActionResult> Index(int Id)
+        public IActionResult Index(int TeamId)
         {
-            var tean = await context.Teams
-                .Where(t => t.Id == Id)
-                .Include(t => t.Coach)
-                .Include(t => t.League)
-                .Include(t => t.Stadium)
-                .FirstOrDefaultAsync();
-
-            var viewModel = new TeamDetailedViewModel
-            {
-                Name = tean.Name,
-
-                Founded = tean.Founded,
-                LogoURL = tean.LogoURL,
-                Fixtures = new List<MatchSimpleViewModel> { },
-                Results = new List<MatchSimpleViewModel> { },
-                League = new LeagueSimpleViewModel
-                {
-                    Id = tean.League.Id,
-                    Name = tean.League.Name,
-                },
-                Stadium = new StadiumSimpleViewModel
-                {
-                    Id = tean.Stadium.Id,
-                    Name = tean.Stadium.Name
-                },
-                Coach = new CoachSimpleViewModel
-                {
-                    Id = tean.Coach.Id,
-                    Name = $"{tean.Coach.FirstName} {tean.Coach.LastName}"
-                },
-                Players = tean.Players
-                    .Select(p => new PlayerSimpleViewModel() 
-                    { 
-                        Id = p.Id,
-                        Name = $"{p.FirstName} {p.LastName}"
-                    })
-                    .ToList()
-            };
-                
-            return View(viewModel);
+            return View(TeamId);
         }
 
         public async Task<IActionResult> All()
@@ -85,6 +47,56 @@ namespace Football_Insight.Controllers
                     .ToListAsync();
 
             return View(leagues);
+        }
+
+        public async Task<IActionResult> Fixtures(int Id)
+        {
+            var matches = await context.Matches
+                .Include(t => t.HomeTeam)
+                .Include(t => t.AwayTeam)
+                .Where(m => (m.HomeTeamId == Id || m.AwayTeamId == Id) && (m.Status == MatchStatus.Scheduled)) 
+                .Select(m => new MatchFixtureViewModel
+                {
+                    Id = m.Id,
+                    HomeTeam = m.HomeTeam.Name,
+                    AwayTeam = m.AwayTeam.Name,
+                    Date = m.Date.ToString()
+                })
+                .ToListAsync();
+
+            var teamFixtures = new TeamFixturesViewModel
+            {
+                TeamId = Id,
+                Fixtures = matches
+            };
+
+            return View(teamFixtures);
+        }
+
+        public async Task<IActionResult> Results(int Id)
+        {
+            var matches = await context.Matches
+                .Include(t => t.HomeTeam)
+                .Include(t => t.AwayTeam)
+                .Where(m => (m.HomeTeamId == Id || m.AwayTeamId == Id) && (m.Status == MatchStatus.Finished))
+                .Select(m => new MatchResultViewModel
+                {
+                    Id = m.Id,
+                    HomeTeam = m.HomeTeam.Name,
+                    AwayTeam = m.AwayTeam.Name,
+                    HomeTeamGoals = m.HomeScore,
+                    AwayTeamGoals = m.AwayScore,
+                    Date = m.Date.ToString()
+                })
+                .ToListAsync();
+
+            var teamFixtures = new TeamResultsViewModel
+            {
+                TeamId = Id,
+                Results = matches
+            };
+
+            return View(teamFixtures);
         }
     }
 }

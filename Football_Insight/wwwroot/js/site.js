@@ -40,4 +40,38 @@
             reader.readAsDataURL(this.files[0]);
         }
     });
+
+    $(document).ready(function () {
+        // Function to reset all buttons and hide all tables
+        function resetButtonsAndTables() {
+            $('.btn-group .btn').removeClass('active');
+            $('.table-responsive').hide();
+        }
+
+        // Event listener for the Fixtures button
+        $('#btnFixtures').click(function () {
+            resetButtonsAndTables();
+            $(this).addClass('active'); // Set button to active
+            $('#btnResults').removeClass('active');
+            $('#btnSquad').removeClass('active');
+            $('#fixturesTable').show(); // Show the Fixtures table
+        });
+
+        // Repeat for Results and Squad buttons
+        $('#btnResults').click(function () {
+            resetButtonsAndTables();
+            $(this).addClass('active'); // Set button to active
+            $('#btnSquad').removeClass('active');
+            $('#btnFixtures').removeClass('active');
+            $('#resultsTable').show(); // Show the Results table
+        });
+
+        $('#btnSquad').click(function () {
+            resetButtonsAndTables();
+            $(this).addClass('active'); // Set button to active
+            $('#btnResults').removeClass('active');
+            $('#btnFixtures').removeClass('active');
+            $('#squadTable').show(); // Show the Squad table
+        });
+    });
 });
