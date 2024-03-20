@@ -1,8 +1,8 @@
-﻿using Football_Insight.Data;
-using Football_Insight.Data.Enums;
-using Football_Insight.Data.Models;
-using Football_Insight.Models.Match;
-using Football_Insight.Models.Team;
+﻿using Football_Insight.Core.Models.Match;
+using Football_Insight.Core.Models.Team;
+using Football_Insight.Infrastructure.Data;
+using Football_Insight.Infrastructure.Data.Enums;
+using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

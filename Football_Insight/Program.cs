@@ -1,5 +1,5 @@
-using Football_Insight.Data;
-using Football_Insight.Data.Models;
+using Football_Insight.Infrastructure.Data;
+using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 

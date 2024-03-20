@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.28" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.27" />
@@ -30,6 +30,11 @@
   <ItemGroup>
     <Folder Include="Areas\" />
     <Folder Include="wwwroot\photos\cd2a69b3-eb97-41f9-945f-a23a9e5a0031\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Football_Insight.Core\Football_Insight.Core.csproj" />
+    <ProjectReference Include="..\Football_Insight.Infrastructure\Football_Insight.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

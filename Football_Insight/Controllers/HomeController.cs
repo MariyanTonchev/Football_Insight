@@ -1,5 +1,5 @@
-﻿using Football_Insight.Data;
-using Football_Insight.Models;
+﻿using Football_Insight.Core.Models;
+using Football_Insight.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

@@ -1,8 +1,8 @@
-﻿using Football_Insight.Data;
-using Football_Insight.Models.Coach;
-using Football_Insight.Models.League;
-using Football_Insight.Models.Stadium;
-using Football_Insight.Models.Team;
+﻿using Football_Insight.Core.Models.Coach;
+using Football_Insight.Core.Models.League;
+using Football_Insight.Core.Models.Stadium;
+using Football_Insight.Core.Models.Team;
+using Football_Insight.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

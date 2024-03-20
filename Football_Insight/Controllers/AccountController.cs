@@ -1,18 +1,12 @@
-﻿using Football_Insight.Data;
-using Football_Insight.Data.Models;
-using Football_Insight.Models;
-using Football_Insight.Models.Account;
-using Football_Insight.Models.Player;
-using Football_Insight.Models.Team;
+﻿using Football_Insight.Core.Models.Account;
+using Football_Insight.Core.Models.Player;
+using Football_Insight.Core.Models.Team;
+using Football_Insight.Infrastructure.Data;
+using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
-using System.Net.Http;
-using static Football_Insight.Data.DataConstants;
 
 namespace Football_Insight.Controllers
 {
@@ -227,7 +221,7 @@ namespace Football_Insight.Controllers
         {
             var user = await GetUserAsync();
 
-            return !string.IsNullOrEmpty(user.PhotoPath) ? user.PhotoPath : DefaultPhotoPath;
+            return !string.IsNullOrEmpty(user.PhotoPath) ? user.PhotoPath : "/photos/default.jpg";
         }
 
         private async Task<List<TeamSimpleViewModel>> GetTeamsAsync()

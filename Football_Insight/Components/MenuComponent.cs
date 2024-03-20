@@ -1,5 +1,5 @@
-﻿using Football_Insight.Data;
-using Football_Insight.Models.League;
+﻿using Football_Insight.Core.Models.League;
+using Football_Insight.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
