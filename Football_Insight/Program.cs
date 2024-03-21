@@ -1,4 +1,7 @@
+using Football_Insight.Core.Contracts;
+using Football_Insight.Core.Services;
 using Football_Insight.Infrastructure.Data;
+using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,10 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequiredLength = 3;
 })
     .AddEntityFrameworkStores<FootballInsightDbContext>();
+
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {

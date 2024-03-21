@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.38" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Football_Insight.Infrastructure\Football_Insight.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
