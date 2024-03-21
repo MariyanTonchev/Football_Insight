@@ -25,7 +25,5 @@
 
         public const int TotalDigitsDecimalPrecision = 14;
         public const int DigitsAfterDecimalPoint = 2;
-
-        public const string DefaultPhotoPath = "/photos/default.jpg";
     }
 }

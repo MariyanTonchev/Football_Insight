@@ -123,7 +123,7 @@ namespace Football_Insight.Core.Services
 
         public string GetUserPhotoPath(ApplicationUser user)
         {
-            return !string.IsNullOrEmpty(user.PhotoPath) ? user.PhotoPath : "/photos/default.jpg";
+            return !string.IsNullOrEmpty(user.PhotoPath) ? user.PhotoPath : Constants.MessageConstants.DefaultPhotoPath;
         }
 
         public async Task<List<PlayerSimpleViewModel>> GetAllPlayersAsync()

@@ -1,0 +1,95 @@
+﻿using Football_Insight.Core.Contracts;
+using Football_Insight.Core.Models.Match;
+using Football_Insight.Core.Models.Player;
+using Football_Insight.Core.Models.Team;
+using Football_Insight.Infrastructure.Data.Common;
+using Football_Insight.Infrastructure.Data.Enums;
+using Football_Insight.Infrastructure.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Football_Insight.Core.Services
+{
+    public class TeamService : ITeamService
+    {
+        private readonly IRepository repo;
+
+        public TeamService(IRepository _repo)
+        {
+            repo = _repo;
+        }
+
+        public async Task<TeamFixturesViewModel> GetTeamFixturesAsync(int id)
+        {
+            var matches = await repo.All<Match>()
+                .Include(m => m.HomeTeam)
+                .Include(t => t.AwayTeam)
+                .Where(m => (m.HomeTeamId == id || m.AwayTeamId == id) && (m.Status == MatchStatus.Scheduled))
+                .Select(m => new MatchFixtureViewModel
+                {
+                    Id = m.Id,
+                    HomeTeam = m.HomeTeam.Name,
+                    AwayTeam = m.AwayTeam.Name,
+                    Date = m.Date.ToString()
+                })
+                .ToListAsync();
+
+            var teamFixtures = new TeamFixturesViewModel
+            {
+                TeamId = id,
+                Fixtures = matches
+            };
+
+            return teamFixtures;
+        }
+
+        public async Task<TeamResultsViewModel> GetTeamResultsAsync(int id)
+        {
+            var matches = await repo.All<Match>()
+                .Include(t => t.HomeTeam)
+                .Include(t => t.AwayTeam)
+                .Where(m => (m.HomeTeamId == id || m.AwayTeamId == id) && (m.Status == MatchStatus.Finished))
+                .Select(m => new MatchResultViewModel
+                {
+                    Id = m.Id,
+                    HomeTeam = m.HomeTeam.Name,
+                    AwayTeam = m.AwayTeam.Name,
+                    HomeTeamGoals = m.HomeScore,
+                    AwayTeamGoals = m.AwayScore,
+                    Date = m.Date.ToString()
+                })
+                .ToListAsync();
+
+            var teamFixtures = new TeamResultsViewModel
+            {
+                TeamId = id,
+                Results = matches
+            };
+
+            return teamFixtures;
+        }
+
+        public async Task<TeamSquadViewModel> GetTeamSquadAsync(int id)
+        {
+            var players = await repo.All<Player>()
+                .Where(p => p.TeamId == id)
+                .Select(p => new PlayerSquadViewModel
+                {
+
+                })
+                .ToListAsync();
+
+            var teamSquad = new TeamSquadViewModel
+            {
+                TeamId = id,
+                Players = players
+            };
+
+            return teamSquad;
+        }
+    }
+}

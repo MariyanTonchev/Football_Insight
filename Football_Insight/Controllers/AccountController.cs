@@ -1,13 +1,8 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models.Account;
-using Football_Insight.Core.Models.Player;
-using Football_Insight.Core.Models.Team;
 using Football_Insight.Infrastructure.Data;
-using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Football_Insight.Controllers
 {

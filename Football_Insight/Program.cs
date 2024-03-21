@@ -25,6 +25,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<ILeagueService, LeagueService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
