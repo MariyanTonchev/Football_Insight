@@ -19,15 +19,15 @@
                             <table id="individual-col-search1" class="table dt-table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
                                 <thead>
                                     <tr role="row">
-                                        <th class="text-center sorting_asc" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 67.0938px;">Position</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 170.203px;">Name</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 50.266px;">Match Played</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 50.922px;">Wins</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 50.0938px;">Draws</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 50.828px;">Losses</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 75.7812px;">Goals</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 75.7812px;">GD</th>
-                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 75.7812px;">Points</th>
+                                        <th class="text-center sorting_asc" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 5%;">Position</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 15%;">Name</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 5%;">Match Played</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 5%;">Wins</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 5%;">Draws</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 5%;">Losses</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 5%;">Goals</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 5%;">GD</th>
+                                        <th class="sorting" tabindex="0" aria-controls="individual-col-search1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 5%;">Points</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,13 +53,14 @@
                 </div>
             </div>
         </div>
+        <div style="max-width: 66%; margin-left: auto; margin-right: auto;">
         <div class="row layout-top-spacing">
-            <div class="col-md-8 col-sm-6">
+                <div class="col-md-8 col-sm-6" style="margin-top: 50px;">
                 <div class="seperator-header">
                     <h4>League Matches</h4>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6" style="text-align: right;">
+            <div class="col-md-4 col-sm-6" style="margin-top: 50px; text-align: right;">
                 <form asp-action="Create" asp-controller="Match" method="get">
                     <input type="hidden" name="leagueId" value="@leagueId" />
                     <button type="submit" class="btn btn-outline-success mb-2 me-4">
@@ -68,7 +69,7 @@
                 </form>
             </div>
         </div>
-        <div class="row layout-spacing">
+        <div class="row layout-spacing" >
             <div class="col-lg-12">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-content widget-content-area">
@@ -76,6 +77,7 @@
                             <table id="individual-col-search2" class="table dt-table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
                                 <thead>
                                     <tr role="row">
+
                                         <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 50.0938px;">Date & Time</th>
                                         <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 250.203px;">Teams</th>
                                         <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 50.266px;">Actions</th>
@@ -96,6 +98,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

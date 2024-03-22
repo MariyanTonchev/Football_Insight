@@ -83,8 +83,8 @@
     <!--  END LOADER -->
 
     <!--  HEADER VIEW  -->
-    @await Component.InvokeAsync(nameof(HeaderComponent));
- 
+    @await Component.InvokeAsync(nameof(HeaderComponent))
+
     <!-- MAIN CONTAINER  -->
     <div class="main-container" id="container">
 
@@ -93,14 +93,14 @@
         <div class="search-overlay"></div>
 
         <!-- MENU -->
-        @await Component.InvokeAsync(nameof(MenuComponent));
+        @await Component.InvokeAsync(nameof(MenuComponent))
 
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
 
              @RenderBody()
 
-            @await Component.InvokeAsync(nameof(FooterComponent));
+            @await Component.InvokeAsync(nameof(FooterComponent))
         </div>
     </div>
     <!-- END MAIN CONTAINER -->
