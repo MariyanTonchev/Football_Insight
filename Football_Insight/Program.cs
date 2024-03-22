@@ -27,6 +27,8 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ILeagueService, LeagueService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
+builder.Services.AddScoped<IStadiumService, StadiumService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>

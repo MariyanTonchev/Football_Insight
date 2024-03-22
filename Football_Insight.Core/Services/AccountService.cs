@@ -14,16 +14,19 @@ namespace Football_Insight.Core.Services
     {
         private readonly IRepository repo;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly ITeamService teamService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
         public AccountService(IRepository _repo, 
+                              ITeamService _teamService,
                               IHttpContextAccessor _httpContextAccessor,
                               UserManager<ApplicationUser> _userManager, 
                               SignInManager<ApplicationUser> _signInManager)
         {
             repo = _repo;
             userManager = _userManager;
+            teamService = _teamService;
             httpContextAccessor = _httpContextAccessor;
             signInManager = _signInManager;
         }
@@ -85,7 +88,7 @@ namespace Football_Insight.Core.Services
                 City = user.City,
                 Email = user.Email,
                 PhotoPath = GetUserPhotoPath(user),
-                Teams = await GetAllTeamsAsync(),
+                Teams = await teamService.GetAllTeamsAsync(),
                 Players = await GetAllPlayersAsync(),
                 Country = user.Country,
                 Phone = user.PhoneNumber,
@@ -137,16 +140,7 @@ namespace Football_Insight.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<List<TeamSimpleViewModel>> GetAllTeamsAsync()
-        {
-            return await repo.All<Team>()
-                .Select(t => new TeamSimpleViewModel
-                {
-                    Id = t.Id,
-                    Name = t.Name
-                })
-                .ToListAsync();
-        }
+
 
         private async Task<string> GetFavoritePlayerNameAsync(ApplicationUser user)
         {

@@ -65,5 +65,10 @@ namespace Football_Insight.Infrastructure.Data.Common
         {
             return await this.Context.SaveChangesAsync();
         }
+
+        public async Task AddAsync<T>(T entity) where T : class
+        {
+            await DbSet<T>().AddAsync(entity);
+        }
     }
 }

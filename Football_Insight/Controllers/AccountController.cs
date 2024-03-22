@@ -1,6 +1,5 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models.Account;
-using Football_Insight.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,16 +7,18 @@ namespace Football_Insight.Controllers
 {
     public class AccountController : BaseController
     {
-        private readonly FootballInsightDbContext context;
+
         private readonly ILogger<HomeController> logger;
+        private readonly ITeamService teamService;
         private readonly IAccountService accountService;
 
-        public AccountController(FootballInsightDbContext Context,
-                                    ILogger<HomeController> Logger,
-                                    IAccountService _accountService) 
+        public AccountController(ILogger<HomeController> Logger,
+                                 ITeamService _teamService,
+                                 IAccountService _accountService) 
         {
-            context = Context;
+
             logger = Logger;
+            teamService = _teamService;
             accountService = _accountService;
         }
 
@@ -113,7 +114,7 @@ namespace Football_Insight.Controllers
                 {
                     Email = user.Email,
                     PhotoPath = accountService.GetUserPhotoPath(user),
-                    Teams = await accountService.GetAllTeamsAsync(),
+                    Teams = await teamService.GetAllTeamsAsync(),
                     Players = await accountService.GetAllPlayersAsync()
                 };
 

@@ -18,8 +18,6 @@ namespace Football_Insight.Core.Contracts
 
         Task<List<PlayerSimpleViewModel>> GetAllPlayersAsync();
 
-        Task<List<TeamSimpleViewModel>> GetAllTeamsAsync();
-
         Task<ApplicationUser> GetUserAsync();
 
         Task<UserEditViewModel> GetUserEditFormAsync();

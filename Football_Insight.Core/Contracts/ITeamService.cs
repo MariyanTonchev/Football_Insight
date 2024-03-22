@@ -14,5 +14,7 @@ namespace Football_Insight.Core.Contracts
         Task<TeamResultsViewModel> GetTeamResultsAsync(int id);
 
         Task<TeamSquadViewModel> GetTeamSquadAsync(int id);
+
+        Task<List<TeamSimpleViewModel>> GetAllTeamsAsync();
     }
 }
