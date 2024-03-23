@@ -31,11 +31,6 @@ namespace Football_Insight.Core.Services
             signInManager = _signInManager;
         }
 
-        public Task Edit()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task EditAsync(UserEditViewModel model)
         {
             var user = await GetUserAsync();

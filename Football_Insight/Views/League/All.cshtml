@@ -1,9 +1,5 @@
 ﻿@model List<LeagueSimpleViewModel>
 
-@{
-    var leagueId = ViewContext.RouteData.Values["id"];
-}
-
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
         <div class="col-md-4 col-sm-6" style="margin-left: auto; margin-right: auto;">
@@ -14,8 +10,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6" style="text-align: right;">
-                    <form asp-action="Create" asp-controller="Match" method="get">
-                        <input type="hidden" name="leagueId" value="@leagueId" />
+                    <form asp-action="Create" asp-controller="League" method="get">
                         <button type="submit" class="btn btn-outline-success mb-2 me-6">
                             <span class="btn-text-inner">Create League</span>
                         </button>
@@ -26,12 +21,12 @@
                 <div class="col-lg-12">
                     <div class="statbox widget box box-shadow">
                         <div class="widget-content widget-content-area">
-                            <div id="individual-col-search2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                                <table id="individual-col-search2" class="table dt-table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
+                            <div id="individual-col-search3_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                <table id="individual-col-search3" class="table dt-table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
                                     <thead>
                                         <tr role="row">
-                                            <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 250.203px;">League</th>
-                                            <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 50.266px;">Actions</th>
+                                            <th tabindex="0" aria-controls="individual-col-search3" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 250.203px;">League</th>
+                                            <th tabindex="0" aria-controls="individual-col-search3" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 50.266px;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -39,7 +34,10 @@
                                         {
                                             <tr role="row">
                                                 <td>@league.Name</td>
-                                                <td>Add</td>
+                                                <td>
+                                                    <a>Delete</a>
+                                                    <a asp-action="Edit" asp-controller="League" asp-route-leagueId="@league.Id">Edit</a>
+                                                </td>
                                             </tr>
                                         }
                                     </tbody>

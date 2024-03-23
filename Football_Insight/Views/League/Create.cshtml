@@ -1,0 +1,30 @@
+﻿@model LeagueCreateViewModel
+
+<div class="layout-px-spacing">
+    <div class="middle-content container-xxl p-0">
+        <div class="row layout-top-spacing">
+            <div class="col-xl-6 col-lg-6 col-sm-6 layout-spacing" style="margin-left: auto; margin-right: auto;">
+                <div class="widget-content widget-content-area br-8" style=" padding-top: 30px">
+                    <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <form asp-action="Create" method="post">
+                            <div class="row g-3">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4" style="text-align: left;">
+                                        <label asp-for="Name">League Name</label>
+                                        <input asp-for="Name" type="text" class="form-control mb-6" id="leagueName" placeholder="Enter League Name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12" style="text-align: center;">
+                                    <button type="submit" class="btn btn-outline-success mb-2 me-4">
+                                        <span class="btn-text-inner">Create League</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

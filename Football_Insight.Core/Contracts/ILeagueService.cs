@@ -1,4 +1,5 @@
-﻿using Football_Insight.Core.Models.League;
+﻿using Football_Insight.Core.Models;
+using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Match;
 using Football_Insight.Core.Models.Team;
 
@@ -12,5 +13,10 @@ namespace Football_Insight.Core.Contracts
         Task<List<MatchLeagueViewModel>> GetRecentMatchesAsync(int leagueId);
         Task<LeagueMatchesViewModel> GetLeagueViewDataAsync(int leagueId);
         Task<List<LeagueSimpleViewModel>> GetAllLeaguesAsync();
+        Task<LeagueCreateResultViewModel> CreateLeagueAsync(LeagueCreateViewModel model);
+
+        Task<LeagueEditViewModel> GetLeagueDetailsAsync(int leagueId);
+
+        Task<OperationResult> UpdateLeagueAsync(LeagueEditViewModel viewModel);
     }
 }

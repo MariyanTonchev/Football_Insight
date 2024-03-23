@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Core.Contracts;
+using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Match;
 using Football_Insight.Core.Models.Team;
@@ -16,6 +17,35 @@ namespace Football_Insight.Core.Services
         public LeagueService(IRepository _repo)
         {
             repo = _repo;
+        }
+
+        public async Task<LeagueCreateResultViewModel> CreateLeagueAsync(LeagueCreateViewModel model)
+        {
+            var existingLeagues = await GetAllLeaguesAsync();
+
+            if (existingLeagues.Any(l => l.Name.Equals(model.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                return new LeagueCreateResultViewModel
+                {
+                    Success = false,
+                    Message = "A league with the same name already exists."
+                };
+            }
+
+            var newLeague = new League
+            {
+                Name = model.Name,
+            };
+
+            await repo.AddAsync(newLeague);
+            await repo.SaveChangesAsync();
+
+            return new LeagueCreateResultViewModel
+            {
+                Success = true,
+                Message = "League created successfully.",
+                LeagueId = newLeague.Id
+            };
         }
 
         public async Task<List<LeagueSimpleViewModel>> GetAllLeaguesAsync()
@@ -63,10 +93,27 @@ namespace Football_Insight.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<LeagueEditViewModel> GetLeagueDetailsAsync(int leagueId)
+        {
+            var league = await repo.GetByIdAsync<League>(leagueId);
+
+            var viewModel = new LeagueEditViewModel
+            {
+                Id = league.Id,
+                Name = league.Name
+            };
+
+            return viewModel;
+        }
+
         public async Task<LeagueMatchesViewModel> GetLeagueViewDataAsync(int leagueId)
         {
+            var leagueName = (await repo.GetByIdAsync<League>(leagueId)).Name;
+
             var viewModel = new LeagueMatchesViewModel()
             {
+                Id = leagueId,
+                LeagueName = leagueName,
                 Matches = await GetRecentMatchesAsync(leagueId),
                 Teams = await GetTeamTableAsync(leagueId)
             };
@@ -122,6 +169,35 @@ namespace Football_Insight.Core.Services
                     .ToListAsync();
 
             return teams;
+        }
+
+        public async Task<OperationResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
+        {
+            var league = await repo.GetByIdAsync<League>(viewModel.Id);
+
+            if (league == null)
+            {
+                return new OperationResult(false, "League not found.");
+            }
+
+            var existingLeagues = await GetAllLeaguesAsync();
+
+            if (existingLeagues.Any(l => l.Name.Equals(viewModel.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                return new OperationResult(false, "A league with the same name already exists.");
+            }
+
+            league.Name = viewModel.Name;
+
+            try
+            {
+                await repo.SaveChangesAsync();
+                return new OperationResult(true);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult(false, ex.Message);
+            }
         }
     }
 }
