@@ -27,5 +27,12 @@ namespace Football_Insight.Controllers
 
             return View(viewModel);
         }
+
+        public async Task<IActionResult> All()
+        {
+            var viewModel = await leagueService.GetAllLeaguesAsync();
+
+            return View(viewModel);
+        }
     }
 }

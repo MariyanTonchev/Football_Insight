@@ -18,6 +18,19 @@ namespace Football_Insight.Core.Services
             repo = _repo;
         }
 
+        public async Task<List<LeagueSimpleViewModel>> GetAllLeaguesAsync()
+        {
+            var leagues = await repo.AllReadonly<League>()
+                .Select(l => new LeagueSimpleViewModel 
+                {
+                    Id = l.Id,
+                    Name = l.Name
+                })
+                .ToListAsync();
+
+            return leagues;
+        }
+
         public async Task<List<LeagueTeamsViewModel>> GetAllLeaguesWithTeamsAsync()
         {
             var leagues = await repo.All<League>()
