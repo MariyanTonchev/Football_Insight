@@ -1,12 +1,6 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models.League;
-using Football_Insight.Core.Models.Match;
-using Football_Insight.Core.Models.Team;
-using Football_Insight.Core.Services;
-using Football_Insight.Infrastructure.Data;
-using Football_Insight.Infrastructure.Data.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Football_Insight.Controllers
 {
@@ -99,6 +93,33 @@ namespace Football_Insight.Controllers
             }
 
             return RedirectToAction(nameof(Index), new { id = viewModel.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int leagueId)
+        {
+            var league = await leagueService.FindLeagueAsync(leagueId);
+
+            if (league == null)
+            {
+                return NotFound();
+            }
+
+            return View(league);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(LeagueSimpleViewModel model)
+        {
+            var result = await leagueService.DeleteLeagueAsync(model.Id);
+
+            if(result.Success == false)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

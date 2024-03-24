@@ -48,6 +48,41 @@ namespace Football_Insight.Core.Services
             };
         }
 
+        public async Task<ActionResult> DeleteLeagueAsync(int leagueId)
+        {
+            var league = await repo.GetByIdAsync<League>(leagueId);
+
+            if (league == null)
+            {
+                return new ActionResult(false, "League not found!");
+            }
+
+            var teamsInLeagueCount = (await GetAllTeamsAsync(leagueId)).Count;
+
+            if(teamsInLeagueCount > 0)
+            {
+                return new ActionResult(false, $"League has {teamsInLeagueCount} teams and cannot be deleted!");
+            }
+
+            await repo.RemoveAsync(league);
+            await repo.SaveChangesAsync();
+
+            return new ActionResult(true, $"Successfully deleted {league.Name}!");
+        }
+
+        public async Task<LeagueSimpleViewModel> FindLeagueAsync(int leagueId)
+        {
+            var league = await repo.GetByIdAsync<League>(leagueId);
+
+            var viewModel = new LeagueSimpleViewModel
+            {
+                Id = league.Id,
+                Name = league.Name,
+            };
+
+            return viewModel;
+        }
+
         public async Task<List<LeagueSimpleViewModel>> GetAllLeaguesAsync()
         {
             var leagues = await repo.AllReadonly<League>()
@@ -171,20 +206,20 @@ namespace Football_Insight.Core.Services
             return teams;
         }
 
-        public async Task<OperationResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
+        public async Task<ActionResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
         {
             var league = await repo.GetByIdAsync<League>(viewModel.Id);
 
             if (league == null)
             {
-                return new OperationResult(false, "League not found.");
+                return new ActionResult(false, "League not found!");
             }
 
             var existingLeagues = await GetAllLeaguesAsync();
 
             if (existingLeagues.Any(l => l.Name.Equals(viewModel.Name, StringComparison.OrdinalIgnoreCase)))
             {
-                return new OperationResult(false, "A league with the same name already exists.");
+                return new ActionResult(false, "A league with the same name already exists.");
             }
 
             league.Name = viewModel.Name;
@@ -192,11 +227,11 @@ namespace Football_Insight.Core.Services
             try
             {
                 await repo.SaveChangesAsync();
-                return new OperationResult(true);
+                return new ActionResult(true);
             }
             catch (Exception ex)
             {
-                return new OperationResult(false, ex.Message);
+                return new ActionResult(false, ex.Message);
             }
         }
     }

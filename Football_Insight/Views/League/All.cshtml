@@ -35,7 +35,7 @@
                                             <tr role="row">
                                                 <td>@league.Name</td>
                                                 <td>
-                                                    <a>Delete</a>
+                                                    <a asp-action="Delete" asp-controller="League" asp-route-leagueId="@league.Id">Delete</a>
                                                     <a asp-action="Edit" asp-controller="League" asp-route-leagueId="@league.Id">Edit</a>
                                                 </td>
                                             </tr>

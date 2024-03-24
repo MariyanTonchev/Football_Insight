@@ -14,9 +14,9 @@ namespace Football_Insight.Core.Contracts
         Task<LeagueMatchesViewModel> GetLeagueViewDataAsync(int leagueId);
         Task<List<LeagueSimpleViewModel>> GetAllLeaguesAsync();
         Task<LeagueCreateResultViewModel> CreateLeagueAsync(LeagueCreateViewModel model);
-
         Task<LeagueEditViewModel> GetLeagueDetailsAsync(int leagueId);
-
-        Task<OperationResult> UpdateLeagueAsync(LeagueEditViewModel viewModel);
+        Task<LeagueSimpleViewModel> FindLeagueAsync(int leagueId);
+        Task<ActionResult> UpdateLeagueAsync(LeagueEditViewModel viewModel);
+        Task<ActionResult> DeleteLeagueAsync(int leagueId);
     }
 }

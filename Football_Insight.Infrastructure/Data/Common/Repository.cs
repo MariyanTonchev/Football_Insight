@@ -9,19 +9,19 @@ namespace Football_Insight.Infrastructure.Data.Common
         /// Entity framework DB context holding connection information and properties
         /// and tracking entity states 
         /// </summary>
-        protected DbContext Context { get; set; }
+        protected DbContext context { get; set; }
 
         /// <summary>
         /// Representation of table in database
         /// </summary>
         protected DbSet<T> DbSet<T>() where T : class
         {
-            return this.Context.Set<T>();
+            return context.Set<T>();
         }
 
-        public Repository(FootballInsightDbContext context)
+        public Repository(FootballInsightDbContext _context)
         {
-            Context = context;
+            context = _context;
         }
 
         public IQueryable<T> All<T>() where T : class
@@ -31,24 +31,24 @@ namespace Football_Insight.Infrastructure.Data.Common
 
         public IQueryable<T> All<T>(Expression<Func<T, bool>> search) where T : class
         {
-            return this.DbSet<T>().Where(search);
+            return DbSet<T>().Where(search);
         }
 
         public IQueryable<T> AllReadonly<T>() where T : class
         {
-            return this.DbSet<T>().AsNoTracking();
+            return DbSet<T>().AsNoTracking();
         }
 
         public IQueryable<T> AllReadonly<T>(Expression<Func<T, bool>> search) where T : class
         {
-            return this.DbSet<T>()
+            return DbSet<T>()
                 .Where(search)
                 .AsNoTracking();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            context.Dispose();
         }
 
         public async Task<T> GetByIdAsync<T>(object id) where T : class
@@ -63,12 +63,18 @@ namespace Football_Insight.Infrastructure.Data.Common
 
         public async Task<int> SaveChangesAsync()
         {
-            return await this.Context.SaveChangesAsync();
+            return await this.context.SaveChangesAsync();
         }
 
         public async Task AddAsync<T>(T entity) where T : class
         {
             await DbSet<T>().AddAsync(entity);
+        }
+
+        public Task RemoveAsync<T>(T entity) where T : class
+        {
+            context.Set<T>().Remove(entity);
+            return Task.CompletedTask;
         }
     }
 }
