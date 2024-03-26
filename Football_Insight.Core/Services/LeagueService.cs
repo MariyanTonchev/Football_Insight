@@ -19,17 +19,13 @@ namespace Football_Insight.Core.Services
             repo = _repo;
         }
 
-        public async Task<LeagueCreateResultViewModel> CreateLeagueAsync(LeagueCreateViewModel model)
+        public async Task<ActionResult> CreateLeagueAsync(LeagueCreateViewModel model)
         {
             var existingLeagues = await GetAllLeaguesAsync();
 
             if (existingLeagues.Any(l => l.Name.Equals(model.Name, StringComparison.OrdinalIgnoreCase)))
             {
-                return new LeagueCreateResultViewModel
-                {
-                    Success = false,
-                    Message = "A league with the same name already exists."
-                };
+                return new ActionResult(false, "A league with the same name already exists.");
             }
 
             var newLeague = new League
@@ -40,12 +36,7 @@ namespace Football_Insight.Core.Services
             await repo.AddAsync(newLeague);
             await repo.SaveChangesAsync();
 
-            return new LeagueCreateResultViewModel
-            {
-                Success = true,
-                Message = "League created successfully.",
-                LeagueId = newLeague.Id
-            };
+            return new ActionResult(true, "League created successfully.", newLeague.Id);
         }
 
         public async Task<ActionResult> DeleteLeagueAsync(int leagueId)
@@ -217,7 +208,7 @@ namespace Football_Insight.Core.Services
 
             var existingLeagues = await GetAllLeaguesAsync();
 
-            if (existingLeagues.Any(l => l.Name.Equals(viewModel.Name, StringComparison.OrdinalIgnoreCase)))
+            if (existingLeagues.Any(l => l.Name.Equals(viewModel.Name.Trim(), StringComparison.OrdinalIgnoreCase)))
             {
                 return new ActionResult(false, "A league with the same name already exists.");
             }

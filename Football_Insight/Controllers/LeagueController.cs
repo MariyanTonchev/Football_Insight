@@ -46,21 +46,23 @@ namespace Football_Insight.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(LeagueCreateViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await leagueService.CreateLeagueAsync(model);
 
-                if (result.Success)
-                {
-                    return RedirectToAction(nameof(Index), new { id = result.LeagueId });
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+
             }
 
-            return View(model);
+            var result = await leagueService.CreateLeagueAsync(model);
+
+            if (!result.Success)
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+                return View(model);
+                
+            }
+
+            return RedirectToAction(nameof(Index), new { id = result.LeagueId });
         }
 
         [HttpGet]
