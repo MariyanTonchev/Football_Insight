@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Football_Insight.Core.Models.Match
 {
-    public class MatchCreateViewModel
+    public class MatchEditViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public DateTime DateAndTime { get; set; } = DateTime.Today;
 
@@ -13,9 +15,6 @@ namespace Football_Insight.Core.Models.Match
 
         [Required]
         public int AwayTeamId { get; set; }
-
-        [Required]
-        public int LeagueId { get; set; }
 
         public ICollection<TeamSimpleViewModel> Teams { get; set; } = new List<TeamSimpleViewModel>();
     }

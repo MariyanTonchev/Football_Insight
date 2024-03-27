@@ -1,4 +1,4 @@
-﻿@model MatchCreateViewModel
+﻿@model MatchEditViewModel
 
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
@@ -6,13 +6,13 @@
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-8">
                     <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                        <form asp-action="Create" method="post">
-                        <div class="row g-3">
+                        <form asp-action="Edit" method="post">
+                            <div class="row g-3">
                                 <div class="row justify-content-center">
                                     <div class="col-md-3" style="text-align: center;">
                                         <div class="form-group">
                                             <label asp-for="DateAndTime">Date & Time</label>
-                                            <input asp-for="DateAndTime" class="form-control"/>
+                                            <input asp-for="DateAndTime" class="form-control" />
                                             <span asp-validation-for="DateAndTime" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -32,17 +32,17 @@
                                         </select>
                                         <span asp-validation-for="AwayTeamId" class="text-danger"></span>
                                     </div>
+                                    <input type="hidden" asp-for="Id" />
                                 </div>
                                 <div class="col-12" style="text-align: center;">
-                                    <input asp-for="LeagueId" type="hidden" value="@Model.LeagueId" />
                                     <button type="submit" class="btn btn-outline-success mb-2 me-4">
-                                        <span class="btn-text-inner">Create Match</span>
+                                        <span class="btn-text-inner">Edit Match</span>
                                     </button>
                                 </div>
                                 <div class="text-danger">
                                     @Html.ValidationSummary()
                                 </div>
-                        </div>
+                            </div>
                         </form>
                     </div>
                 </div>

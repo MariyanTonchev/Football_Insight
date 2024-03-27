@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Core.Contracts;
+using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Match;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +56,38 @@ namespace Football_Insight.Controllers
             }
 
             return RedirectToAction("Index", "League", new { id = model.LeagueId});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int matchId)
+        {
+            var match = await matchService.GetMatchDetailsAsync(matchId);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            return View(match);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MatchEditViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var updateResult = await matchService.UpdateMatchAsync(viewModel);
+
+            if (!updateResult.Success)
+            {
+                ModelState.AddModelError("", updateResult.Message);
+                return View(viewModel);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

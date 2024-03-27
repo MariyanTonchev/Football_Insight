@@ -6,5 +6,9 @@ namespace Football_Insight.Core.Contracts
     public interface IMatchService
     {
         Task<ActionResult> CreateMatchAsync(MatchCreateViewModel model);
+
+        Task<ActionResult> UpdateMatchAsync(MatchEditViewModel model);
+
+        Task<MatchEditViewModel> GetMatchDetailsAsync(int matchId);
     }
 }
