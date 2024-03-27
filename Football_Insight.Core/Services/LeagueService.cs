@@ -39,6 +39,35 @@ namespace Football_Insight.Core.Services
             return new ActionResult(true, "League created successfully.", newLeague.Id);
         }
 
+        public async Task<ActionResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
+        {
+            var league = await repo.GetByIdAsync<League>(viewModel.Id);
+
+            if (league == null)
+            {
+                return new ActionResult(false, "League not found!");
+            }
+
+            var existingLeagues = await GetAllLeaguesAsync();
+
+            if (existingLeagues.Any(l => l.Name.Equals(viewModel.Name.Trim(), StringComparison.OrdinalIgnoreCase)))
+            {
+                return new ActionResult(false, "A league with the same name already exists.");
+            }
+
+            league.Name = viewModel.Name;
+
+            try
+            {
+                await repo.SaveChangesAsync();
+                return new ActionResult(true, "League edited successfully.");
+            }
+            catch (Exception ex)
+            {
+                return new ActionResult(false, ex.Message);
+            }
+        }
+
         public async Task<ActionResult> DeleteLeagueAsync(int leagueId)
         {
             var league = await repo.GetByIdAsync<League>(leagueId);
@@ -196,35 +225,6 @@ namespace Football_Insight.Core.Services
                     .ToListAsync();
 
             return teams;
-        }
-
-        public async Task<ActionResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
-        {
-            var league = await repo.GetByIdAsync<League>(viewModel.Id);
-
-            if (league == null)
-            {
-                return new ActionResult(false, "League not found!");
-            }
-
-            var existingLeagues = await GetAllLeaguesAsync();
-
-            if (existingLeagues.Any(l => l.Name.Equals(viewModel.Name.Trim(), StringComparison.OrdinalIgnoreCase)))
-            {
-                return new ActionResult(false, "A league with the same name already exists.");
-            }
-
-            league.Name = viewModel.Name;
-
-            try
-            {
-                await repo.SaveChangesAsync();
-                return new ActionResult(true, "League edited successfully.");
-            }
-            catch (Exception ex)
-            {
-                return new ActionResult(false, ex.Message);
-            }
         }
     }
 }

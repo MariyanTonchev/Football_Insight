@@ -1,4 +1,4 @@
-﻿@model MatchCreateViewModel
+﻿@model MatchFormViewModel
 
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
@@ -34,13 +34,10 @@
                                     </div>
                                 </div>
                                 <div class="col-12" style="text-align: center;">
-                                    <input asp-for="LeagueId" type="hidden" value="@Model.LeagueId" />
+                                    <input type="hidden" asp-for="LeagueId" />
                                     <button type="submit" class="btn btn-outline-success mb-2 me-4">
                                         <span class="btn-text-inner">Create Match</span>
                                     </button>
-                                </div>
-                                <div class="text-danger">
-                                    @Html.ValidationSummary()
                                 </div>
                         </div>
                         </form>

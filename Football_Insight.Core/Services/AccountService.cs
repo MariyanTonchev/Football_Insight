@@ -135,8 +135,6 @@ namespace Football_Insight.Core.Services
                 .ToListAsync();
         }
 
-
-
         private async Task<string> GetFavoritePlayerNameAsync(ApplicationUser user)
         {
             if(user.FavoritePlayerId == null)

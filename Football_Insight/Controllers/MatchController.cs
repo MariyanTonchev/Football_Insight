@@ -27,41 +27,32 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(int leagueId)
         {
-            var viewModel = new MatchCreateViewModel()
+            var viewModel = new MatchFormViewModel()
             {
-                Teams = await leagueService.GetAllTeamsAsync(leagueId),
-                LeagueId = leagueId
+                Teams = await leagueService.GetAllTeamsAsync(leagueId)
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(MatchCreateViewModel model)
+        public async Task<IActionResult> Create(MatchFormViewModel model, int leagueId)
         {
             if (!ModelState.IsValid)
             {
-                model.Teams = await leagueService.GetAllTeamsAsync(model.LeagueId);
+                model.Teams = await leagueService.GetAllTeamsAsync(leagueId);
                 return View(model);
             }
 
-            var result = await matchService.CreateMatchAsync(model);
+            await matchService.CreateMatchAsync(model, leagueId);
 
-            if(!result.Success)
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-                model.Teams = await leagueService.GetAllTeamsAsync(model.LeagueId);
-
-                return View(model);
-            }
-
-            return RedirectToAction("Index", "League", new { id = model.LeagueId});
+            return RedirectToAction("Index", "League", new { id = leagueId});
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int matchId)
         {
-            var match = await matchService.GetMatchDetailsAsync(matchId);
+            var match = await matchService.GetMatchFormViewModelByIdAsync(matchId);
 
             if (match == null)
             {
@@ -72,22 +63,24 @@ namespace Football_Insight.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(MatchEditViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(MatchFormViewModel viewModel, int matchId)
         {
+            if (viewModel == null)
+            {
+                return BadRequest();
+            }
+
             if (!ModelState.IsValid)
             {
+                viewModel.Teams = await leagueService.GetAllTeamsAsync(viewModel.LeagueId);
+
                 return View(viewModel);
             }
 
-            var updateResult = await matchService.UpdateMatchAsync(viewModel);
+            await matchService.UpdateMatchAsync(viewModel, matchId);
 
-            if (!updateResult.Success)
-            {
-                ModelState.AddModelError("", updateResult.Message);
-                return View(viewModel);
-            }
-
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
