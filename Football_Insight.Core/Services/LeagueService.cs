@@ -153,6 +153,7 @@ namespace Football_Insight.Core.Services
                     .OrderByDescending(m => m.Date)
                     .Select(m => new MatchLeagueViewModel()
                     {
+                        Id = m.Id,
                         HomeTeamName = m.HomeTeam.Name,
                         AwayTeamName = m.AwayTeam.Name,
                         DateAndTime = m.Date.ToString("HH:mm dd/MM/yyyy")
@@ -218,7 +219,7 @@ namespace Football_Insight.Core.Services
             try
             {
                 await repo.SaveChangesAsync();
-                return new ActionResult(true);
+                return new ActionResult(true, "League edited successfully.");
             }
             catch (Exception ex)
             {

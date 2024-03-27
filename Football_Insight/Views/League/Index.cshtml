@@ -83,7 +83,10 @@
                                         <tr role="row">
                                             <td>@match.DateAndTime</td>
                                             <td>@match.HomeTeamName VS @match.AwayTeamName</td>
-                                            <td>Add</td>
+                                            <td>
+                                                Add
+                                                <a asp-action="Edit" asp-controller="Match" asp-route-matchId="@match.Id">Edit</a>
+                                            </td>
                                         </tr>
                                     }                          
                                 </tbody>
