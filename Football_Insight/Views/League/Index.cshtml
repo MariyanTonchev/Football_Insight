@@ -2,8 +2,20 @@
 
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
-        <div class="seperator-header layout-top-spacing">
+        <div class="seperator-header layout-top-spacing d-flex justify-content-between align-items-center">
             <h4>@Model.LeagueName Table</h4>
+            <div>
+                <form asp-action="Edit" asp-controller="League" method="get" class="d-inline">
+                    <input type="hidden" asp-for="LeagueId" />
+                    <button type="submit" class="btn btn-outline-primary me-4">Edit League</button>
+                </form>
+
+                <form asp-action="Delete" asp-controller="League" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="LeagueId" />
+                    <button type="submit" class="btn btn-outline-danger me-4">Delete League</button>
+                </form>
+            </div>
         </div>
         <div class="row layout-spacing">
             <div class="col-lg-12">
@@ -56,7 +68,7 @@
             </div>
             <div class="col-md-4 col-sm-6" style="margin-top: 50px; text-align: right;">
                 <form asp-action="Create" asp-controller="Match" method="get">
-                    <input type="hidden" name="leagueId" value="@Model.Id" />
+                    <input type="hidden" name="leagueId" value="@Model.LeagueId" />
                     <button type="submit" class="btn btn-outline-success mb-2 me-4">
                         <span class="btn-text-inner">Create Match</span>
                     </button>

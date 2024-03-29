@@ -167,7 +167,7 @@ namespace Football_Insight.Core.Services
 
             var viewModel = new LeagueMatchesViewModel()
             {
-                Id = leagueId,
+                LeagueId = leagueId,
                 LeagueName = leagueName,
                 Matches = await GetRecentMatchesAsync(leagueId),
                 Teams = await GetTeamTableAsync(leagueId)
