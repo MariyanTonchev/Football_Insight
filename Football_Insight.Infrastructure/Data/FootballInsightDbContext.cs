@@ -1,5 +1,4 @@
 ﻿using Football_Insight.Data.Configurations;
-using Football_Insight.Infrastructure.Data.Configurations;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +12,6 @@ namespace Football_Insight.Infrastructure.Data
         {
 
         }
-        public DbSet<Coach> Coaches { get; set; } = null!;
         public DbSet<League> Leagues { get; set; } = null!;
         public DbSet<Match> Matches { get; set; } = null!;
         public DbSet<Team> Teams { get; set; } = null!;
@@ -57,7 +55,6 @@ namespace Football_Insight.Infrastructure.Data
 
             builder.ApplyConfiguration(new LeagueConfiguration());
             builder.ApplyConfiguration(new StadiumConfiguration());
-            builder.ApplyConfiguration(new CoachConfiguration());
             builder.ApplyConfiguration(new TeamConfiguration());
             builder.ApplyConfiguration(new PlayerConfiguration());
             builder.ApplyConfiguration(new PositionConfiguration());

@@ -1,5 +1,4 @@
-﻿using Football_Insight.Core.Models.Coach;
-using Football_Insight.Core.Models.League;
+﻿using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Stadium;
 using Football_Insight.Core.Models.Team;
 using Football_Insight.Infrastructure.Data;
@@ -21,7 +20,6 @@ namespace Football_Insight.Components
         {
             var team = await context.Teams
                 .Where(t => t.Id == Id)
-                .Include(t => t.Coach)
                 .Include(t => t.League)
                 .Include(t => t.Stadium)
                 .FirstOrDefaultAsync();
@@ -32,6 +30,7 @@ namespace Football_Insight.Components
                 Name = team.Name,
                 Founded = team.Founded,
                 LogoURL = team.LogoURL,
+                Coach = team.Coach,
                 League = new LeagueSimpleViewModel
                 {
                     Id = team.League.Id,
@@ -41,11 +40,6 @@ namespace Football_Insight.Components
                 {
                     Id = team.Stadium.Id,
                     Name = team.Stadium.Name
-                },
-                Coach = new CoachSimpleViewModel
-                {
-                    Id = team.Coach.Id,
-                    Name = $"{team.Coach.FirstName} {team.Coach.LastName}"
                 },
             };
 

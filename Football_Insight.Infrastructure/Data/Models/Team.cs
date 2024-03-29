@@ -28,7 +28,7 @@ namespace Football_Insight.Infrastructure.Data.Models
         [ForeignKey(nameof(LeagueId))]
         public League League { get; set; } = null!;
 
-        public Coach Coach { get; set; } = null!;
+        public string Coach { get; set; } = null!;
 
         [ForeignKey(nameof(StadiumId))]
         public Stadium Stadium { get; set; } = null!;

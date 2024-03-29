@@ -1,5 +1,4 @@
-﻿using Football_Insight.Core.Models.Coach;
-using Football_Insight.Core.Models.League;
+﻿using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Stadium;
 
 namespace Football_Insight.Core.Models.Team
@@ -14,7 +13,7 @@ namespace Football_Insight.Core.Models.Team
 
         public string LogoURL { get; set; } = string.Empty;
 
-        public CoachSimpleViewModel Coach { get; set; } = null!;
+        public string Coach { get; set; } = string.Empty;
 
         public LeagueSimpleViewModel League { get; set; } = null!;
 
