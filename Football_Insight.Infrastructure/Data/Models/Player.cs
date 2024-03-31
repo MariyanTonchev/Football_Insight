@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Football_Insight.Infrastructure.Data.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static Football_Insight.Infrastructure.Constants.DataConstants;
@@ -30,17 +31,14 @@ namespace Football_Insight.Infrastructure.Data.Models
         public decimal Salary { get; set; }
 
         [Required]
-        public int PositionId { get; set; }
-
-        [Required]
         public int TeamId { get; set; }
+
+        public PlayerPosition Position { get; set; }
 
         [ForeignKey(nameof(TeamId))]
         public Team Team { get; set; } = null!;
 
-        [ForeignKey(nameof(PositionId))]
-        public Position Position { get; set; } = null!;
-
+        public ICollection<Goal> Goals { get; set; } = new List<Goal>();
         public ICollection<PlayerStatistic> PlayerStatistics { get; set; } = new List<PlayerStatistic>();
         public ICollection<PlayerMatch> PlayersMatches { get; set; } = new List<PlayerMatch>();
     }

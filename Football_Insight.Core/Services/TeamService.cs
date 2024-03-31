@@ -55,6 +55,13 @@ namespace Football_Insight.Core.Services
             return teamFixtures;
         }
 
+        public async Task<string> GetTeamNameAsync(int id)
+        {
+            var team = await repo.GetByIdAsync<Team>(id);
+
+            return team.Name;
+        }
+
         public async Task<TeamResultsViewModel> GetTeamResultsAsync(int id)
         {
             var matches = await repo.All<Match>()

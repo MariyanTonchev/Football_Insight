@@ -1,3 +1,4 @@
+using Football_Insight.Core;
 using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Services;
 using Football_Insight.Infrastructure.Data;

@@ -11,7 +11,6 @@
                 </form>
 
                 <form asp-action="Delete" asp-controller="League" method="post" class="d-inline">
-                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="LeagueId" />
                     <button type="submit" class="btn btn-outline-danger me-4">Delete League</button>
                 </form>
@@ -94,11 +93,16 @@
                                     {
                                         <tr role="row">
                                             <td>@match.DateAndTime</td>
-                                            <td>@match.HomeTeamName VS @match.AwayTeamName</td>
+                                            <td>
+                                                    <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id">
+                                                        @match.HomeTeamName VS @match.AwayTeamName
+                                                    </a>
+                                            </td>
                                             <td>
                                                 Add
-                                                <a asp-action="Edit" asp-controller="Match" asp-route-matchId="@match.Id">Edit</a>
-                                                <a asp-action="Delete" asp-controller="Match" asp-route-mathcId="@match.Id">Delete</a>
+                                                <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@match.Id">Start</a>
+                                                <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@match.Id">Edit</a>
+                                                <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@match.Id">Delete</a>
                                             </td>
                                         </tr>
                                     }                          

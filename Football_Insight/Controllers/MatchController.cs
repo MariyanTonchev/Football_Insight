@@ -1,6 +1,7 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Match;
+using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Football_Insight.Controllers
@@ -81,6 +82,56 @@ namespace Football_Insight.Controllers
             await matchService.UpdateMatchAsync(viewModel, matchId);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Start(int matchId)
+        {
+            var viewModel = await matchService.FindMatchAsync(matchId);
+
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Start(MatchSimpleViewModel viewModel)
+        {
+            await matchService.StartMatchAsync(viewModel.Id);
+
+            return RedirectToAction(nameof(Index), new { Id = viewModel.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int matchId)
+        {
+            var match = await matchService.FindMatchAsync(matchId);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            return View(match);
+        }
+
+        [HttpPost]
+       
+        public async Task<IActionResult> Delete(MatchSimpleViewModel model)
+        {
+            var result = await matchService.DeleteMatchAsync(model.Id);
+
+            if (result.Success == false)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "League", new { id = model.LeagueId });
         }
     }
 }

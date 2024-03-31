@@ -17,9 +17,10 @@ namespace Football_Insight.Infrastructure.Data
         public DbSet<Team> Teams { get; set; } = null!;
         public DbSet<Player> Players { get; set; } = null!;
         public DbSet<PlayerStatistic> PlayerStatistics { get; set; } = null!;
-        public DbSet<Position> Positions { get; set; } = null!;
         public DbSet<PlayerMatch> PlayerMatches { get; set; } = null!;
         public DbSet<Stadium> Stadiums { get; set; } = null!;
+
+        public DbSet<Goal> Goals { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -53,11 +54,15 @@ namespace Football_Insight.Infrastructure.Data
                 .WithMany(p => p.PlayerStatistics)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<Player>()
+                .HasMany(p => p.Goals)
+                .WithOne(g => g.ScoringPlayer)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.ApplyConfiguration(new LeagueConfiguration());
             builder.ApplyConfiguration(new StadiumConfiguration());
             builder.ApplyConfiguration(new TeamConfiguration());
             builder.ApplyConfiguration(new PlayerConfiguration());
-            builder.ApplyConfiguration(new PositionConfiguration());
         }
     }
 }
