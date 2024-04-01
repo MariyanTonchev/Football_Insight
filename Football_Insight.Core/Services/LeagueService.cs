@@ -185,7 +185,7 @@ namespace Football_Insight.Core.Services
                         Id = m.Id,
                         HomeTeamName = m.HomeTeam.Name,
                         AwayTeamName = m.AwayTeam.Name,
-                        DateAndTime = m.Date.ToString("HH:mm dd/MM/yyyy")
+                        DateAndTime = m.Date.ToString(Constants.MessageConstants.DateFormat)
                     })
                     .ToListAsync();
 

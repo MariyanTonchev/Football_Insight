@@ -15,7 +15,7 @@ namespace Football_Insight.Core.Contracts
 
         Task<MatchSimpleViewModel> FindMatchAsync(int matchId);
 
-        Task StartMatchAsync(int matchId);
+        Task<ActionResult> StartMatchAsync(int matchId);
 
         Task<ActionResult> DeleteMatchAsync(int matchId);
     }

@@ -1,31 +1,46 @@
 ﻿@model List<LeagueTeamsViewModel>
 
 <div class="layout-spacing">
-    <div class="container-xl px-0" style="max-width: 33%; margin-left: auto; margin-right: auto;">
-        <div id="iconsAccordion" class="accordion-icons accordion">
-            @for(int i = 0; i < Model.Count; i++)
-            {
-            <div class="card">
-                <div class="card-header" id="heading@(i)3">
-                <section class="mb-0 mt-0">
-                        <div role="menu" class="" data-bs-toggle="collapse" data-bs-target="#iconAccordion@(i)" aria-expanded="true" aria-controls="iconAccordion@(i)">
-                        <div class="accordion-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
-                        @Model[i].Name  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-                    </div>
-                </section>
-                </div>
-                    <div id="iconAccordion@(i)" class="collapse" aria-labelledby="heading@(i)" data-bs-parent="#iconsAccordion">
-                    <div class="card-body">
-                        <ul class="list-unstyled">
-                            @foreach(var team in Model[i].Teams)
-                                {
-                                    <li><a asp-controller="Team" asp-action="Index" asp-route-TeamId="@team.Id" class="">@team.Name</a></li>
-                                }
-                        </ul>
-                    </div>
+    <div class="container-xl">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div id="iconsAccordion" class="accordion-icons accordion">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="card">
+                            <div class="card-header" id="heading@(i)3">
+                                <section class="mb-0 mt-0">
+                                    <div role="menu" class="" data-bs-toggle="collapse" data-bs-target="#iconAccordion@(i)" aria-expanded="true" aria-controls="iconAccordion@(i)">
+                                        <div class="accordion-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
+                                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                            </svg>
+                                        </div>
+                                        @Model[i].Name
+                                        <div class="icons">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div id="iconAccordion@(i)" class="collapse" aria-labelledby="heading@(i)" data-bs-parent="#iconsAccordion">
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        @foreach (var team in Model[i].Teams)
+                                        {
+                                            <li><a asp-controller="Team" asp-action="Index" asp-route-TeamId="@team.Id">@team.Name</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-            }
         </div>
     </div>
 </div>

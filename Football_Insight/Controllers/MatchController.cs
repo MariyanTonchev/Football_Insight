@@ -1,8 +1,7 @@
 ﻿using Football_Insight.Core.Contracts;
-using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Match;
-using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Football_Insight.Controllers
 {
@@ -20,9 +19,16 @@ namespace Football_Insight.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int matchId)
         {
-            return View();
+            var viewModel = await matchService.GetMatchDetailsAsync(matchId);
+
+            if (viewModel == null)
+            {
+                return BadRequest();
+            }
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -81,7 +87,7 @@ namespace Football_Insight.Controllers
 
             await matchService.UpdateMatchAsync(viewModel, matchId);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {matchId});
         }
 
         [HttpGet]
@@ -101,9 +107,15 @@ namespace Football_Insight.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Start(MatchSimpleViewModel viewModel)
         {
-            await matchService.StartMatchAsync(viewModel.Id);
+            var result = await matchService.StartMatchAsync(viewModel.MatchId);
 
-            return RedirectToAction(nameof(Index), new { Id = viewModel.Id });
+            if (!result.Success)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(viewModel);
+            }
+
+            return RedirectToAction(nameof(Index), new { viewModel.MatchId });
         }
 
         [HttpGet]
@@ -123,9 +135,9 @@ namespace Football_Insight.Controllers
        
         public async Task<IActionResult> Delete(MatchSimpleViewModel model)
         {
-            var result = await matchService.DeleteMatchAsync(model.Id);
+            var result = await matchService.DeleteMatchAsync(model.MatchId);
 
-            if (result.Success == false)
+            if (!result.Success)
             {
                 ModelState.AddModelError("", result.Message);
                 return View(model);

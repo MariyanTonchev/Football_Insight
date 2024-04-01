@@ -16,7 +16,8 @@
                             <a asp-action="Index" asp-controller="League" asp-route-Id="@Model.LeagueId" class="btn btn-outline-success mb-2 me-4">Cancel</a>
                             <button type="submit" class="btn btn-outline-danger mb-2 me-4">Delete</button>
                             
-                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="MatchId" />
+                            <input type="hidden" asp-for="LeagueId" />
                         </div>
                     </div>
                 </div>

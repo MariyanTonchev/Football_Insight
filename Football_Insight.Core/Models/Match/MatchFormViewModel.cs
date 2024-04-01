@@ -6,6 +6,9 @@ namespace Football_Insight.Core.Models.Match
     public class MatchFormViewModel : IValidatableObject
     {
         [Required]
+        public int MatchId { get; set; }
+
+        [Required]
         public DateTime DateAndTime { get; set; } = DateTime.Today;
 
         [Required]

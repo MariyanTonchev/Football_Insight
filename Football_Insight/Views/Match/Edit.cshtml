@@ -34,7 +34,9 @@
                                     </div>
                                 </div>
                                 <div class="col-12" style="text-align: center;">
-                                    <a asp-action="Index" asp-controller="League" asp-route-Id="@Model.LeagueId" class="btn btn-outline-success mb-2 me-4">Cancel</a>
+                                    <a asp-action="Index" asp-controller="League" asp-route-ID="@Model.LeagueId" class="btn btn-outline-success mb-2 me-4">Cancel</a>
+                                    <input type="hidden" asp-for="MatchId" />
+                                    <input type="hidden" asp-for="LeagueId" />
                                     <button type="submit" class="btn btn-outline-success mb-2 me-4">
                                         <span class="btn-text-inner">Edit Match</span>
                                     </button>

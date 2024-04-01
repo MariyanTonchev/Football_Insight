@@ -6,6 +6,7 @@ using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace Football_Insight.Core.Services
 {
@@ -42,7 +43,7 @@ namespace Football_Insight.Core.Services
                     Id = m.Id,
                     HomeTeam = m.HomeTeam.Name,
                     AwayTeam = m.AwayTeam.Name,
-                    Date = m.Date.ToString()
+                    Date = m.Date.ToString(Constants.MessageConstants.DateFormat)
                 })
                 .ToListAsync();
 

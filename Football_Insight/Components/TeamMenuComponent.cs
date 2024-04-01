@@ -16,17 +16,17 @@ namespace Football_Insight.Components
             context = Context;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int Id)
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var team = await context.Teams
-                .Where(t => t.Id == Id)
+                .Where(t => t.Id == id)
                 .Include(t => t.League)
                 .Include(t => t.Stadium)
                 .FirstOrDefaultAsync();
 
             var viewModel = new TeamDetailedViewModel
             {
-                Id = Id,
+                Id = id,
                 Name = team.Name,
                 Founded = team.Founded,
                 LogoURL = team.LogoURL,

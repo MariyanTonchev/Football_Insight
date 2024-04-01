@@ -23,6 +23,27 @@ namespace Football_Insight.Core.Services
             leagueService = _leagueService;
         }
 
+        public async Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId)
+        {
+            var match = await GetMatchAsync(matchId);
+
+            var viewModel = new MatchDetailsViewModel
+            {
+                Id = match.Id,
+                HomeTeamName = await teamService.GetTeamNameAsync(match.HomeTeamId),
+                HomeTeamId = match.HomeTeamId,
+                HomeScore = match.HomeScore,
+                AwayTeamName = await teamService.GetTeamNameAsync(match.AwayTeamId),
+                AwayTeamId = match.AwayTeamId,
+                AwayScore = match.AwayScore,
+                DateAndTime = match.Date.ToString(),
+                Status = match.Status.ToString(),
+                LeagueId = match.LeagueId,
+            };
+
+            return viewModel;
+        }
+
         public async Task<int> CreateMatchAsync(MatchFormViewModel model, int leagueId)
         {
             var stadiumId = await stadiumService.GetStadiumIdAsync(model.HomeTeamId);
@@ -47,7 +68,7 @@ namespace Football_Insight.Core.Services
 
         public async Task UpdateMatchAsync(MatchFormViewModel model, int matchId)
         {
-            var match = await repo.GetByIdAsync<Match>(matchId);
+            var match = await GetMatchAsync(matchId);
 
             if (match != null)
             {
@@ -59,30 +80,11 @@ namespace Football_Insight.Core.Services
             }
         }
 
-        public async Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId)
+        public async Task<MatchFormViewModel?> GetMatchFormViewModelByIdAsync(int matchId)
         {
-            var match = await repo.GetByIdAsync<Match>(matchId);
+            var match = await GetMatchAsync(matchId);
 
-            var viewModel = new MatchDetailsViewModel
-            {
-                Id = match.Id,
-                HomeTeamId = match.HomeTeamId,
-                AwayTeamId = match.AwayTeamId,
-                DateAndTime = match.Date,
-                LeagueId = match.LeagueId,
-                Teams = await leagueService.GetAllTeamsAsync(match.LeagueId) 
-            };
-
-            return viewModel;
-        }
-
-        public async Task<MatchFormViewModel?> GetMatchFormViewModelByIdAsync(int id)
-        {
-            var match = await repo.AllReadonly<Match>()
-                .Where(m => m.Id == id)
-                .FirstOrDefaultAsync();
-
-            if(match != null)
+            if (match != null)
             {
                 var model = new MatchFormViewModel
                 {
@@ -99,26 +101,28 @@ namespace Football_Insight.Core.Services
             return null;
         }
 
-        public async Task StartMatchAsync(int matchId)
+        public async Task<ActionResult> StartMatchAsync(int matchId)
         {
-            var match = await repo.GetByIdAsync<Match>(matchId);
+            var match = await GetMatchAsync(matchId);
 
-            var currentTime = DateTime.UtcNow;
-
-            if(currentTime >= DateTime.UtcNow) 
+            if(match.Date >= DateTime.Now && match.Status == MatchStatus.Scheduled) 
             {
                 match.Status = MatchStatus.Live;
                 await repo.SaveChangesAsync();
+
+                return new ActionResult(true, "Match started successfully!");
             }
+
+            return new ActionResult(false, "Cannot start a match that is scheduled for the future.");
         }
 
         public async Task<MatchSimpleViewModel> FindMatchAsync(int matchId)
         {
-            var match = await repo.GetByIdAsync<Match>(matchId);
+            var match = await GetMatchAsync(matchId);
 
             var model = new MatchSimpleViewModel
             {
-                Id = match.Id,
+                MatchId = match.Id,
                 HomeTeam = await teamService.GetTeamNameAsync(match.HomeTeamId),
                 AwayTeam = await teamService.GetTeamNameAsync(match.AwayTeamId),
                 LeagueId = match.LeagueId
@@ -126,6 +130,8 @@ namespace Football_Insight.Core.Services
 
             return model;
         }
+
+        private async Task<Match> GetMatchAsync(int matchId) => await repo.GetByIdAsync<Match>(matchId);
 
         public async Task<ActionResult> DeleteMatchAsync(int matchId)
         {

@@ -2,7 +2,7 @@
 {
     public class MatchSimpleViewModel
     {
-        public int Id { get; set; }
+        public int MatchId { get; set; }
 
         public string HomeTeam { get; set; } = string.Empty;
 

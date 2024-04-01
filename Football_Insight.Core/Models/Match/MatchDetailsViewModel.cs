@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Core.Models.Team;
+using Football_Insight.Infrastructure.Data.Models;
 
 namespace Football_Insight.Core.Models.Match
 {
@@ -6,15 +7,24 @@ namespace Football_Insight.Core.Models.Match
     {
         public int Id { get; set; }
 
-        public DateTime DateAndTime { get; set; } = DateTime.Today;
+        public string DateAndTime { get; set; } = string.Empty;
+
+        public string HomeTeamName { get; set; } = string.Empty;
 
         public int HomeTeamId { get; set; }
 
+        public string AwayTeamName { get; set; } = string.Empty;
+
         public int AwayTeamId { get; set; }
+
+        public int HomeScore { get; set; }
+
+        public int AwayScore { get; set; }
 
         public int LeagueId { get; set; }
 
-        public ICollection<TeamSimpleViewModel> Teams { get; set; } = new List<TeamSimpleViewModel>();
+        public string Status { get; set; } = string.Empty;
 
+        public List<Goal> Goals { get; set; } = new List<Goal>();
     }
 }
