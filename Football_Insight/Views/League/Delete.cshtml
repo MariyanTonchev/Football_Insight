@@ -14,8 +14,8 @@
                             <div class="text-danger">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             </div>
-                            <a asp-action="All" asp-controller="League" class="btn btn-outline-success mb-2 me-4">Cancel</a>
-                            <button type="submit" class="btn btn-outline-danger mb-2 me-4">Delete</button>
+                            <a asp-action="Index" asp-controller="League" asp-route-ID="@Model.Id" class="btn btn-outline-danger mb-2 me-4">Cancel</a>
+                            <button type="submit" class="btn btn-outline-success mb-2 me-4">Delete</button>
                             <input type="hidden" asp-for="Id" />
                             <input type="hidden" asp-for="Name" />
                         </div>
