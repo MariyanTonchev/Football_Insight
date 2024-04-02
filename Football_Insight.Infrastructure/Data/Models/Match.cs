@@ -32,6 +32,8 @@ namespace Football_Insight.Infrastructure.Data.Models
 
         public MatchStatus Status { get; set; }
 
+        public int Minutes {  get; set; }
+
         [ForeignKey(nameof(HomeTeamId))]
         public Team HomeTeam { get; set; } = null!;
 

@@ -42,9 +42,16 @@ body {
     font-size: 16px;
 }
 
+.square-image-container {
+    /* Ensure the container has a defined size that matches your design */
+    width: 100%; /* or fixed size e.g., 150px */
+    padding: 10px; /* optional, for some spacing around the image */
+}
+
 .square-image {
-    border-radius: 15px;
-    height: 200px;
-    width: 90%;
-    padding-bottom: 5px;
+    width: 100%; /* Make image fill the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the container with the image without stretching it */
+    max-height: 150px; /* Adjust based on your design needs */
+    border-radius: 10px;
 }

@@ -10,14 +10,20 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Are you sure you want to start the following match: <span style="color: yellow": 10">@Model.ToString()</span> ?</h5>
+                            <h5 class="card-title">
+                                Are you sure you want to start the following match: 
+                                <span style="color: yellow": 10">@Model.HomeTeam VS @Model.AwayTeam</span> 
+                                ?
+                             </h5>
+                            <input type="hidden" asp-for="HomeTeam" />
+                            <input type="hidden" asp-for="AwayTeam" />
                             <div class="text-danger">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             </div>
                             <a asp-action="Index" asp-controller="League" asp-route-Id="@Model.LeagueId" class="btn btn-outline-danger mb-2 me-4">No</a>
 
                             <button type="submit" class="btn btn-outline-success mb-2 me-4">Yes</button>
-                            
+
                             <input type="hidden" asp-for="MatchId"/>
                             <input type="hidden" asp-for="LeagueId"/>
                         </div>

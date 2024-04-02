@@ -1,5 +1,4 @@
-﻿using Football_Insight.Core.Models.Team;
-using Football_Insight.Infrastructure.Data.Models;
+﻿using Football_Insight.Infrastructure.Data.Models;
 
 namespace Football_Insight.Core.Models.Match
 {
@@ -24,6 +23,8 @@ namespace Football_Insight.Core.Models.Match
         public int LeagueId { get; set; }
 
         public string Status { get; set; } = string.Empty;
+
+        public int Minutes { get; set; }
 
         public List<Goal> Goals { get; set; } = new List<Goal>();
     }

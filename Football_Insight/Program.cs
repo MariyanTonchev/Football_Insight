@@ -1,13 +1,23 @@
-using Football_Insight.Core;
 using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Services;
+using Football_Insight.Extensions;
 using Football_Insight.Infrastructure.Data;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Models;
+using Football_Insight.Jobs;
 using Microsoft.EntityFrameworkCore;
+using Quartz;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddQuartz(q =>
+{
+    // Configure a job and trigger with Quartz
+    q.UseMicrosoftDependencyInjectionJobFactory();
+    q.AddJobAndTrigger<MatchStartJob>();
+});
+
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = false);
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FootballInsightDbContext>(options =>
     options.UseSqlServer(connectionString));

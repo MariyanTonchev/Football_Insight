@@ -9,10 +9,5 @@
         public string AwayTeam { get; set; } = string.Empty;
 
         public int LeagueId { get; set; }
-
-        public override string ToString()
-        {
-            return $"{HomeTeam} VS {AwayTeam}";
-        }
     }
 }
