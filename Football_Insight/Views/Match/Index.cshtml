@@ -7,12 +7,23 @@
             <div class="card justify-content-start" style="margin-top: 30px;">
                 <div class="row" style="text-align: center;">
                     <div class="col-3 d-flex align-items-center justify-content-center">
-                        <div class="square-image-container col-12">
+                        <div class="square-image-container">
                             <h6>@Model.HomeTeamName</h6>
                             <img src="~/photos/default.jpg" class="square-image" alt="First Image">
                         </div>
                     </div>
-                    <div class="col-6 d-flex flex-column align-items-center justify-content-center">
+                    <div class="col d-flex flex-column align-items-start justify-content-center">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;">
+                            <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;">
+                            <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card">
+                            <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
+                        </a>
+                    </div>
+                    <div class="col-4 d-flex flex-column align-items-center justify-content-center">
                         <div class="row">
                             <p>@Model.DateAndTime</p>
                         </div>
@@ -24,13 +35,35 @@
                         </div>
                         @if (Model.Status == MatchStatus.Live.ToString())
                         {
-                            <div class="row">
+                            <div class="row" id="match-minutes">
                                 <p>@Model.Minutes min</p>
                             </div>
                         }
+                        <div class="row justify-content-center">
+                            <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start match" class="col">
+                                <i class="fa-regular fa-circle-play fa-xl" style="color: #1eff00;"></i>
+                            </a>
+                            <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Halftime" class="col">
+                                <i class="fa-regular fa-circle-pause fa-xl" style="color: #ff8800;"></i>
+                            </a>
+                            <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@Model.Id" title="End match" class="col">
+                                <i class="fa-regular fa-circle-stop fa-xl" style="color: #ff0000;"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col d-flex flex-column align-items-end justify-content-center">
+                        <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;">
+                            <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;">
+                            <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card">
+                            <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
+                        </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
-                        <div class="square-image-container col-12">
+                        <div class="square-image-container">
                             <h6>@Model.AwayTeamName</h6>
                             <img src="~/photos/default.jpg" class="square-image" alt="Second Image">
                         </div>
@@ -40,3 +73,28 @@
         </div>
     </div>
 </div>
+
+@if (Model.Status == MatchStatus.Live.ToString())
+{
+    <script>
+        $(document).ready(function () {
+            setInterval(refreshMatchMinutes, 10000);
+
+            function refreshMatchMinutes() {
+                $.ajax({
+                    url: '@Url.Action("GetMatchMinutes", "Match")',
+                    data: { matchId: '@Model.Id' },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data)
+                        $('#match-minutes').html(`<p>${data.minutes} min</p>`);
+                    },
+                    error: function () {
+                        console.log('Error retrieving match minutes.');
+                    }
+                });
+            }
+        });
+    </script>
+}

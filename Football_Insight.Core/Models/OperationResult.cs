@@ -1,19 +1,19 @@
 ﻿namespace Football_Insight.Core.Models
 {
-    public class ActionResult
+    public class OperationResult
     {
-        public ActionResult(bool success)
+        public OperationResult(bool success)
         {
             Success = success;
         }
 
-        public ActionResult(bool success, string message)
+        public OperationResult(bool success, string message)
         {
             Success = success;
             Message = message;
         }
 
-        public ActionResult(bool success, string message, int? leagueId) : this(success, message)
+        public OperationResult(bool success, string message, int? leagueId) : this(success, message)
         {
             LeagueId = leagueId;
         }

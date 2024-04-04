@@ -94,15 +94,23 @@
                                         <tr role="row">
                                             <td>@match.DateAndTime</td>
                                             <td>
-                                                    <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id">
-                                                        @match.HomeTeamName VS @match.AwayTeamName
-                                                    </a>
+                                                <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id">
+                                                    @match.HomeTeamName VS @match.AwayTeamName
+                                                </a>
                                             </td>
                                             <td>
-                                                Add
-                                                <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@match.Id">Start</a>
-                                                <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@match.Id">Edit</a>
-                                                <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@match.Id">Delete</a>
+                                                    <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@match.Id" title="View details" class="action-icon">
+                                                        <i class="fa-solid fa-eye fa-xl" style="color: #858585;"></i>
+                                                    </a>
+                                                    <a asp-action="Favorite" asp-controller="Match" asp-route-MatchId="@match.Id" title="Add to Favorites" class="action-icon">
+                                                        <i class="fa-regular fa-star fa-xl" style="color: #1eff00;"></i>
+                                                    </a>
+                                                    <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@match.Id" title="Edit match" class="action-icon">
+                                                        <i class="fa-solid fa-pencil fa-xl" style="color: #FFD43B;"></i>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@match.Id" title="Delete match" class="action-icon">
+                                                        <i class="fa-regular fa-trash-can fa-xl" style="color: #ff0000;"></i>
+                                                    </a>
                                             </td>
                                         </tr>
                                     }                          

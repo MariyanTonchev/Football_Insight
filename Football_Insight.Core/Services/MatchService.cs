@@ -15,19 +15,22 @@ namespace Football_Insight.Core.Services
         private readonly IStadiumService stadiumService;
         private readonly ILeagueService leagueService;
         private readonly ITeamService teamService;
-        private readonly ISchedulerFactory schedulerFactory;
+        private readonly IMatchTimerService matchTimerService;
+        private readonly IMatchJobService matchJobService;
 
         public MatchService(IRepository _repo, 
                             IStadiumService _stadiumService, 
                             ILeagueService _leagueService, 
                             ITeamService _teamService, 
-                            ISchedulerFactory _schedulerFactory)
+                            IMatchTimerService _matchTimerService,
+                            IMatchJobService _matchJobService)
         {
             repo = _repo;
             teamService = _teamService;
             stadiumService = _stadiumService;
             leagueService = _leagueService;
-            schedulerFactory = _schedulerFactory;
+            matchTimerService = _matchTimerService;
+            matchJobService = _matchJobService;
         }
 
         public async Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId)
@@ -46,7 +49,7 @@ namespace Football_Insight.Core.Services
                 DateAndTime = match.Date.ToString(),
                 Status = match.Status.ToString(),
                 LeagueId = match.LeagueId,
-                Minutes = match.Minutes
+                Minutes = matchTimerService.GetMatchMinute(matchId)
             };
 
             return viewModel;
@@ -109,7 +112,7 @@ namespace Football_Insight.Core.Services
             return null;
         }
 
-        public async Task<ActionResult> StartMatchAsync(int matchId)
+        public async Task<OperationResult> StartMatchAsync(int matchId)
         {
             try
             {
@@ -117,44 +120,29 @@ namespace Football_Insight.Core.Services
 
                 if (match == null)
                 {
-                    return new ActionResult(false, "Match not found.");
+                    return new OperationResult(false, "Match not found.");
                 }
 
-                var scheduler = await schedulerFactory.GetScheduler();
-                var jobKey = new JobKey($"StartMatchJob-{matchId}");
-                var triggerKey = new TriggerKey($"MatchStartTrigger-{matchId}");
-
-                if (await scheduler.CheckExists(jobKey))
+                if (match.Status == MatchStatus.Live)
                 {
-                    return new ActionResult(false, "Match is already in progress.");
+                    return new OperationResult(false, "Match is already in progress.");
                 }
 
-                if (!(match.Status == MatchStatus.Scheduled))
+                if (match.Status != MatchStatus.Scheduled)
                 {
-                    return new ActionResult(false, "Match is not in the scheduled status.");
+                    return new OperationResult(false, "Match is not in the scheduled status.");
                 }
 
                 match.Status = MatchStatus.Live;
                 await repo.SaveChangesAsync();
 
-                var job = JobBuilder.Create<MatchStartJob>()
-                            .WithIdentity(jobKey)
-                            .UsingJobData("matchId", matchId)
-                            .Build();
+                matchJobService.StartMatchJobAsync(matchId);
 
-                var trigger = TriggerBuilder.Create()
-                            .WithIdentity(triggerKey)
-                            .StartNow()
-                            .WithSimpleSchedule(x => x.WithIntervalInSeconds(1).RepeatForever())
-                            .Build();
-
-                await scheduler.ScheduleJob(job, trigger);
-
-                return new ActionResult(true, "Match started successfully!");
+                return new OperationResult(true, "Match started successfully!");
             }
             catch (Exception)
             {
-                return new ActionResult(false, "An error occurred while starting the match.");
+                return new OperationResult(false, "An error occurred while starting the match.");
             }
         }
 
@@ -175,19 +163,24 @@ namespace Football_Insight.Core.Services
 
         private async Task<Match> GetMatchAsync(int matchId) => await repo.GetByIdAsync<Match>(matchId);
 
-        public async Task<ActionResult> DeleteMatchAsync(int matchId)
+        public async Task<OperationResult> DeleteMatchAsync(int matchId)
         {
             var match = await repo.GetByIdAsync<Match>(matchId);
 
             if (match == null)
             {
-                return new ActionResult(false, "Match not found!");
+                return new OperationResult(false, "Match not found!");
             }
 
             await repo.RemoveAsync(match);
             await repo.SaveChangesAsync();
 
-            return new ActionResult(true, $"Successfully deleted {match.Id}!");
+            return new OperationResult(true, $"Successfully deleted {match.Id}!");
+        }
+
+        public Task<int> GetMatchMinutes(int matchId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

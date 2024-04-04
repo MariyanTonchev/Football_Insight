@@ -1,29 +1,24 @@
-﻿using Football_Insight.Infrastructure.Data.Common;
-using Football_Insight.Infrastructure.Data.Models;
+﻿using Football_Insight.Core.Contracts;
 using Quartz;
 
 namespace Football_Insight.Jobs
 {
     public class MatchStartJob : IJob
     {
-        private readonly IRepository repository;
+        private readonly IMatchTimerService matchTimerService;
 
-        public MatchStartJob(IRepository _repository)
+        public MatchStartJob(IMatchTimerService _matchTimerService)
         {
-            repository = _repository;
+            matchTimerService = _matchTimerService;
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
             int matchId = context.JobDetail.JobDataMap.GetInt("matchId");
 
-            var match = await repository.GetByIdAsync<Match>(matchId);
-
-            if (match != null)
+            if (matchId != 0)
             {
-                Console.WriteLine($"Executing MatchStartJob at {DateTime.Now}");
-                match.Minutes += 1;
-                await repository.SaveChangesAsync();
+                matchTimerService.UpdateMatchMinute(matchId);
             }
         }
     }

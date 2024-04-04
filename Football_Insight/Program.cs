@@ -16,7 +16,8 @@ builder.Services.AddQuartz(q =>
     q.AddJobAndTrigger<MatchStartJob>();
 });
 
-builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = false);
+builder.Services.AddMemoryCache();
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FootballInsightDbContext>(options =>
@@ -40,6 +41,9 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ILeagueService, LeagueService>();
 builder.Services.AddScoped<IMatchService, MatchService>();
 builder.Services.AddScoped<IStadiumService, StadiumService>();
+builder.Services.AddScoped<IMatchTimerService, MatchTimerService>();
+builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddScoped<IMatchJobService, MatchJobService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>

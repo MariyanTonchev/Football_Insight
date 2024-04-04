@@ -1,8 +1,6 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models.Match;
-using Football_Insight.Jobs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Quartz;
 
 namespace Football_Insight.Controllers
@@ -12,14 +10,20 @@ namespace Football_Insight.Controllers
         private readonly IMatchService matchService;
         private readonly ILeagueService leagueService;
         private readonly ISchedulerFactory schedulerFactory;
+        private readonly IMatchTimerService matchTimerService;
         private readonly ILogger<MatchController> logger;
 
-        public MatchController(IMatchService _matchService, ILeagueService _leagueService, ISchedulerFactory _schedulerFactory, ILogger<MatchController> _logger)
+        public MatchController(IMatchService _matchService, 
+                        ILeagueService _leagueService, 
+                        ISchedulerFactory _schedulerFactory, 
+                        ILogger<MatchController> _logger, 
+                        IMatchTimerService _matchTimerService)
         {
             matchService = _matchService;
             leagueService = _leagueService;
             schedulerFactory = _schedulerFactory;
             logger = _logger;
+            matchTimerService = _matchTimerService;
         }
 
         [HttpGet]
@@ -148,6 +152,24 @@ namespace Football_Insight.Controllers
             }
 
             return RedirectToAction("Index", "League", new { id = model.LeagueId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMatchMinutes(int matchId)
+        {
+            var data = new
+            {
+                Minutes = matchTimerService.GetMatchMinute(matchId)
+            };
+
+            return Json(data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Pause(int matchId)
+        {
+
+            return View();
         }
     }
 }

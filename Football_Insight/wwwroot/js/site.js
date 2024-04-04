@@ -57,4 +57,12 @@
             reader.readAsDataURL(this.files[0]);
         }
     });
+
+    $('.action-icon').hover(
+        function () {
+            $(this).addClass('fa-beat');
+        }, function () {
+            $(this).removeClass('fa-beat');
+        }
+    );
 });

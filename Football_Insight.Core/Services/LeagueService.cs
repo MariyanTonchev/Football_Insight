@@ -19,13 +19,13 @@ namespace Football_Insight.Core.Services
             repo = _repo;
         }
 
-        public async Task<ActionResult> CreateLeagueAsync(LeagueCreateViewModel model)
+        public async Task<OperationResult> CreateLeagueAsync(LeagueCreateViewModel model)
         {
             var existingLeagues = await GetAllLeaguesAsync();
 
             if (existingLeagues.Any(l => l.Name.Equals(model.Name, StringComparison.OrdinalIgnoreCase)))
             {
-                return new ActionResult(false, "A league with the same name already exists.");
+                return new OperationResult(false, "A league with the same name already exists.");
             }
 
             var newLeague = new League
@@ -36,23 +36,23 @@ namespace Football_Insight.Core.Services
             await repo.AddAsync(newLeague);
             await repo.SaveChangesAsync();
 
-            return new ActionResult(true, "League created successfully.", newLeague.Id);
+            return new OperationResult(true, "League created successfully.", newLeague.Id);
         }
 
-        public async Task<ActionResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
+        public async Task<OperationResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
         {
             var league = await repo.GetByIdAsync<League>(viewModel.Id);
 
             if (league == null)
             {
-                return new ActionResult(false, "League not found!");
+                return new OperationResult(false, "League not found!");
             }
 
             var existingLeagues = await GetAllLeaguesAsync();
 
             if (existingLeagues.Any(l => l.Name.Equals(viewModel.Name.Trim(), StringComparison.OrdinalIgnoreCase)))
             {
-                return new ActionResult(false, "A league with the same name already exists.");
+                return new OperationResult(false, "A league with the same name already exists.");
             }
 
             league.Name = viewModel.Name;
@@ -60,34 +60,34 @@ namespace Football_Insight.Core.Services
             try
             {
                 await repo.SaveChangesAsync();
-                return new ActionResult(true, "League edited successfully.");
+                return new OperationResult(true, "League edited successfully.");
             }
             catch (Exception ex)
             {
-                return new ActionResult(false, ex.Message);
+                return new OperationResult(false, ex.Message);
             }
         }
 
-        public async Task<ActionResult> DeleteLeagueAsync(int leagueId)
+        public async Task<OperationResult> DeleteLeagueAsync(int leagueId)
         {
             var league = await repo.GetByIdAsync<League>(leagueId);
 
             if (league == null)
             {
-                return new ActionResult(false, "League not found!");
+                return new OperationResult(false, "League not found!");
             }
 
             var teamsInLeagueCount = (await GetAllTeamsAsync(leagueId)).Count;
 
             if(teamsInLeagueCount > 0)
             {
-                return new ActionResult(false, $"League has {teamsInLeagueCount} teams and cannot be deleted!");
+                return new OperationResult(false, $"League has {teamsInLeagueCount} teams and cannot be deleted!");
             }
 
             await repo.RemoveAsync(league);
             await repo.SaveChangesAsync();
 
-            return new ActionResult(true, $"Successfully deleted {league.Name}!");
+            return new OperationResult(true, $"Successfully deleted {league.Name}!");
         }
 
         public async Task<LeagueSimpleViewModel> FindLeagueAsync(int leagueId)
