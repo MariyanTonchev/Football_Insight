@@ -5,7 +5,5 @@
         void UpdateMatchMinute(int matchId);
 
         int GetMatchMinute(int matchId);
-
-        Task PersistMinutesToDatabase(int matchId);
     }
 }

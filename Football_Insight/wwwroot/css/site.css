@@ -55,8 +55,15 @@ body {
     border-radius: 10px;
 }
 
-.action-icon {
+.action-icon-row{
     position: relative;
     display: inline-block;
     margin-right: 10px; 
+}
+
+.action-icon-col {
+    position: relative;
+    display: inline-block;
+    margin-right: -20px;
+    margin-left: -20px;
 }

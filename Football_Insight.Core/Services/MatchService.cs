@@ -4,8 +4,6 @@ using Football_Insight.Core.Models.Match;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
-using Football_Insight.Jobs;
-using Quartz;
 
 namespace Football_Insight.Core.Services
 {
@@ -136,7 +134,7 @@ namespace Football_Insight.Core.Services
                 match.Status = MatchStatus.Live;
                 await repo.SaveChangesAsync();
 
-                matchJobService.StartMatchJobAsync(matchId);
+                await matchJobService.StartMatchJobAsync(matchId);
 
                 return new OperationResult(true, "Match started successfully!");
             }
@@ -181,6 +179,41 @@ namespace Football_Insight.Core.Services
         public Task<int> GetMatchMinutes(int matchId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<OperationResult> PauseMatchAsync(int matchId)
+        {
+            try
+            {
+                var match = await GetMatchAsync(matchId);
+
+                if (match == null)
+                {
+                    return new OperationResult(false, "Match not found.");
+                }
+
+                if (matchTimerService.GetMatchMinute(matchId) <= 45)
+                {
+                    return new OperationResult(false, "Match is to early for halft time!");
+                }
+
+                if (match.Status != MatchStatus.Live)
+                {
+                    return new OperationResult(false, "Match is not in the live status.");
+                }
+
+                match.Status = MatchStatus.HalfTime;
+                match.Minutes = Constants.MessageConstants.HalfTimeMinute;
+                await repo.SaveChangesAsync();
+
+                await matchJobService.PauseMatchJobAsync(matchId);
+
+                return new OperationResult(true, "Match paused successfully!");
+            }
+            catch (Exception)
+            {
+                return new OperationResult(false, "An error occurred while starting the match.");
+            }
         }
     }
 }

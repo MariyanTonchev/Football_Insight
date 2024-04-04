@@ -4,7 +4,8 @@
     {
         Scheduled,
         Live,
+        HalfTime,
         Finished,
-        Postponed
+        Postponed,
     }
 }

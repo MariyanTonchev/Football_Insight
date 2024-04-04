@@ -17,6 +17,8 @@ namespace Football_Insight.Core.Contracts
 
         Task<OperationResult> StartMatchAsync(int matchId);
 
+        Task<OperationResult> PauseMatchAsync(int matchId);
+
         Task<OperationResult> DeleteMatchAsync(int matchId);
 
         Task<int> GetMatchMinutes(int matchId);

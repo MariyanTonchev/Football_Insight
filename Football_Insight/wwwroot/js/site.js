@@ -58,7 +58,7 @@
         }
     });
 
-    $('.action-icon').hover(
+    $('.action-icon-row, .action-icon-col').hover(
         function () {
             $(this).addClass('fa-beat');
         }, function () {

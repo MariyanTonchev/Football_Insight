@@ -1,6 +1,5 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Infrastructure.Data.Common;
-using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Football_Insight.Core.Services
@@ -28,7 +27,7 @@ namespace Football_Insight.Core.Services
             }
             else
             {
-                memoryCache.Set(cacheKey, 1, TimeSpan.FromHours(3));
+                memoryCache.Set(cacheKey, 1, TimeSpan.FromHours(1));
             }
         }
 
@@ -36,16 +35,6 @@ namespace Football_Insight.Core.Services
         {
             var cacheKey = $"Match_{matchId}_Minutes";
             return memoryCache.Get<int>(cacheKey);
-        }
-
-        public async Task PersistMinutesToDatabase(int matchId)
-        {
-            var minutes = GetMatchMinute(matchId);
-            var match = await repository.GetByIdAsync<Match>(matchId);
-
-            match.Minutes = minutes;
-
-            await repository.SaveChangesAsync();
         }
     }
 }

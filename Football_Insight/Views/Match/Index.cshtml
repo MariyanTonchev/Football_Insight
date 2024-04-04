@@ -13,13 +13,13 @@
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-start justify-content-center">
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
                         </a>
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" class="action-icon-col">
                             <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
                         </a>
                     </div>
@@ -40,25 +40,34 @@
                             </div>
                         }
                         <div class="row justify-content-center">
-                            <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start match" class="col">
+                            <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start match" class="col action-icon-row">
                                 <i class="fa-regular fa-circle-play fa-xl" style="color: #1eff00;"></i>
                             </a>
-                            <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Halftime" class="col">
-                                <i class="fa-regular fa-circle-pause fa-xl" style="color: #ff8800;"></i>
-                            </a>
-                            <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@Model.Id" title="End match" class="col">
+                            @if(Model.Status == MatchStatus.HalfTime.ToString())
+                            {
+                                <a asp-action="Pause" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start Second Half" class="col action-icon-row">
+                                    <i class="fa-regular fa-circle-pause fa-xl" style="color: #005eff;"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-action="Pause" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Half Time" class="col action-icon-row">
+                                    <i class="fa-regular fa-circle-pause fa-xl" style="color: #ff8800;"></i>
+                                </a>
+                            }
+                            <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@Model.Id" title="End match" class="col action-icon-row">
                                 <i class="fa-regular fa-circle-stop fa-xl" style="color: #ff0000;"></i>
                             </a>
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-end justify-content-center">
-                        <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;">
+                        <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
                         </a>
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" class="action-icon-col">
                             <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
                         </a>
                     </div>

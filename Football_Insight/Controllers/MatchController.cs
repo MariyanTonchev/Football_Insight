@@ -140,7 +140,7 @@ namespace Football_Insight.Controllers
         }
 
         [HttpPost]
-       
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(MatchSimpleViewModel model)
         {
             var result = await matchService.DeleteMatchAsync(model.MatchId);
@@ -168,8 +168,29 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Pause(int matchId)
         {
+            var match = await matchService.FindMatchAsync(matchId);
 
-            return View();
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            return View(match);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Pause(MatchSimpleViewModel viewModel)
+        {
+            var result = await matchService.PauseMatchAsync(viewModel.MatchId);
+
+            if (!result.Success)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(viewModel);
+            }
+
+            return RedirectToAction(nameof(Index), new { viewModel.MatchId });
         }
     }
 }
