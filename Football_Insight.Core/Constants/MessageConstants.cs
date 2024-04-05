@@ -7,5 +7,7 @@
         public const string DateFormat = "HH:mm dd/MM/yyyy";
 
         public const int HalfTimeMinute = 45;
+
+        public const int SecondsInMinute = 1;
     }
 }

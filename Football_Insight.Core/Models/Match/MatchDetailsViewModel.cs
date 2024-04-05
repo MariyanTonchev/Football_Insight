@@ -1,4 +1,5 @@
-﻿using Football_Insight.Infrastructure.Data.Models;
+﻿using Football_Insight.Infrastructure.Data.Enums;
+using Football_Insight.Infrastructure.Data.Models;
 
 namespace Football_Insight.Core.Models.Match
 {
@@ -22,7 +23,7 @@ namespace Football_Insight.Core.Models.Match
 
         public int LeagueId { get; set; }
 
-        public string Status { get; set; } = string.Empty;
+        public MatchStatus Status { get; set; }
 
         public int Minutes { get; set; }
 

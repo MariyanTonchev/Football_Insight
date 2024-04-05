@@ -4,6 +4,7 @@ using Football_Insight.Core.Models.Match;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Football_Insight.Core.Services
 {
@@ -15,13 +16,15 @@ namespace Football_Insight.Core.Services
         private readonly ITeamService teamService;
         private readonly IMatchTimerService matchTimerService;
         private readonly IMatchJobService matchJobService;
+        private readonly IMemoryCache memoryCache;
 
         public MatchService(IRepository _repo, 
                             IStadiumService _stadiumService, 
                             ILeagueService _leagueService, 
                             ITeamService _teamService, 
                             IMatchTimerService _matchTimerService,
-                            IMatchJobService _matchJobService)
+                            IMatchJobService _matchJobService,
+                            IMemoryCache _memoryCache)
         {
             repo = _repo;
             teamService = _teamService;
@@ -29,6 +32,7 @@ namespace Football_Insight.Core.Services
             leagueService = _leagueService;
             matchTimerService = _matchTimerService;
             matchJobService = _matchJobService;
+            memoryCache = _memoryCache;
         }
 
         public async Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId)
@@ -45,7 +49,7 @@ namespace Football_Insight.Core.Services
                 AwayTeamId = match.AwayTeamId,
                 AwayScore = match.AwayScore,
                 DateAndTime = match.Date.ToString(),
-                Status = match.Status.ToString(),
+                Status = match.Status,
                 LeagueId = match.LeagueId,
                 Minutes = matchTimerService.GetMatchMinute(matchId)
             };
@@ -121,7 +125,7 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "Match not found.");
                 }
 
-                if (match.Status == MatchStatus.Live)
+                if (match.Status == MatchStatus.FirstHalf || match.Status == MatchStatus.HalfTime || match.Status == MatchStatus.SecondHalf)
                 {
                     return new OperationResult(false, "Match is already in progress.");
                 }
@@ -131,7 +135,7 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "Match is not in the scheduled status.");
                 }
 
-                match.Status = MatchStatus.Live;
+                match.Status = MatchStatus.FirstHalf;
                 await repo.SaveChangesAsync();
 
                 await matchJobService.StartMatchJobAsync(matchId);
@@ -176,12 +180,60 @@ namespace Football_Insight.Core.Services
             return new OperationResult(true, $"Successfully deleted {match.Id}!");
         }
 
-        public Task<int> GetMatchMinutes(int matchId)
+        public async Task<int> GetMatchMinutes(int matchId)
         {
-            throw new NotImplementedException();
+            var match = await GetMatchAsync(matchId);
+
+            return match.Minutes;
         }
 
         public async Task<OperationResult> PauseMatchAsync(int matchId)
+        {
+            try
+            {
+                var match = await GetMatchAsync(matchId);
+                if (match == null)
+                {
+                    return new OperationResult(false, "Match not found.");
+                }
+
+                if (matchTimerService.GetMatchMinute(matchId) <= Constants.MessageConstants.HalfTimeMinute)
+                {
+                    return new OperationResult(false, "The match is too early for half time.");
+                }
+
+                if (match.Status is MatchStatus.Scheduled or MatchStatus.Postponed or MatchStatus.SecondHalf or MatchStatus.HalfTime)
+                {
+                    string reason = match.Status switch
+                    {
+                        MatchStatus.Scheduled => "The match has not started yet.",
+                        MatchStatus.Postponed => "The match is postponed.",
+                        MatchStatus.SecondHalf => "It's the second half of the match, halftime is over.",
+                        MatchStatus.HalfTime => "The match is already at halftime.",
+                        _ => "The match cannot be paused at this time."
+                    };
+
+                    return new OperationResult(false, reason);
+                }
+
+                match.Status = MatchStatus.HalfTime;
+                match.Minutes = Constants.MessageConstants.HalfTimeMinute;
+                await repo.SaveChangesAsync();
+
+                await matchJobService.PauseMatchJobAsync(matchId);
+
+                var cacheKey = $"Match_{matchId}_Status";
+                memoryCache.Set(cacheKey, match.Status);
+
+                return new OperationResult(true, "Match paused successfully!");
+            }
+            catch (Exception)
+            {
+                return new OperationResult(false, "An error occurred while starting the match.");
+            }
+        }
+
+        public async Task<OperationResult> UnpauseMatchAsync(int matchId)
         {
             try
             {
@@ -192,21 +244,23 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "Match not found.");
                 }
 
-                if (matchTimerService.GetMatchMinute(matchId) <= 45)
+                if (match.Status == MatchStatus.SecondHalf)
                 {
-                    return new OperationResult(false, "Match is to early for halft time!");
+                    return new OperationResult(false, "Second half is already in progress.");
                 }
 
-                if (match.Status != MatchStatus.Live)
+                if (match.Status != MatchStatus.HalfTime)
                 {
-                    return new OperationResult(false, "Match is not in the live status.");
+                    return new OperationResult(false, "The match is not at half time.");
                 }
 
-                match.Status = MatchStatus.HalfTime;
-                match.Minutes = Constants.MessageConstants.HalfTimeMinute;
+                match.Status = MatchStatus.SecondHalf;
                 await repo.SaveChangesAsync();
 
-                await matchJobService.PauseMatchJobAsync(matchId);
+                await matchJobService.UnpauseMatchJobAsync(matchId);
+
+                var cacheKey = $"Match_{matchId}_Status";
+                memoryCache.Set(cacheKey, match.Status);
 
                 return new OperationResult(true, "Match paused successfully!");
             }
@@ -215,5 +269,7 @@ namespace Football_Insight.Core.Services
                 return new OperationResult(false, "An error occurred while starting the match.");
             }
         }
+
+        public async Task<MatchStatus> GetMatchStatusAsync(int matchId) => (await repo.GetByIdAsync<Match>(matchId)).Status;
     }
 }

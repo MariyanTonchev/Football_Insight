@@ -1,5 +1,5 @@
 ﻿using Football_Insight.Core.Contracts;
-using Football_Insight.Infrastructure.Data.Common;
+using Football_Insight.Infrastructure.Data.Enums;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Football_Insight.Core.Services
@@ -8,26 +8,30 @@ namespace Football_Insight.Core.Services
     {
         private readonly IMemoryCache memoryCache;
         private readonly ICacheService cacheService;
-        private readonly IRepository repository;
 
-        public MatchTimerService(IMemoryCache _memoryCache, ICacheService _cacheService, IRepository _repository)
+        public MatchTimerService(IMemoryCache _memoryCache, ICacheService _cacheService)
         {
             memoryCache = _memoryCache;
             cacheService = _cacheService;
-            repository = _repository;
         }
-        
+
         public void UpdateMatchMinute(int matchId)
         {
-            var cacheKey = $"Match_{matchId}_Minutes";
+            var minuteCacheKey = $"Match_{matchId}_Minutes";
+            var statusCacheKey = $"Match_{matchId}_Status";
 
-            if (cacheService.TryGetCachedItem(cacheKey))
+            if (cacheService.TryGetCachedItem(minuteCacheKey))
             {
-                memoryCache.Set(cacheKey, memoryCache.Get<int>(cacheKey) + 1, TimeSpan.FromHours(3));
+                if(cacheService.TryGetCachedItem(statusCacheKey) && memoryCache.Get<MatchStatus>(statusCacheKey) == MatchStatus.HalfTime)
+                {
+                    memoryCache.Set(minuteCacheKey, Constants.MessageConstants.HalfTimeMinute, TimeSpan.FromHours(2));
+                    memoryCache.Set(statusCacheKey, MatchStatus.SecondHalf, TimeSpan.FromHours(2));
+                }
+                memoryCache.Set(minuteCacheKey, memoryCache.Get<int>(minuteCacheKey) + 1, TimeSpan.FromHours(2));
             }
             else
             {
-                memoryCache.Set(cacheKey, 1, TimeSpan.FromHours(1));
+                memoryCache.Set(minuteCacheKey, 1, TimeSpan.FromHours(2));
             }
         }
 

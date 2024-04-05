@@ -1,4 +1,5 @@
 ﻿@using Football_Insight.Infrastructure.Data.Enums
+@using Football_Insight.Core.Constants;
 @model MatchDetailsViewModel
 
 <div class="container-xl">
@@ -33,7 +34,7 @@
                         <div class="row">
                             <p>@Model.Status</p>
                         </div>
-                        @if (Model.Status == MatchStatus.Live.ToString())
+                        @if (Model.Status == MatchStatus.FirstHalf || Model.Status == MatchStatus.SecondHalf)
                         {
                             <div class="row" id="match-minutes">
                                 <p>@Model.Minutes min</p>
@@ -43,9 +44,9 @@
                             <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start match" class="col action-icon-row">
                                 <i class="fa-regular fa-circle-play fa-xl" style="color: #1eff00;"></i>
                             </a>
-                            @if(Model.Status == MatchStatus.HalfTime.ToString())
+                            @if(Model.Status == MatchStatus.HalfTime)
                             {
-                                <a asp-action="Pause" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start Second Half" class="col action-icon-row">
+                                <a asp-action="Unpause" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start Second Half" class="col action-icon-row">
                                     <i class="fa-regular fa-circle-pause fa-xl" style="color: #005eff;"></i>
                                 </a>
                             }
@@ -83,11 +84,11 @@
     </div>
 </div>
 
-@if (Model.Status == MatchStatus.Live.ToString())
+@if (Model.Status == MatchStatus.FirstHalf || Model.Status == MatchStatus.HalfTime || Model.Status == MatchStatus.SecondHalf)
 {
     <script>
         $(document).ready(function () {
-            setInterval(refreshMatchMinutes, 10000);
+            setInterval(refreshMatchMinutes, @MessageConstants.SecondsInMinute);
 
             function refreshMatchMinutes() {
                 $.ajax({

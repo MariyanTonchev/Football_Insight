@@ -1,5 +1,6 @@
 ﻿using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Match;
+using Football_Insight.Infrastructure.Data.Enums;
 
 namespace Football_Insight.Core.Contracts
 {
@@ -15,9 +16,13 @@ namespace Football_Insight.Core.Contracts
 
         Task<MatchSimpleViewModel> FindMatchAsync(int matchId);
 
+        Task<MatchStatus> GetMatchStatusAsync(int matchId);
+
         Task<OperationResult> StartMatchAsync(int matchId);
 
         Task<OperationResult> PauseMatchAsync(int matchId);
+
+        Task<OperationResult> UnpauseMatchAsync(int matchId);
 
         Task<OperationResult> DeleteMatchAsync(int matchId);
 

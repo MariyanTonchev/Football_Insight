@@ -3,8 +3,9 @@
     public enum MatchStatus
     {
         Scheduled,
-        Live,
+        FirstHalf,
         HalfTime,
+        SecondHalf,
         Finished,
         Postponed,
     }

@@ -192,5 +192,33 @@ namespace Football_Insight.Controllers
 
             return RedirectToAction(nameof(Index), new { viewModel.MatchId });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Unpause(int matchId)
+        {
+            var match = await matchService.FindMatchAsync(matchId);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            return View(match);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Unpause(MatchSimpleViewModel viewModel)
+        {
+            var result = await matchService.UnpauseMatchAsync(viewModel.MatchId);
+
+            if (!result.Success)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(viewModel);
+            }
+
+            return RedirectToAction(nameof(Index), new { viewModel.MatchId });
+        }
     }
 }

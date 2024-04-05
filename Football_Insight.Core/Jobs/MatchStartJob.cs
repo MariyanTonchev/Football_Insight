@@ -12,7 +12,7 @@ namespace Football_Insight.Jobs
             matchTimerService = _matchTimerService;
         }
 
-        public async Task Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
             int matchId = context.JobDetail.JobDataMap.GetInt("matchId");
 
@@ -20,6 +20,8 @@ namespace Football_Insight.Jobs
             {
                 matchTimerService.UpdateMatchMinute(matchId);
             }
+
+            return Task.CompletedTask;
         }
     }
 }
