@@ -44,6 +44,7 @@ namespace Football_Insight.Controllers
         {
             var viewModel = new MatchFormViewModel()
             {
+                LeagueId = leagueId,
                 Teams = await leagueService.GetAllTeamsAsync(leagueId)
             };
 

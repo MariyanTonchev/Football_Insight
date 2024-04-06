@@ -67,7 +67,7 @@
             </div>
             <div class="col-md-4 col-sm-6" style="margin-top: 50px; text-align: right;">
                 <form asp-action="Create" asp-controller="Match" method="get">
-                    <input type="hidden" name="leagueId" value="@Model.LeagueId" />
+                    <input type="hidden" asp-for="@Model.LeagueId"/>
                     <button type="submit" class="btn btn-outline-success mb-2 me-4">
                         <span class="btn-text-inner">Create Match</span>
                     </button>
@@ -99,7 +99,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                    <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@match.Id" title="View details" class="action-icon-row">
+                                                    <a asp-action="Index" asp-controller="Match" asp-route-MatchId="@match.Id" title="View details" class="action-icon-row">
                                                         <i class="fa-solid fa-eye fa-xl" style="color: #858585;"></i>
                                                     </a>
                                                     <a asp-action="Favorite" asp-controller="Match" asp-route-MatchId="@match.Id" title="Add to Favorites" class="action-icon-row">

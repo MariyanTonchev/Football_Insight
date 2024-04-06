@@ -13,10 +13,10 @@ namespace Football_Insight.Core.Contracts
         Task<List<MatchLeagueViewModel>> GetRecentMatchesAsync(int leagueId);
         Task<LeagueMatchesViewModel> GetLeagueViewDataAsync(int leagueId);
         Task<List<LeagueSimpleViewModel>> GetAllLeaguesAsync();
-        Task<OperationResult> CreateLeagueAsync(LeagueCreateViewModel model);
-        Task<LeagueEditViewModel> GetLeagueDetailsAsync(int leagueId);
+        Task<OperationResult> CreateLeagueAsync(LeagueFormViewModel viewModel);
+        Task<LeagueFormViewModel> GetLeagueDetailsAsync(int leagueId);
         Task<LeagueSimpleViewModel> FindLeagueAsync(int leagueId);
-        Task<OperationResult> UpdateLeagueAsync(LeagueEditViewModel viewModel);
+        Task<OperationResult> UpdateLeagueAsync(LeagueFormViewModel viewModel);
         Task<OperationResult> DeleteLeagueAsync(int leagueId);
     }
 }

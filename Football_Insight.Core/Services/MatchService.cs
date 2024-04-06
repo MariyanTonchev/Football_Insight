@@ -230,7 +230,7 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "The match is too early for half time.");
                 }
 
-                if (match.Status is MatchStatus.Scheduled or MatchStatus.Postponed or MatchStatus.SecondHalf or MatchStatus.HalfTime)
+                if (match.Status is MatchStatus.Scheduled or MatchStatus.Postponed or MatchStatus.SecondHalf or MatchStatus.HalfTime or MatchStatus.Finished)
                 {
                     string reason = match.Status switch
                     {
@@ -238,6 +238,7 @@ namespace Football_Insight.Core.Services
                         MatchStatus.Postponed => "The match is postponed.",
                         MatchStatus.SecondHalf => "It's the second half of the match, halftime is over.",
                         MatchStatus.HalfTime => "The match is already at halftime.",
+                        MatchStatus.Finished => "The match is finished.",
                         _ => "The match cannot be paused at this time."
                     };
 
@@ -314,6 +315,16 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "Match not found.");
                 }
 
+                if (match.Status == MatchStatus.Postponed)
+                {
+                    return new OperationResult(false, "Match is already postponed.");
+                }
+
+                if (match.Status == MatchStatus.Finished)
+                {
+                    return new OperationResult(false, "Match is already finished.");
+                }
+
                 if (matchTimerService.GetMatchMinute(matchId) < Constants.MessageConstants.FullTimeMinute || match.Status == MatchStatus.Scheduled)
                 {
                     match.Status = MatchStatus.Postponed;
@@ -333,7 +344,7 @@ namespace Football_Insight.Core.Services
                 memoryCache.Remove(statusCacheKey);
                 memoryCache.Remove(minuteCacheKey);
 
-                return new OperationResult(true, "Match paused successfully!");
+                return new OperationResult(true, $"Match {match.Status} successfully!");
             }
             catch (Exception)
             {

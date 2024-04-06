@@ -40,11 +40,12 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(LeagueCreateViewModel model)
+        public async Task<IActionResult> Create(LeagueFormViewModel model)
         {
 
             if (!ModelState.IsValid)
@@ -79,7 +80,7 @@ namespace Football_Insight.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(LeagueEditViewModel viewModel)
+        public async Task<IActionResult> Edit(LeagueFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {        

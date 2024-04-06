@@ -1,4 +1,4 @@
-﻿@model LeagueCreateViewModel
+﻿@model LeagueFormViewModel
 
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
@@ -16,7 +16,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12" style="text-align: center;">
-                                    <a asp-action="All" asp-controller="League" class="btn btn-outline-danger mb-2 me-4">Cancel</a>
+                                    <a asp-action="Index" asp-controller="League" asp-route-ID="@Model.Id" class="btn btn-outline-danger mb-2 me-4">Cancel</a>
                                     <button type="submit" class="btn btn-outline-success mb-2 me-4">
                                         <span class="btn-text-inner">Create League</span>
                                     </button>

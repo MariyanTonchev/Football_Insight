@@ -31,6 +31,19 @@ namespace Football_Insight.Core.Services
             return teams;
         }
 
+        public async Task<List<PlayerSimpleViewModel>> GetSquadAsync(int teamId)
+        {
+            var players = await repo.AllReadonly<Player>(p => p.TeamId == teamId)
+                        .Select(p => new PlayerSimpleViewModel
+                        {
+                            Id = p.Id,
+                            Name = $"{p.FirstName} {p.LastName}"
+                        })
+                        .ToListAsync();
+
+            return players;
+        }
+
         public async Task<TeamFixturesViewModel> GetTeamFixturesAsync(int id)
         {
             var matches = await repo.All<Match>()

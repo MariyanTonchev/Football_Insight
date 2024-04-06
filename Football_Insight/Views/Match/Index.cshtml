@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-end justify-content-center">
-                        <a asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a href="#" data-teamId="@Model.AwayTeamId" data-bs-toggle="modal" data-bs-target="#goalScoredModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
                         <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">
@@ -79,6 +79,8 @@
                         </div>
                     </div>
                 </div>
+                <!--Goal scored modal-->
+                @await Component.InvokeAsync(nameof(GoalModal), new { teamId = Model.AwayTeamId });
             </div>
         </div>
     </div>

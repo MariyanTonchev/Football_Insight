@@ -19,7 +19,7 @@ namespace Football_Insight.Core.Services
             repo = _repo;
         }
 
-        public async Task<OperationResult> CreateLeagueAsync(LeagueCreateViewModel model)
+        public async Task<OperationResult> CreateLeagueAsync(LeagueFormViewModel model)
         {
             var existingLeagues = await GetAllLeaguesAsync();
 
@@ -39,7 +39,7 @@ namespace Football_Insight.Core.Services
             return new OperationResult(true, "League created successfully.", newLeague.Id);
         }
 
-        public async Task<OperationResult> UpdateLeagueAsync(LeagueEditViewModel viewModel)
+        public async Task<OperationResult> UpdateLeagueAsync(LeagueFormViewModel viewModel)
         {
             var league = await repo.GetByIdAsync<League>(viewModel.Id);
 
@@ -148,11 +148,11 @@ namespace Football_Insight.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<LeagueEditViewModel> GetLeagueDetailsAsync(int leagueId)
+        public async Task<LeagueFormViewModel> GetLeagueDetailsAsync(int leagueId)
         {
             var league = await repo.GetByIdAsync<League>(leagueId);
 
-            var viewModel = new LeagueEditViewModel
+            var viewModel = new LeagueFormViewModel
             {
                 Id = league.Id,
                 Name = league.Name
