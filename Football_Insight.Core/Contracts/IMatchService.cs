@@ -30,6 +30,10 @@ namespace Football_Insight.Core.Contracts
 
         Task<OperationResult> DeleteMatchAsync(int matchId);
 
+        Task<OperationResult> AddFavoriteAsync(int matchId);
+
+        Task<OperationResult> RemoveFavoriteAsync(int mathcId);
+
         Task<int> GetMatchMinutesAsync(int matchId);
     }
 }

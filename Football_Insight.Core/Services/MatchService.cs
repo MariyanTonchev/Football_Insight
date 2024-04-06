@@ -4,7 +4,10 @@ using Football_Insight.Core.Models.Match;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using System.Security.Claims;
 
 namespace Football_Insight.Core.Services
 {
@@ -17,6 +20,7 @@ namespace Football_Insight.Core.Services
         private readonly IMatchTimerService matchTimerService;
         private readonly IMatchJobService matchJobService;
         private readonly IMemoryCache memoryCache;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public MatchService(IRepository _repo, 
                             IStadiumService _stadiumService, 
@@ -24,7 +28,8 @@ namespace Football_Insight.Core.Services
                             ITeamService _teamService, 
                             IMatchTimerService _matchTimerService,
                             IMatchJobService _matchJobService,
-                            IMemoryCache _memoryCache)
+                            IMemoryCache _memoryCache, 
+                            IHttpContextAccessor _httpContextAccessor)
         {
             repo = _repo;
             teamService = _teamService;
@@ -33,6 +38,7 @@ namespace Football_Insight.Core.Services
             matchTimerService = _matchTimerService;
             matchJobService = _matchJobService;
             memoryCache = _memoryCache;
+            httpContextAccessor = _httpContextAccessor;
         }
 
         public async Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId)
@@ -353,5 +359,59 @@ namespace Football_Insight.Core.Services
         }
 
         public async Task<MatchStatus> GetMatchStatusAsync(int matchId) => (await repo.GetByIdAsync<Match>(matchId)).Status;
+
+        public async Task<OperationResult> AddFavoriteAsync(int matchId)
+        {
+            var userId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return new OperationResult(false, "User must be logged in.");
+            }
+
+            var favoriteExists = await repo.AllReadonly<Favorite>().AnyAsync(f => f.UserId == userId && f.MatchId == matchId);
+
+            if(!favoriteExists)
+            {
+                var favorite = new Favorite
+                {
+                    UserId = userId,
+                    MatchId = matchId
+                };
+
+                await repo.AddAsync(favorite);
+                await repo.SaveChangesAsync();
+            }
+            else
+            {
+                return new OperationResult(false, "The match is already added to favorites.");
+            }
+
+            return new OperationResult(true, "The match successfully added to favorites.");
+        }
+
+        public async Task<OperationResult> RemoveFavoriteAsync(int matchId)
+        {
+            var userId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return new OperationResult(false, "User must be logged in.");
+            }
+
+            var favorite = await repo.AllReadonly<Favorite>().FirstOrDefaultAsync(f => f.UserId == userId && f.MatchId == matchId);
+
+            if (favorite != null)
+            {
+                await repo.RemoveAsync(favorite);
+                await repo.SaveChangesAsync();
+
+                return new OperationResult(true, "Match removed from favorites successfully.");
+            }
+            else
+            {
+                return new OperationResult(false, "Favorite not found.");
+            }
+        }
     }
 }

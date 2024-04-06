@@ -99,18 +99,33 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                    <a asp-action="Index" asp-controller="Match" asp-route-MatchId="@match.Id" title="View details" class="action-icon-row">
+                                                <div class="action-icons-container" style="display: flex; align-items: center; justify-content: start;">
+                                                    <a asp-action="Index" asp-controller="Match" asp-route-MatchId="@match.Id" title="View match details">
                                                         <i class="fa-solid fa-eye fa-xl" style="color: #858585;"></i>
                                                     </a>
-                                                    <a asp-action="Favorite" asp-controller="Match" asp-route-MatchId="@match.Id" title="Add to Favorites" class="action-icon-row">
-                                                        <i class="fa-regular fa-star fa-xl" style="color: #1eff00;"></i>
-                                                    </a>
-                                                    <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@match.Id" title="Edit match" class="action-icon-row">
+                                                    @if (!match.IsFavorite)
+                                                    {
+                                                        <form asp-action="AddFavorite" asp-controller="Match" asp-route-matchId="@match.Id" method="post" style="margin-left: 10px;">
+                                                                <button type="submit" title="Add to favorites" style="background:none;border:none;padding:0;">
+                                                                    <i class="fa-regular fa-star fa-xl" style="color: #1eff00;"></i>
+                                                                </button>
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+                                                        <form asp-action="RemoveFavorite" asp-controller="Match" asp-route-matchId="@match.Id" method="post" style="margin-left: 10px;">
+                                                                <button type="submit" title="Remove from favorites" style="background:none;border:none;padding:0;">
+                                                                    <i class="fa-solid fa-star fa-xl" style="color: #1eff00;"></i>
+                                                                </button>
+                                                        </form>
+                                                    }
+                                                    <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@match.Id" title="Edit match" style="margin-left: 10px;">
                                                         <i class="fa-solid fa-pencil fa-xl" style="color: #FFD43B;"></i>
                                                     </a>
-                                                    <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@match.Id" title="Delete match" class="action-icon-row">
+                                                    <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@match.Id" title="Delete match" style="margin-left: 10px;">
                                                         <i class="fa-regular fa-trash-can fa-xl" style="color: #ff0000;"></i>
                                                     </a>
+                                                </div>
                                             </td>
                                         </tr>
                                     }                          

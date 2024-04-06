@@ -9,5 +9,7 @@
         public string AwayTeamName { get; set; } = string.Empty;
 
         public string DateAndTime { get; set; } = string.Empty;
+
+        public bool IsFavorite { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace Football_Insight.Infrastructure.Data
         public DbSet<PlayerStatistic> PlayerStatistics { get; set; } = null!;
         public DbSet<PlayerMatch> PlayerMatches { get; set; } = null!;
         public DbSet<Stadium> Stadiums { get; set; } = null!;
-
         public DbSet<Goal> Goals { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -58,6 +57,18 @@ namespace Football_Insight.Infrastructure.Data
                 .HasMany(p => p.Goals)
                 .WithOne(g => g.ScoringPlayer)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Favorite>()
+                .HasKey(f => new { f.UserId, f.MatchId });
+
+            builder.Entity<Favorite>()
+                .HasOne(f => f.User)
+                .WithMany();
+
+            builder.Entity<Favorite>()
+                .HasOne(f => f.Match)
+                .WithMany();
+
 
             builder.ApplyConfiguration(new LeagueConfiguration());
             builder.ApplyConfiguration(new StadiumConfiguration());

@@ -1,5 +1,6 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models.Match;
+using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Quartz;
 
@@ -249,6 +250,38 @@ namespace Football_Insight.Controllers
             }
 
             return RedirectToAction(nameof(Index), new { viewModel.MatchId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddFavorite(int matchId)
+        {
+            var result = await matchService.AddFavoriteAsync(matchId);
+            var leagueId = (await matchService.GetMatchSimpleViewAsync(matchId)).LeagueId;
+
+            if (!result.Success)
+            {
+                ModelState.AddModelError("", result.Message);
+                return RedirectToAction("Index", "League", new { Id = leagueId });
+            }
+
+            return RedirectToAction("Index", "League", new { Id = leagueId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveFavorite(int matchId)
+        {
+            var result = await matchService.RemoveFavoriteAsync(matchId);
+            var leagueId = (await matchService.GetMatchSimpleViewAsync(matchId)).LeagueId;
+
+            if(!result.Success)
+            {
+                ModelState.AddModelError("", result.Message);
+                return RedirectToAction("Index", "League", new { Id = leagueId });
+            }
+
+            return RedirectToAction("Index", "League", new { Id = leagueId });
         }
     }
 }

@@ -6,17 +6,22 @@ using Football_Insight.Core.Models.Team;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+
 
 namespace Football_Insight.Core.Services
 {
     public class LeagueService : ILeagueService
     {
         private readonly IRepository repo;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public LeagueService(IRepository _repo)
+        public LeagueService(IRepository _repo, IHttpContextAccessor _httpContextAccessor)
         {
             repo = _repo;
+            httpContextAccessor = _httpContextAccessor;
         }
 
         public async Task<OperationResult> CreateLeagueAsync(LeagueFormViewModel model)
@@ -178,16 +183,29 @@ namespace Football_Insight.Core.Services
 
         public async Task<List<MatchLeagueViewModel>> GetRecentMatchesAsync(int leagueId)
         {
+            var userId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var favoriteMatchIds = new List<int>();
+            if (userId != null)
+            {
+                favoriteMatchIds = new List<int>(
+                    await repo.AllReadonly<Favorite>()
+                    .Where(f => f.UserId == userId && f.Match.LeagueId == leagueId)
+                    .Select(f => f.MatchId)
+                    .ToListAsync());
+            }
+
             var matches = await repo.AllReadonly<Match>(t => t.LeagueId == leagueId)
-                    .OrderByDescending(m => m.Date)
-                    .Select(m => new MatchLeagueViewModel()
-                    {
-                        Id = m.Id,
-                        HomeTeamName = m.HomeTeam.Name,
-                        AwayTeamName = m.AwayTeam.Name,
-                        DateAndTime = m.Date.ToString(Constants.MessageConstants.DateFormat)
-                    })
-                    .ToListAsync();
+                .OrderByDescending(m => m.Date)
+                .Select(m => new MatchLeagueViewModel
+                {
+                    Id = m.Id,
+                    HomeTeamName = m.HomeTeam.Name,
+                    AwayTeamName = m.AwayTeam.Name,
+                    DateAndTime = m.Date.ToString(Constants.MessageConstants.DateFormat),
+                    IsFavorite = favoriteMatchIds.Contains(m.Id)
+                })
+                .ToListAsync();
 
             return matches;
         }
