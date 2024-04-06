@@ -86,14 +86,14 @@ namespace Football_Insight.Controllers
                 return BadRequest();
             }
 
-            if (!ModelState.IsValid)
+            var result = await matchService.UpdateMatchAsync(viewModel, matchId);
+
+            if (!result.Success)
             {
                 viewModel.Teams = await leagueService.GetAllTeamsAsync(viewModel.LeagueId);
-
+                ModelState.AddModelError("", result.Message);
                 return View(viewModel);
             }
-
-            await matchService.UpdateMatchAsync(viewModel, matchId);
 
             return RedirectToAction(nameof(Index), new {matchId});
         }
@@ -101,7 +101,7 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Start(int matchId)
         {
-            var viewModel = await matchService.FindMatchAsync(matchId);
+            var viewModel = await matchService.GetMatchSimpleViewAsync(matchId);
 
             if (viewModel == null)
             {
@@ -129,7 +129,7 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int matchId)
         {
-            var match = await matchService.FindMatchAsync(matchId);
+            var match = await matchService.GetMatchSimpleViewAsync(matchId);
 
             if (match == null)
             {
@@ -155,7 +155,7 @@ namespace Football_Insight.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMatchMinutes(int matchId)
+        public IActionResult GetMatchMinutes(int matchId)
         {
             var data = new
             {
@@ -168,7 +168,7 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Pause(int matchId)
         {
-            var match = await matchService.FindMatchAsync(matchId);
+            var match = await matchService.GetMatchSimpleViewAsync(matchId);
 
             if (match == null)
             {
@@ -196,7 +196,7 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Unpause(int matchId)
         {
-            var match = await matchService.FindMatchAsync(matchId);
+            var match = await matchService.GetMatchSimpleViewAsync(matchId);
 
             if (match == null)
             {
@@ -211,6 +211,35 @@ namespace Football_Insight.Controllers
         public async Task<IActionResult> Unpause(MatchSimpleViewModel viewModel)
         {
             var result = await matchService.UnpauseMatchAsync(viewModel.MatchId);
+
+            if (!result.Success)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(viewModel);
+            }
+
+            return RedirectToAction(nameof(Index), new { viewModel.MatchId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> End(int matchId)
+        {
+            var match = await matchService.GetMatchEndViewAsync(matchId);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            return View(match);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> End(MatchSimpleViewModel viewModel)
+        {
+            var result = await matchService.EndMatchAsync(viewModel.MatchId);
 
             if (!result.Success)
             {

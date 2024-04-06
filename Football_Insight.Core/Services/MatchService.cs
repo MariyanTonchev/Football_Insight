@@ -79,9 +79,14 @@ namespace Football_Insight.Core.Services
             return match.Id;
         }
 
-        public async Task UpdateMatchAsync(MatchFormViewModel model, int matchId)
+        public async Task<OperationResult> UpdateMatchAsync(MatchFormViewModel model, int matchId)
         {
             var match = await GetMatchAsync(matchId);
+
+            if (match.Status != MatchStatus.Scheduled)
+            {
+                return new OperationResult(false, "You cannot delete a match that has started, finished, or been postponed.");
+            }
 
             if (match != null)
             {
@@ -91,6 +96,8 @@ namespace Football_Insight.Core.Services
 
                 await repo.SaveChangesAsync();
             }
+
+            return new OperationResult(true, "Match edited successfully!");
         }
 
         public async Task<MatchFormViewModel?> GetMatchFormViewModelByIdAsync(int matchId)
@@ -148,7 +155,7 @@ namespace Football_Insight.Core.Services
             }
         }
 
-        public async Task<MatchSimpleViewModel> FindMatchAsync(int matchId)
+        public async Task<MatchSimpleViewModel> GetMatchSimpleViewAsync(int matchId)
         {
             var match = await GetMatchAsync(matchId);
 
@@ -158,6 +165,22 @@ namespace Football_Insight.Core.Services
                 HomeTeam = await teamService.GetTeamNameAsync(match.HomeTeamId),
                 AwayTeam = await teamService.GetTeamNameAsync(match.AwayTeamId),
                 LeagueId = match.LeagueId
+            };
+
+            return model;
+        }
+
+        public async Task<MatchEndViewModel> GetMatchEndViewAsync(int matchId)
+        {
+            var match = await GetMatchAsync(matchId);
+
+            var model = new MatchEndViewModel
+            {
+                MatchId = match.Id,
+                HomeTeam = await teamService.GetTeamNameAsync(match.HomeTeamId),
+                AwayTeam = await teamService.GetTeamNameAsync(match.AwayTeamId),
+                LeagueId = match.LeagueId,
+                MatchMinute = matchTimerService.GetMatchMinute(matchId)
             };
 
             return model;
@@ -174,13 +197,18 @@ namespace Football_Insight.Core.Services
                 return new OperationResult(false, "Match not found!");
             }
 
+            if (match.Status != MatchStatus.Scheduled)
+            {
+                return new OperationResult(false, "You cannot delete a match that has started, finished, or been postponed.");
+            }
+
             await repo.RemoveAsync(match);
             await repo.SaveChangesAsync();
 
             return new OperationResult(true, $"Successfully deleted {match.Id}!");
         }
 
-        public async Task<int> GetMatchMinutes(int matchId)
+        public async Task<int> GetMatchMinutesAsync(int matchId)
         {
             var match = await GetMatchAsync(matchId);
 
@@ -214,6 +242,11 @@ namespace Football_Insight.Core.Services
                     };
 
                     return new OperationResult(false, reason);
+                }
+
+                if (matchTimerService.GetMatchMinute(matchId) <= Constants.MessageConstants.HalfTimeMinute)
+                {
+                    return new OperationResult(false, "The match is too early for half time.");
                 }
 
                 match.Status = MatchStatus.HalfTime;
@@ -261,6 +294,44 @@ namespace Football_Insight.Core.Services
 
                 var cacheKey = $"Match_{matchId}_Status";
                 memoryCache.Set(cacheKey, match.Status);
+
+                return new OperationResult(true, "Match paused successfully!");
+            }
+            catch (Exception)
+            {
+                return new OperationResult(false, "An error occurred while starting the match.");
+            }
+        }
+
+        public async Task<OperationResult> EndMatchAsync(int matchId)
+        {
+            try
+            {
+                var match = await GetMatchAsync(matchId);
+
+                if (match == null)
+                {
+                    return new OperationResult(false, "Match not found.");
+                }
+
+                if (matchTimerService.GetMatchMinute(matchId) < Constants.MessageConstants.FullTimeMinute || match.Status == MatchStatus.Scheduled)
+                {
+                    match.Status = MatchStatus.Postponed;
+                }
+                else
+                {
+                    match.Status = MatchStatus.Finished;
+                }
+
+                match.Minutes = matchTimerService.GetMatchMinute(matchId);
+                await repo.SaveChangesAsync();
+
+                await matchJobService.EndMatchJobAsync(matchId);
+
+                var statusCacheKey = $"Match_{matchId}_Status";
+                var minuteCacheKey = $"Match_{matchId}_Minute";
+                memoryCache.Remove(statusCacheKey);
+                memoryCache.Remove(minuteCacheKey);
 
                 return new OperationResult(true, "Match paused successfully!");
             }

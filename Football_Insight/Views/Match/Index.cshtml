@@ -56,7 +56,7 @@
                                     <i class="fa-regular fa-circle-pause fa-xl" style="color: #ff8800;"></i>
                                 </a>
                             }
-                            <a asp-action="Edit" asp-controller="Match" asp-route-MatchId="@Model.Id" title="End match" class="col action-icon-row">
+                            <a asp-action="End" asp-controller="Match" asp-route-MatchId="@Model.Id" title="End match" class="col action-icon-row">
                                 <i class="fa-regular fa-circle-stop fa-xl" style="color: #ff0000;"></i>
                             </a>
                         </div>
@@ -88,7 +88,7 @@
 {
     <script>
         $(document).ready(function () {
-            setInterval(refreshMatchMinutes, @MessageConstants.SecondsInMinute);
+            setInterval(refreshMatchMinutes, @MessageConstants.SettingSecondsInOneMinute);
 
             function refreshMatchMinutes() {
                 $.ajax({
@@ -97,7 +97,6 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data)
                         $('#match-minutes').html(`<p>${data.minutes} min</p>`);
                     },
                     error: function () {

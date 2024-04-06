@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Quartz;
-using Quartz.Spi;
+﻿using Quartz;
 
 namespace Football_Insight.Extensions
 {

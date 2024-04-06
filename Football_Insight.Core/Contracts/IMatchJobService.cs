@@ -7,5 +7,7 @@
         Task PauseMatchJobAsync(int matchId);
 
         Task UnpauseMatchJobAsync(int matchId);
+
+        Task EndMatchJobAsync(int matchId);
     }
 }

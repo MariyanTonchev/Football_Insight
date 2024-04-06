@@ -28,7 +28,7 @@ namespace Football_Insight.Core.Services
             var trigger = TriggerBuilder.Create()
                         .WithIdentity(triggerKey)
                         .StartNow()
-                        .WithSimpleSchedule(x => x.WithIntervalInSeconds(Constants.MessageConstants.SecondsInMinute).RepeatForever())
+                        .WithSimpleSchedule(x => x.WithIntervalInSeconds(Constants.MessageConstants.SettingSecondsInOneMinute).RepeatForever())
                         .Build();
 
             await scheduler.ScheduleJob(job, trigger);
@@ -48,6 +48,14 @@ namespace Football_Insight.Core.Services
             var jobKey = new JobKey($"StartMatchJob-{matchId}");
 
             await scheduler.ResumeJob(jobKey);
+        }
+
+        public async Task EndMatchJobAsync(int matchId)
+        {
+            var scheduler = await schedulerFactory.GetScheduler();
+            var jobKey = new JobKey($"StartMatchJob-{matchId}");
+
+            await scheduler.DeleteJob(jobKey);
         }
     }
 }

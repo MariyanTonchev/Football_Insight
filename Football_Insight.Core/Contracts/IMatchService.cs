@@ -8,13 +8,15 @@ namespace Football_Insight.Core.Contracts
     {
         Task<int> CreateMatchAsync(MatchFormViewModel model, int leagueId);
 
-        Task UpdateMatchAsync(MatchFormViewModel model, int matchId);
+        Task<OperationResult> UpdateMatchAsync(MatchFormViewModel model, int matchId);
 
         Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId);
 
         Task<MatchFormViewModel?> GetMatchFormViewModelByIdAsync(int id);
 
-        Task<MatchSimpleViewModel> FindMatchAsync(int matchId);
+        Task<MatchSimpleViewModel> GetMatchSimpleViewAsync(int matchId);
+
+        Task<MatchEndViewModel> GetMatchEndViewAsync(int matchId);
 
         Task<MatchStatus> GetMatchStatusAsync(int matchId);
 
@@ -24,8 +26,10 @@ namespace Football_Insight.Core.Contracts
 
         Task<OperationResult> UnpauseMatchAsync(int matchId);
 
+        Task<OperationResult> EndMatchAsync(int matchId);
+
         Task<OperationResult> DeleteMatchAsync(int matchId);
 
-        Task<int> GetMatchMinutes(int matchId);
+        Task<int> GetMatchMinutesAsync(int matchId);
     }
 }
