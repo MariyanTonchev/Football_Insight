@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Football_Insight.Infrastructure.Data.Models
 {
@@ -16,12 +11,21 @@ namespace Football_Insight.Infrastructure.Data.Models
         public int MatchId { get; set; }
 
         [Required]
-        public int ScoringPlayerId { get; set; }
+        public int GoalScorerId { get; set; }
+
+        [Required]
+        public int GoalAssistantId { get; set; }
+
+        [Required]
+        public int GoalMinute { get; set; }
 
         [ForeignKey(nameof(MatchId))]
         public Match Match { get; set; } = null!;
 
-        [ForeignKey(nameof(ScoringPlayerId))]
-        public Player ScoringPlayer { get; set; } = null!;
+        [ForeignKey(nameof(GoalScorerId))]
+        public Player GoalScorer { get; set; } = null!;
+
+        [ForeignKey(nameof(GoalAssistantId))]
+        public Player GoalAssistant { get; set; } = null!;
     }
 }

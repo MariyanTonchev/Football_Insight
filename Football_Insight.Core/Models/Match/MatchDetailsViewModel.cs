@@ -1,5 +1,5 @@
 ﻿using Football_Insight.Infrastructure.Data.Enums;
-using Football_Insight.Infrastructure.Data.Models;
+
 
 namespace Football_Insight.Core.Models.Match
 {
@@ -26,7 +26,5 @@ namespace Football_Insight.Core.Models.Match
         public MatchStatus Status { get; set; }
 
         public int Minutes { get; set; }
-
-        public List<Goal> Goals { get; set; } = new List<Goal>();
     }
 }

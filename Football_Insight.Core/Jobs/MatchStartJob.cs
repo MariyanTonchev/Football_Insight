@@ -16,19 +16,21 @@ namespace Football_Insight.Jobs
         {
             try
             {
-                int matchId = context.JobDetail.JobDataMap.GetInt("matchId");
-                if (matchId != 0)
+                if (context.JobDetail.JobDataMap.TryGetValue("matchId", out var matchIdObj) && int.TryParse(matchIdObj.ToString(), out int matchId) && matchId != 0)
                 {
                     matchTimerService.UpdateMatchMinute(matchId);
                 }
-                return Task.CompletedTask;
+                else
+                {
+                    //log
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex);
-
-                return Task.CompletedTask;
+                throw;
             }
+
+            return Task.CompletedTask;
         }
     }
 }

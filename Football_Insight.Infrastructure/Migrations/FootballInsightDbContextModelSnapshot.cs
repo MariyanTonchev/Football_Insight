@@ -131,17 +131,25 @@ namespace Football_Insight.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("MatchId")
+                    b.Property<int>("GoalAssistantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScoringPlayerId")
+                    b.Property<int>("GoalMinute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GoalScorerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MatchId");
+                    b.HasIndex("GoalAssistantId");
 
-                    b.HasIndex("ScoringPlayerId");
+                    b.HasIndex("GoalScorerId");
+
+                    b.HasIndex("MatchId");
 
                     b.ToTable("Goals");
                 });
@@ -797,21 +805,29 @@ namespace Football_Insight.Infrastructure.Migrations
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Goal", b =>
                 {
+                    b.HasOne("Football_Insight.Infrastructure.Data.Models.Player", "GoalAssistant")
+                        .WithMany()
+                        .HasForeignKey("GoalAssistantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Football_Insight.Infrastructure.Data.Models.Player", "GoalScorer")
+                        .WithMany("Goals")
+                        .HasForeignKey("GoalScorerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Football_Insight.Infrastructure.Data.Models.Match", "Match")
                         .WithMany()
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Football_Insight.Infrastructure.Data.Models.Player", "ScoringPlayer")
-                        .WithMany("Goals")
-                        .HasForeignKey("ScoringPlayerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.Navigation("GoalAssistant");
+
+                    b.Navigation("GoalScorer");
 
                     b.Navigation("Match");
-
-                    b.Navigation("ScoringPlayer");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Match", b =>

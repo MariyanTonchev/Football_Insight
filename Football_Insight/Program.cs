@@ -44,6 +44,7 @@ builder.Services.AddScoped<IStadiumService, StadiumService>();
 builder.Services.AddScoped<IMatchTimerService, MatchTimerService>();
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IMatchJobService, MatchJobService>();
+builder.Services.AddScoped<IGoalService, GoalService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>

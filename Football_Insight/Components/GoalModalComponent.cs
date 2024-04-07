@@ -1,24 +1,25 @@
 ﻿using Football_Insight.Core.Contracts;
-using Football_Insight.Core.Models.Match;
+using Football_Insight.Core.Models.Goal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Football_Insight.Components
 {
-    public class GoalModal : ViewComponent
+    public class GoalModalComponent : ViewComponent
     {
         private readonly ITeamService teamService;
 
-        public GoalModal(ITeamService _teamService)
+        public GoalModalComponent(ITeamService _teamService)
         {
             teamService = _teamService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int teamId)
+        public async Task<IViewComponentResult> InvokeAsync(int teamId, int matchId)
         {
             var players = await teamService.GetSquadAsync(teamId);
 
             var viewModel = new GoalModalViewModel
             {
+                MatchId = matchId,
                 Players = players,
             };
 

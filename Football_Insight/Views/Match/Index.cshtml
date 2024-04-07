@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-start justify-content-center">
-                        <a href="#" data-teamId="@Model.HomeTeamId" data-bs-target="#goalScoredModalHome" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a href="#" data-matchId="@Model.Id" data-teamId="@Model.HomeTeamId" data-bs-target="#goalScoredModalHome" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
                         <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-end justify-content-center">
-                        <a href="#" data-teamId="@Model.AwayTeamId" data-bs-target="#goalScoredModalAway" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a href="#" data-matchId="@Model.Id" data-teamId="@Model.AwayTeamId" data-bs-target="#goalScoredModalAway" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
                         <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">
@@ -89,23 +89,8 @@
 @if (Model.Status == MatchStatus.FirstHalf || Model.Status == MatchStatus.HalfTime || Model.Status == MatchStatus.SecondHalf)
 {
     <script>
-        $(document).ready(function () {
-            setInterval(refreshMatchMinutes, @MessageConstants.SettingSecondsInOneMinute);
-
-            function refreshMatchMinutes() {
-                $.ajax({
-                    url: '@Url.Action("GetMatchMinute", "Match")',
-                    data: { matchId: '@Model.Id' },
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#match-minutes').html(`<p>${data.minutes} min</p>`);
-                    },
-                    error: function () {
-                        console.log('Error retrieving match minutes.');
-                    }
-                });
-            }
-        });
+        var refreshInterval = @MessageConstants.SettingSecondsInOneMinute;
+        var matchId = '@Model.Id';
     </script>
+    <script src="~/js./refreshtMatchMinutes.js"></script>
 }

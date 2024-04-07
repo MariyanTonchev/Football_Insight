@@ -67,13 +67,14 @@
     );
 
     $('.action-icon-col').click(function () {
-        var targetModalId = $(this).attr('data-bs-target');
+        
         var teamId = $(this).data('teamid');
+        var matchId = $(this).data('matchid');
 
         $.ajax({
-            url: '/Modal/GoalModal',
+            url: '/Goal/Add',
             type: 'GET',
-            data: { teamId: teamId },
+            data: { teamId: teamId, matchId: matchId },
             success: function (response) {
                 $('#goalModalContainer').html(response);
                 $("#goalScoredModal").modal('show');

@@ -2,6 +2,7 @@
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Football_Insight.Infrastructure.Data
 {
@@ -55,8 +56,13 @@ namespace Football_Insight.Infrastructure.Data
 
             builder.Entity<Player>()
                 .HasMany(p => p.Goals)
-                .WithOne(g => g.ScoringPlayer)
+                .WithOne(g => g.GoalScorer)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Goal>()
+                .HasOne(g => g.GoalAssistant)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Favorite>()
                 .HasKey(f => new { f.UserId, f.MatchId });
