@@ -91,7 +91,7 @@ namespace Football_Insight.Core.Services
 
             if (match.Status != MatchStatus.Scheduled)
             {
-                return new OperationResult(false, "You cannot delete a match that has started, finished, or been postponed.");
+                return new OperationResult(false, "You cannot edit a match that has started, finished, or been postponed.");
             }
 
             if (match != null)
@@ -322,14 +322,16 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "Match not found.");
                 }
 
-                if (match.Status == MatchStatus.Postponed)
+                if (match.Status is MatchStatus.Postponed or MatchStatus.Finished)
                 {
-                    return new OperationResult(false, "Match is already postponed.");
-                }
+                    string reason = match.Status switch
+                    {
+                        MatchStatus.Postponed => "The match is postponed.",
+                        MatchStatus.Finished => "The match is already finished.",
+                        _ => "The match cannot be ended at this time."
+                    };
 
-                if (match.Status == MatchStatus.Finished)
-                {
-                    return new OperationResult(false, "Match is already finished.");
+                    return new OperationResult(false, reason);
                 }
 
                 if (matchTimerService.GetMatchMinute(matchId) < Constants.MessageConstants.FullTimeMinute 
