@@ -4,7 +4,9 @@ namespace Football_Insight.Core.Models.Match
 {
     public class GoalModalViewModel
     {
-        public int PlayerId { get; set; }
+        public int PlayerScorerId { get; set; }
+
+        public int PlayerAssistedId { get; set; }
 
         public List<PlayerSimpleViewModel> Players { get; set; } = new List<PlayerSimpleViewModel>();
     }

@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\" />
+    <Folder Include="Views\Goal\" />
     <Folder Include="wwwroot\photos\cd2a69b3-eb97-41f9-945f-a23a9e5a0031\" />
   </ItemGroup>
 

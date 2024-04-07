@@ -6,15 +6,22 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="goalScoredModalLabel">Add goal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <svg> ... </svg>
+                    <i class="fa-solid fa-xmark" style="color: #8c37b3;"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <label asp-for="PlayerId" class="form-label">Home Team</label>
-                <select asp-for="PlayerId" class="form-select" asp-items="@(new SelectList(Model.Players, "Id", "Name"))">
+                <label asp-for="PlayerScorerId" class="form-label">Goal scored by</label>
+                <select asp-for="PlayerScorerId" class="form-select" asp-items="@(new SelectList(Model.Players, "Id", "Name"))">
                     <option value="0" selected>Select a player</option>
                 </select>
-                <span asp-validation-for="PlayerId" class="text-danger"></span>
+                <span asp-validation-for="PlayerScorerId" class="text-danger"></span>
+            </div>
+            <div class="modal-body">
+                <label asp-for="PlayerScorerId" class="form-label">Goal assisted by:</label>
+                <select asp-for="PlayerScorerId" class="form-select" asp-items="@(new SelectList(Model.Players, "Id", "Name"))">
+                    <option value="0" selected>Select a player</option>
+                </select>
+                <span asp-validation-for="PlayerScorerId" class="text-danger"></span>
             </div>
             <div class="modal-footer">
                 <button class="btn btn btn-light-dark" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>

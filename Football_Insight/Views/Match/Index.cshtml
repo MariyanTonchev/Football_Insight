@@ -14,13 +14,13 @@
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-start justify-content-center">
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a href="#" data-teamId="@Model.HomeTeamId" data-bs-target="#goalScoredModalHome" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
                         </a>
-                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" class="action-icon-col">
+                        <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add red card" class="action-icon-col">
                             <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
                         </a>
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-end justify-content-center">
-                        <a href="#" data-teamId="@Model.AwayTeamId" data-bs-toggle="modal" data-bs-target="#goalScoredModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a href="#" data-teamId="@Model.AwayTeamId" data-bs-target="#goalScoredModalAway" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
                         <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <!--Goal scored modal-->
-                @await Component.InvokeAsync(nameof(GoalModal), new { teamId = Model.AwayTeamId });
+                <div id="goalModalContainer"></div>
             </div>
         </div>
     </div>

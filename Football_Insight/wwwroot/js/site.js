@@ -65,4 +65,22 @@
             $(this).removeClass('fa-beat');
         }
     );
+
+    $('.action-icon-col').click(function () {
+        var targetModalId = $(this).attr('data-bs-target');
+        var teamId = $(this).data('teamid');
+
+        $.ajax({
+            url: '/Modal/GoalModal',
+            type: 'GET',
+            data: { teamId: teamId },
+            success: function (response) {
+                $('#goalModalContainer').html(response);
+                $("#goalScoredModal").modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error("Error occurred: " + error);
+            }
+        });
+    });
 });
