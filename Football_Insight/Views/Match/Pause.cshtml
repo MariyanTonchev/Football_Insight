@@ -10,10 +10,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Are you sure you want to set the half time for the following match:
-                                <p><span style="color: yellow;" : 10">@Model.HomeTeam VS @Model.AwayTeam</span>?</p>
-                                
+                                Are you sure you want to set the half time for the following match?
                             </h5>
+                            <p style="color: yellow; text-align: center;">@Model.HomeTeam VS @Model.AwayTeam</p>
                             <input type="hidden" asp-for="HomeTeam" />
                             <input type="hidden" asp-for="AwayTeam" />
                             <div class="text-danger">

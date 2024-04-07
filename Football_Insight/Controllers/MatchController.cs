@@ -157,7 +157,7 @@ namespace Football_Insight.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMatchMinutes(int matchId)
+        public IActionResult GetMatchMinute(int matchId)
         {
             var data = new
             {

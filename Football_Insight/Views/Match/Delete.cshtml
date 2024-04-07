@@ -10,10 +10,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Are you sure you want to start the following match:
-                                <span style="color: yellow" : 10">@Model.HomeTeam VS @Model.AwayTeam</span>
-                                ?
+                                Are you sure you want to delete the following match?
                             </h5>
+                            <p style="color: yellow; text-align: center;">@Model.HomeTeam VS @Model.AwayTeam</p>
                             <div class="text-danger">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             </div>

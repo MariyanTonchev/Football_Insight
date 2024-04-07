@@ -186,7 +186,8 @@ namespace Football_Insight.Core.Services
                 HomeTeam = await teamService.GetTeamNameAsync(match.HomeTeamId),
                 AwayTeam = await teamService.GetTeamNameAsync(match.AwayTeamId),
                 LeagueId = match.LeagueId,
-                MatchMinute = matchTimerService.GetMatchMinute(matchId)
+                MatchMinute = matchTimerService.GetMatchMinute(matchId),
+                MatchStatus = match.Status
             };
 
             return model;
@@ -214,7 +215,7 @@ namespace Football_Insight.Core.Services
             return new OperationResult(true, $"Successfully deleted {match.Id}!");
         }
 
-        public async Task<int> GetMatchMinutesAsync(int matchId)
+        public async Task<int> GetMatchMinuteAsync(int matchId)
         {
             var match = await GetMatchAsync(matchId);
 
@@ -331,7 +332,9 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "Match is already finished.");
                 }
 
-                if (matchTimerService.GetMatchMinute(matchId) < Constants.MessageConstants.FullTimeMinute || match.Status == MatchStatus.Scheduled)
+                if (matchTimerService.GetMatchMinute(matchId) < Constants.MessageConstants.FullTimeMinute 
+                        || match.Status == MatchStatus.FirstHalf 
+                        || match.Status == MatchStatus.Scheduled)
                 {
                     match.Status = MatchStatus.Postponed;
                 }

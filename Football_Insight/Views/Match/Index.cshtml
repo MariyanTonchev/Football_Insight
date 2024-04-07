@@ -94,7 +94,7 @@
 
             function refreshMatchMinutes() {
                 $.ajax({
-                    url: '@Url.Action("GetMatchMinutes", "Match")',
+                    url: '@Url.Action("GetMatchMinute", "Match")',
                     data: { matchId: '@Model.Id' },
                     type: 'GET',
                     dataType: 'json',

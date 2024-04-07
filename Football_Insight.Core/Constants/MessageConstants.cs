@@ -8,7 +8,7 @@
 
         public const int HalfTimeMinute = 45;
 
-        public const int SettingSecondsInOneMinute = 10;
+        public const int SettingSecondsInOneMinute = 1;
 
         public const int FullTimeMinute = 90;
     }
