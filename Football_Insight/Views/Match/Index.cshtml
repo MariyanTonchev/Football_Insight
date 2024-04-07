@@ -11,7 +11,7 @@
                         <div class="square-image-container">
                             <h6>@Model.HomeTeamName</h6>
                             <img src="~/photos/default.jpg" class="square-image" alt="First Image">
-                        </div>
+                        </div>       
                     </div>
                     <div class="col d-flex flex-column align-items-start justify-content-center">
                         <a href="#" data-matchId="@Model.Id" data-teamId="@Model.HomeTeamId" data-bs-target="#goalScoredModalHome" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
@@ -29,7 +29,7 @@
                             <p>@Model.DateAndTime</p>
                         </div>
                         <div class="row">
-                            <h1>@Model.HomeScore - @Model.AwayScore</h1>
+                            <h1>@Model.HomeGoals - @Model.AwayGoals</h1>
                         </div>
                         <div class="row">
                             <p>@Model.Status</p>
@@ -79,6 +79,29 @@
                         </div>
                     </div>
                 </div>
+                @foreach (var goal in Model.Goals)
+                {
+                    <div class="row mt-4">
+                        <div class="col-3" style="text-align: right;">
+                            @if (goal.TeamId == Model.HomeTeamId)
+                            {
+                                <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                            }
+                        </div>
+                        <div class="col-6" style="text-align: @(goal.TeamId == Model.HomeTeamId ? "left" : "right");">
+                            <h6>@goal.ScorerName</h6>
+                            <p>(@goal.AssistantName)</p>
+                        </div>
+                        <div class="col-3 mt-2">
+                            @if (goal.TeamId == Model.AwayTeamId)
+                            {
+
+                                <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                            }
+                        </div>
+                    </div>
+                }
+
                 <!--Goal scored modal-->
                 <div id="goalModalContainer"></div>
             </div>

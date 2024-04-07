@@ -11,13 +11,11 @@ namespace Football_Insight.Core.Services
     {
         private readonly IRepository repository;
         private readonly IMatchTimerService matchTimerService;
-        private readonly IMatchService matchService;
 
-        public GoalService(IRepository _repository, IMatchTimerService _matchTimerService, IMatchService _matchService)
+        public GoalService(IRepository _repository, IMatchTimerService _matchTimerService)
         {
             repository = _repository;
             matchTimerService = _matchTimerService;
-            matchService = _matchService;
         }
 
         public async Task<OperationResult> AddGoalAsync(GoalModalViewModel viewModel)
@@ -36,13 +34,25 @@ namespace Football_Insight.Core.Services
                 TeamId = viewModel.TeamId
             };
 
-            var match = await repository.GetByIdAsync<Match>(viewModel.MatchId);
-            var goals = (await repository.AllReadonly<Goal>(g => g.MatchId == viewModel.MatchId && g.TeamId == viewModel.TeamId).ToListAsync()).Count;
-
             await repository.AddAsync(goal);
             await repository.SaveChangesAsync();
 
             return new OperationResult(true, "Goal added succesffully");
+        }
+
+        public async Task<List<GoalSimpleModelView>> GetGoalsAsync(int matchId)
+        {
+            var goals = await repository.AllReadonly<Goal>(g => g.MatchId == matchId)
+                .Select(g => new GoalSimpleModelView
+                {
+                    ScorerName = $"{g.GoalScorer.FirstName} {g.GoalScorer.LastName}",
+                    AssistantName = $"{g.GoalAssistant.FirstName} {g.GoalAssistant.LastName}",
+                    GoalTime = g.GoalMinute,
+                    TeamId = g.TeamId
+                })
+                .ToListAsync();
+
+            return goals;
         }
     }
 }

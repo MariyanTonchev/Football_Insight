@@ -21,11 +21,13 @@ namespace Football_Insight.Core.Services
         private readonly IMatchJobService matchJobService;
         private readonly IMemoryCache memoryCache;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IGoalService goalService;
 
         public MatchService(IRepository _repo, 
                             IStadiumService _stadiumService, 
                             ILeagueService _leagueService, 
                             ITeamService _teamService, 
+                            IGoalService _goalService,
                             IMatchTimerService _matchTimerService,
                             IMatchJobService _matchJobService,
                             IMemoryCache _memoryCache, 
@@ -39,6 +41,7 @@ namespace Football_Insight.Core.Services
             matchJobService = _matchJobService;
             memoryCache = _memoryCache;
             httpContextAccessor = _httpContextAccessor;
+            goalService = _goalService;
         }
 
         public async Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId)
@@ -50,14 +53,15 @@ namespace Football_Insight.Core.Services
                 Id = match.Id,
                 HomeTeamName = await teamService.GetTeamNameAsync(match.HomeTeamId),
                 HomeTeamId = match.HomeTeamId,
-                HomeScore = match.HomeScore,
                 AwayTeamName = await teamService.GetTeamNameAsync(match.AwayTeamId),
                 AwayTeamId = match.AwayTeamId,
-                AwayScore = match.AwayScore,
                 DateAndTime = match.Date.ToString(),
                 Status = match.Status,
                 LeagueId = match.LeagueId,
-                Minutes = matchTimerService.GetMatchMinute(matchId)
+                Minutes = matchTimerService.GetMatchMinute(matchId),
+                HomeGoals = (await goalService.GetGoalsAsync(matchId)).Where(g => g.TeamId == match.HomeTeamId).ToList().Count,
+                AwayGoals = (await goalService.GetGoalsAsync(matchId)).Where(g => g.TeamId == match.AwayTeamId).ToList().Count,
+                Goals = await goalService.GetGoalsAsync(matchId)
             };
 
             return viewModel;
