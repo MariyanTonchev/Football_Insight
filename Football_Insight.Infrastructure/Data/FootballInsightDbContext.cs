@@ -17,7 +17,6 @@ namespace Football_Insight.Infrastructure.Data
         public DbSet<Match> Matches { get; set; } = null!;
         public DbSet<Team> Teams { get; set; } = null!;
         public DbSet<Player> Players { get; set; } = null!;
-        public DbSet<PlayerStatistic> PlayerStatistics { get; set; } = null!;
         public DbSet<PlayerMatch> PlayerMatches { get; set; } = null!;
         public DbSet<Stadium> Stadiums { get; set; } = null!;
         public DbSet<Goal> Goals { get; set; } = null!;
@@ -49,31 +48,31 @@ namespace Football_Insight.Infrastructure.Data
                 .WithMany(t => t.AwayMatches)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<PlayerStatistic>()
-                .HasOne(ps => ps.Player)
-                .WithMany(p => p.PlayerStatistics)
-                .OnDelete(DeleteBehavior.NoAction);
-
             builder.Entity<Player>()
-                .HasMany(p => p.Goals)
+                .HasMany(p => p.GoalsScored)
                 .WithOne(g => g.GoalScorer)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Goal>()
-                .HasOne(g => g.GoalAssistant)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Player>()
+                .HasMany(p => p.GoalAssisted)
+                .WithOne(g => g.GoalAssistant)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Favorite>()
-                .HasKey(f => new { f.UserId, f.MatchId });
+            builder.Entity<Team>()
+                .HasMany(t => t.Goals)
+                .WithOne(g => g.Team)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Favorite>()
                 .HasOne(f => f.User)
-                .WithMany();
+                .WithMany(uf => uf.Favorites);
 
             builder.Entity<Favorite>()
                 .HasOne(f => f.Match)
-                .WithMany();
+                .WithMany(fm => fm.Favorites);
+
+            builder.Entity<Favorite>()
+                .HasKey(f => new { f.UserId, f.MatchId });
 
 
             builder.ApplyConfiguration(new LeagueConfiguration());

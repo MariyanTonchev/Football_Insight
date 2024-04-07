@@ -6,7 +6,7 @@ namespace Football_Insight.Infrastructure.Data.Models
     public class Favorite
     {
         [Required]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
 
         [Required]
         public int MatchId { get; set; }

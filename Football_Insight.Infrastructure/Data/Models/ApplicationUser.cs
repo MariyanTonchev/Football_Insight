@@ -17,5 +17,7 @@ namespace Football_Insight.Infrastructure.Data.Models
         public string? City { get; set; } = string.Empty;
 
         public string? PhotoPath { get; set; } = string.Empty;
+
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Football_Insight.Infrastructure.Migrations
 {
-    public partial class removePositionAddGoal : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -233,7 +233,8 @@ namespace Football_Insight.Infrastructure.Migrations
                     HomeScore = table.Column<int>(type: "int", nullable: false),
                     AwayScore = table.Column<int>(type: "int", nullable: false),
                     LeagueId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Minutes = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -288,13 +289,40 @@ namespace Football_Insight.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Favorite",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MatchId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favorite", x => new { x.UserId, x.MatchId });
+                    table.ForeignKey(
+                        name: "FK_Favorite_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Favorite_Matches_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Matches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Goals",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MatchId = table.Column<int>(type: "int", nullable: false),
-                    ScoringPlayerId = table.Column<int>(type: "int", nullable: false)
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    GoalScorerId = table.Column<int>(type: "int", nullable: false),
+                    GoalAssistantId = table.Column<int>(type: "int", nullable: false),
+                    GoalMinute = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -306,9 +334,19 @@ namespace Football_Insight.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Goals_Players_ScoringPlayerId",
-                        column: x => x.ScoringPlayerId,
+                        name: "FK_Goals_Players_GoalAssistantId",
+                        column: x => x.GoalAssistantId,
                         principalTable: "Players",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Goals_Players_GoalScorerId",
+                        column: x => x.GoalScorerId,
+                        principalTable: "Players",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Goals_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
                         principalColumn: "Id");
                 });
 
@@ -329,36 +367,6 @@ namespace Football_Insight.Infrastructure.Migrations
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PlayerMatches_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlayerStatistics",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayerId = table.Column<int>(type: "int", nullable: false),
-                    MatchId = table.Column<int>(type: "int", nullable: false),
-                    Goals = table.Column<int>(type: "int", nullable: true),
-                    Assists = table.Column<int>(type: "int", nullable: true),
-                    MinutesPlayed = table.Column<int>(type: "int", nullable: true),
-                    YellowCards = table.Column<int>(type: "int", nullable: true),
-                    RedCards = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlayerStatistics", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PlayerStatistics_Matches_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "Matches",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PlayerStatistics_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id");
@@ -461,14 +469,29 @@ namespace Football_Insight.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favorite_MatchId",
+                table: "Favorite",
+                column: "MatchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Goals_GoalAssistantId",
+                table: "Goals",
+                column: "GoalAssistantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Goals_GoalScorerId",
+                table: "Goals",
+                column: "GoalScorerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Goals_MatchId",
                 table: "Goals",
                 column: "MatchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Goals_ScoringPlayerId",
+                name: "IX_Goals_TeamId",
                 table: "Goals",
-                column: "ScoringPlayerId");
+                column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matches_AwayTeamId",
@@ -501,16 +524,6 @@ namespace Football_Insight.Infrastructure.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerStatistics_MatchId",
-                table: "PlayerStatistics",
-                column: "MatchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerStatistics_PlayerId",
-                table: "PlayerStatistics",
-                column: "PlayerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Teams_LeagueId",
                 table: "Teams",
                 column: "LeagueId");
@@ -539,13 +552,13 @@ namespace Football_Insight.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Favorite");
+
+            migrationBuilder.DropTable(
                 name: "Goals");
 
             migrationBuilder.DropTable(
                 name: "PlayerMatches");
-
-            migrationBuilder.DropTable(
-                name: "PlayerStatistics");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

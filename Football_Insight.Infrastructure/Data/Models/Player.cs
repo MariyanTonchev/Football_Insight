@@ -38,8 +38,8 @@ namespace Football_Insight.Infrastructure.Data.Models
         [ForeignKey(nameof(TeamId))]
         public Team Team { get; set; } = null!;
 
-        public ICollection<Goal> Goals { get; set; } = new List<Goal>();
-        public ICollection<PlayerStatistic> PlayerStatistics { get; set; } = new List<PlayerStatistic>();
+        public ICollection<Goal> GoalsScored { get; set; } = new List<Goal>();
+        public ICollection<Goal> GoalAssisted { get; set; } = new List<Goal>();
         public ICollection<PlayerMatch> PlayersMatches { get; set; } = new List<PlayerMatch>();
     }
 }

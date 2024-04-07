@@ -143,6 +143,9 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.Property<int>("MatchId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GoalAssistantId");
@@ -150,6 +153,8 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasIndex("GoalScorerId");
 
                     b.HasIndex("MatchId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Goals");
                 });
@@ -369,44 +374,6 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasIndex("MatchId");
 
                     b.ToTable("PlayerMatches");
-                });
-
-            modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.PlayerStatistic", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("Assists")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Goals")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinutesPlayed")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RedCards")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("YellowCards")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MatchId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("PlayerStatistics");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Stadium", b =>
@@ -787,13 +754,13 @@ namespace Football_Insight.Infrastructure.Migrations
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Favorite", b =>
                 {
                     b.HasOne("Football_Insight.Infrastructure.Data.Models.Match", "Match")
-                        .WithMany()
+                        .WithMany("Favorites")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Football_Insight.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Favorites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -806,13 +773,13 @@ namespace Football_Insight.Infrastructure.Migrations
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Goal", b =>
                 {
                     b.HasOne("Football_Insight.Infrastructure.Data.Models.Player", "GoalAssistant")
-                        .WithMany()
+                        .WithMany("GoalAssisted")
                         .HasForeignKey("GoalAssistantId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Football_Insight.Infrastructure.Data.Models.Player", "GoalScorer")
-                        .WithMany("Goals")
+                        .WithMany("GoalsScored")
                         .HasForeignKey("GoalScorerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -823,11 +790,19 @@ namespace Football_Insight.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Football_Insight.Infrastructure.Data.Models.Team", "Team")
+                        .WithMany("Goals")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("GoalAssistant");
 
                     b.Navigation("GoalScorer");
 
                     b.Navigation("Match");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Match", b =>
@@ -886,25 +861,6 @@ namespace Football_Insight.Infrastructure.Migrations
 
                     b.HasOne("Football_Insight.Infrastructure.Data.Models.Player", "Player")
                         .WithMany("PlayersMatches")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Match");
-
-                    b.Navigation("Player");
-                });
-
-            modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.PlayerStatistic", b =>
-                {
-                    b.HasOne("Football_Insight.Infrastructure.Data.Models.Match", "Match")
-                        .WithMany()
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Football_Insight.Infrastructure.Data.Models.Player", "Player")
-                        .WithMany("PlayerStatistics")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -984,6 +940,11 @@ namespace Football_Insight.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Favorites");
+                });
+
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.League", b =>
                 {
                     b.Navigation("Match");
@@ -993,14 +954,16 @@ namespace Football_Insight.Infrastructure.Migrations
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Match", b =>
                 {
+                    b.Navigation("Favorites");
+
                     b.Navigation("PlayersMatches");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Player", b =>
                 {
-                    b.Navigation("Goals");
+                    b.Navigation("GoalAssisted");
 
-                    b.Navigation("PlayerStatistics");
+                    b.Navigation("GoalsScored");
 
                     b.Navigation("PlayersMatches");
                 });
@@ -1015,6 +978,8 @@ namespace Football_Insight.Infrastructure.Migrations
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Team", b =>
                 {
                     b.Navigation("AwayMatches");
+
+                    b.Navigation("Goals");
 
                     b.Navigation("HomeMatches");
 

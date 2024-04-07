@@ -33,6 +33,7 @@ namespace Football_Insight.Infrastructure.Data.Models
         [ForeignKey(nameof(StadiumId))]
         public Stadium Stadium { get; set; } = null!;
 
+        public ICollection<Goal> Goals { get; set; } = new List<Goal>();
         public ICollection<Player> Players { get; set; } = new List<Player>();
         public ICollection<Match> HomeMatches { get; set; } = new List<Match>();
         public ICollection<Match> AwayMatches { get; set; } = new List<Match>();

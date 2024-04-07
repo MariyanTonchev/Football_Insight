@@ -12,6 +12,8 @@ namespace Football_Insight.Core.Models.Goal
 
         public int GoalMinute { get; set; }
 
+        public int TeamId { get; set; }
+
         public List<PlayerSimpleViewModel> Players { get; set; } = new List<PlayerSimpleViewModel>();
     }
 }

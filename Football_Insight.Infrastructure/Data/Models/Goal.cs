@@ -11,6 +11,9 @@ namespace Football_Insight.Infrastructure.Data.Models
         public int MatchId { get; set; }
 
         [Required]
+        public int TeamId { get; set; }
+
+        [Required]
         public int GoalScorerId { get; set; }
 
         [Required]
@@ -21,6 +24,9 @@ namespace Football_Insight.Infrastructure.Data.Models
 
         [ForeignKey(nameof(MatchId))]
         public Match Match { get; set; } = null!;
+
+        [ForeignKey(nameof(TeamId))]
+        public Team Team { get; set; } = null!;
 
         [ForeignKey(nameof(GoalScorerId))]
         public Player GoalScorer { get; set; } = null!;

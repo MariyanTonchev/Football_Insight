@@ -20,6 +20,7 @@ namespace Football_Insight.Components
             var viewModel = new GoalModalViewModel
             {
                 MatchId = matchId,
+                TeamId = teamId,
                 Players = players,
             };
 
