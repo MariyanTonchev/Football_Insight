@@ -27,9 +27,15 @@ namespace Football_Insight.Core.Services
         public async Task<OperationResult> AddGoalAsync(GoalModalViewModel viewModel)
         {
             var cacheKey = $"Match_{viewModel.MatchId}_Status";
-            if (cacheService.TryGetCachedItem(cacheKey) || 
-                (memoryCache.Get<MatchStatus>(cacheKey) != MatchStatus.FirstHalf 
-                || memoryCache.Get<MatchStatus>(cacheKey) != MatchStatus.SecondHalf))
+            bool statusHasValue = cacheService.TryGetCachedItem(cacheKey);
+
+            MatchStatus status = MatchStatus.Scheduled;
+            if (statusHasValue)
+            {
+                status = memoryCache.Get<MatchStatus>(cacheKey);
+            }
+
+            if (status != MatchStatus.FirstHalf && status != MatchStatus.SecondHalf)
             {
                 return new OperationResult(false, "You can only add a goal when the match is in the first half or the second half.");
             }
@@ -51,7 +57,7 @@ namespace Football_Insight.Core.Services
             await repository.AddAsync(goal);
             await repository.SaveChangesAsync();
 
-            return new OperationResult(true, "Goal added succesffully");
+            return new OperationResult(true, "Goal added succesffully.");
         }
 
         public async Task<List<GoalSimpleModelView>> GetGoalsAsync(int matchId)

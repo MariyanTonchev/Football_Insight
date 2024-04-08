@@ -155,6 +155,9 @@ namespace Football_Insight.Core.Services
                 match.Status = MatchStatus.FirstHalf;
                 await repo.SaveChangesAsync();
 
+                var cacheKey = $"Match_{matchId}_Status";
+                memoryCache.Set(cacheKey, match.Status);
+
                 await matchJobService.StartMatchJobAsync(matchId);
 
                 return new OperationResult(true, "Match started successfully!");

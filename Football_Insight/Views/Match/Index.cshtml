@@ -7,7 +7,7 @@
         <div class="col-12 col-md-6">
             @if (TempData["Message"] != null)
             {
-                <div class="alert @((TempData["Status"]?.ToString() == "Success") ? "alert-success" : "alert-danger")">
+                <div class="alert @(((TempData["Status"] as bool?) == true) ? "alert-success" : "alert-danger")">
                     @TempData["Message"]
                 </div>
             }
