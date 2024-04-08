@@ -2,8 +2,10 @@
 using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Goal;
 using Football_Insight.Infrastructure.Data.Common;
+using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Football_Insight.Core.Services
 {
@@ -11,16 +13,28 @@ namespace Football_Insight.Core.Services
     {
         private readonly IRepository repository;
         private readonly IMatchTimerService matchTimerService;
+        private readonly IMemoryCache memoryCache;
+        private readonly ICacheService cacheService;
 
-        public GoalService(IRepository _repository, IMatchTimerService _matchTimerService)
+        public GoalService(IRepository _repository, IMatchTimerService _matchTimerService, IMemoryCache _memoryCache, ICacheService _cacheService)
         {
             repository = _repository;
             matchTimerService = _matchTimerService;
+            memoryCache = _memoryCache;
+            cacheService = _cacheService;
         }
 
         public async Task<OperationResult> AddGoalAsync(GoalModalViewModel viewModel)
         {
-            if(viewModel.PlayerAssistedId == viewModel.PlayerScorerId)
+            var cacheKey = $"Match_{viewModel.MatchId}_Status";
+            if (cacheService.TryGetCachedItem(cacheKey) || 
+                (memoryCache.Get<MatchStatus>(cacheKey) != MatchStatus.FirstHalf 
+                || memoryCache.Get<MatchStatus>(cacheKey) != MatchStatus.SecondHalf))
+            {
+                return new OperationResult(false, "You can only add a goal when the match is in the first half or the second half.");
+            }
+
+            if (viewModel.PlayerAssistedId == viewModel.PlayerScorerId)
             {
                 return new OperationResult(false, "Goal scorer and assistant cannot be same person.");
             }

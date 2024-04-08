@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Football_Insight.Controllers
 {
-    public class GoalController : Controller
+    public class GoalController : BaseController
     {
         private readonly IGoalService goalService;
 
@@ -29,10 +29,14 @@ namespace Football_Insight.Controllers
 
             if (!result.Success) 
             {
+                TempData["Status"] = result.Success;
+                TempData["Message"] = result.Message;
                 ModelState.AddModelError("", result.Message);
                 return RedirectToAction("Index", "Match", new { matchId = viewModel.MatchId });
             }
 
+            TempData["Status"] = result.Success;
+            TempData["Message"] = result.Message;
             return RedirectToAction("Index", "Match", new { matchId = viewModel.MatchId });
         }
     }
