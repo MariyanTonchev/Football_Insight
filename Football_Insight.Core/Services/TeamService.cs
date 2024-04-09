@@ -199,7 +199,14 @@ namespace Football_Insight.Core.Services
                 .Where(p => p.TeamId == teamId)
                 .Select(p => new PlayerSquadViewModel
                 {
-
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    DateOfBirth = p.DateOfBirth,
+                    Position = p.Position,
+                    Price = p.Price,
+                    Salary = p.Salary,
+                    GoalAssited = p.GoalAssisted.Count,
+                    GoalScored = p.GoalsScored.Count,
                 })
                 .ToListAsync();
 
