@@ -13,15 +13,15 @@
             Message = message;
         }
 
-        public OperationResult(bool success, string message, int? leagueId) : this(success, message)
+        public OperationResult(bool success, string message, int? objectId) : this(success, message)
         {
-            LeagueId = leagueId;
+            ObjecId = objectId;
         }
 
         public bool Success { get; set; }
 
         public string Message { get; set; } = string.Empty;
 
-        public int? LeagueId { get; set; }
+        public int? ObjecId { get; set; }
     }
 }

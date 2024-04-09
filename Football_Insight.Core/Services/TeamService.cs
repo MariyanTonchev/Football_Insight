@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Core.Contracts;
+using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Match;
 using Football_Insight.Core.Models.Player;
 using Football_Insight.Core.Models.Team;
@@ -12,10 +13,32 @@ namespace Football_Insight.Core.Services
     public class TeamService : ITeamService
     {
         private readonly IRepository repo;
+        private readonly IStadiumService stadiumService;
+        private readonly ILeagueService leagueService;
 
-        public TeamService(IRepository _repo)
+        public TeamService(IRepository _repo, IStadiumService _stadiumServcie, ILeagueService _leageuService)
         {
             repo = _repo;
+            stadiumService = _stadiumServcie;
+            leagueService = _leageuService;
+        }
+
+        public async Task<OperationResult> CreateTeamAsync(TeamFormViewModel viewModel)
+        {
+            var team = new Team
+            {
+                Name = viewModel.Name,
+                Founded = viewModel.Founded,
+                LogoURL = viewModel.LogoURL,
+                Coach = viewModel.Coach,
+                StadiumId = viewModel.StadiumId,
+                LeagueId = viewModel.LeagueId,
+            };
+
+            await repo.AddAsync(team);
+            await repo.SaveChangesAsync();
+
+            return new OperationResult(true, "Successfully created team.", team.Id);
         }
 
         public async Task<List<TeamSimpleViewModel>> GetAllTeamsAsync()
@@ -23,12 +46,81 @@ namespace Football_Insight.Core.Services
             var teams = await repo.AllReadonly<Team>()
                                   .Select(t => new TeamSimpleViewModel
                                   {
-                                      Id = t.Id,
+                                      TeamId = t.Id,
                                       Name = t.Name,
                                   })
                                   .ToListAsync();
 
             return teams;
+        }
+
+        public async Task<TeamSimpleViewModel> GetTeamSimpleViewModelAsync(int teamId)
+        {
+            var team = await GetTeamAsync(teamId);
+
+            var viewModel = new TeamSimpleViewModel
+            {
+                TeamId = team.Id,
+                Name = team.Name,
+            };
+
+            return viewModel;
+        }
+
+        public async Task<TeamFormViewModel> GetCreateFormViewModel()
+        {
+            var viewModel = new TeamFormViewModel
+            {
+                Leagues = await leagueService.GetAllLeaguesAsync(),
+                Stadiums = await stadiumService.GetAllStadiumAsync()
+            };
+
+            return viewModel;
+        }
+
+        public async Task<TeamFormViewModel> GetEditFormViewModel(int teamId)
+        {
+            var team = await repo.GetByIdAsync<Team>(teamId);
+
+            var viewModel = new TeamFormViewModel
+            {
+                Id = team.Id,
+                Name = team.Name,
+                Founded = team.Founded,
+                LogoURL = team.LogoURL,
+                Coach = team.Coach,
+                LeagueId = team.LeagueId,
+                StadiumId = team.StadiumId,
+                Leagues = await leagueService.GetAllLeaguesAsync(),
+                Stadiums = await stadiumService.GetAllStadiumAsync()
+            };
+
+            return viewModel;
+        }
+
+        public async Task<OperationResult> DeleteTeamAsync(int teamId)
+        {
+            var team = await GetTeamAsync(teamId);
+
+            if (team == null)
+            {
+                return new OperationResult(false, "Team not found.");
+            }
+
+            if (await HasMatches(teamId))
+            {
+                return new OperationResult(false, "You cannot delete a team with matches.");
+            }
+
+            if (await HasPlayers(teamId))
+            {
+                return new OperationResult(false, "You cannot delete a team with players.");
+            }
+
+            await repo.RemoveAsync(team);
+            await repo.SaveChangesAsync();
+
+            return new OperationResult(true, $"Successfully deleted {team.Id}!");
         }
 
         public async Task<List<PlayerSimpleViewModel>> GetSquadAsync(int teamId)
@@ -44,12 +136,12 @@ namespace Football_Insight.Core.Services
             return players;
         }
 
-        public async Task<TeamFixturesViewModel> GetTeamFixturesAsync(int id)
+        public async Task<TeamFixturesViewModel> GetTeamFixturesAsync(int teamId)
         {
             var matches = await repo.All<Match>()
                 .Include(m => m.HomeTeam)
                 .Include(t => t.AwayTeam)
-                .Where(m => (m.HomeTeamId == id || m.AwayTeamId == id) && (m.Status == MatchStatus.Scheduled))
+                .Where(m => (m.HomeTeamId == teamId || m.AwayTeamId == teamId) && (m.Status == MatchStatus.Scheduled))
                 .Select(m => new MatchFixtureViewModel
                 {
                     Id = m.Id,
@@ -61,7 +153,7 @@ namespace Football_Insight.Core.Services
 
             var teamFixtures = new TeamFixturesViewModel
             {
-                TeamId = id,
+                TeamId = teamId,
                 Fixtures = matches
             };
 
@@ -75,12 +167,12 @@ namespace Football_Insight.Core.Services
             return team.Name;
         }
 
-        public async Task<TeamResultsViewModel> GetTeamResultsAsync(int id)
+        public async Task<TeamResultsViewModel> GetTeamResultsAsync(int teamId)
         {
             var matches = await repo.All<Match>()
                 .Include(t => t.HomeTeam)
                 .Include(t => t.AwayTeam)
-                .Where(m => (m.HomeTeamId == id || m.AwayTeamId == id) && (m.Status == MatchStatus.Finished))
+                .Where(m => (m.HomeTeamId == teamId || m.AwayTeamId == teamId) && (m.Status == MatchStatus.Finished))
                 .Select(m => new MatchResultViewModel
                 {
                     Id = m.Id,
@@ -94,17 +186,17 @@ namespace Football_Insight.Core.Services
 
             var teamFixtures = new TeamResultsViewModel
             {
-                TeamId = id,
+                TeamId = teamId,
                 Results = matches
             };
 
             return teamFixtures;
         }
 
-        public async Task<TeamSquadViewModel> GetTeamSquadAsync(int id)
+        public async Task<TeamSquadViewModel> GetTeamSquadAsync(int teamId)
         {
             var players = await repo.All<Player>()
-                .Where(p => p.TeamId == id)
+                .Where(p => p.TeamId == teamId)
                 .Select(p => new PlayerSquadViewModel
                 {
 
@@ -113,11 +205,50 @@ namespace Football_Insight.Core.Services
 
             var teamSquad = new TeamSquadViewModel
             {
-                TeamId = id,
+                TeamId = teamId,
                 Players = players
             };
 
             return teamSquad;
+        }
+
+        public async Task<OperationResult> UpdateTeamAsync(TeamFormViewModel viewModel, int teamId)
+        {
+            var team = await GetTeamAsync(teamId);
+
+            if (team != null)
+            {
+                team.Name = viewModel.Name;
+                team.LogoURL = viewModel.LogoURL;
+                team.StadiumId = viewModel.StadiumId;
+                team.LeagueId = viewModel.LeagueId;
+                team.Coach = viewModel.Coach;
+                team.Founded = viewModel.Founded;
+
+                await repo.SaveChangesAsync();
+
+                return new OperationResult(true, "Tead edited successfully!");
+            }
+            else
+            {
+                return new OperationResult(false, "Team not found!");
+            }
+        }
+
+        private async Task<Team> GetTeamAsync(int teamId) => await repo.GetByIdAsync<Team>(teamId);
+
+        private async Task<bool> HasMatches(int teamId)
+        {
+            var matches = await repo.AllReadonly<Match>().Where(t => t.AwayTeamId == teamId || t.HomeTeamId == teamId).ToListAsync();
+
+            return matches.Any();
+        }
+
+        private async Task<bool> HasPlayers(int teamId)
+        {
+            var players = await repo.AllReadonly<Player>().Where(p => p.TeamId == teamId).ToListAsync();
+
+            return players.Any();
         }
     }
 }

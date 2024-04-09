@@ -5,7 +5,7 @@ namespace Football_Insight.Core.Models.Team
 {
     public class TeamDetailedViewModel
     {
-        public int Id { get; set; }
+        public int TeamId { get; set; }
 
         public string Name { get; set; } = string.Empty;
 

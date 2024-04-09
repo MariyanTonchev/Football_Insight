@@ -132,7 +132,7 @@ namespace Football_Insight.Core.Services
                                 .Where(t => t.LeagueId == l.Id)
                                 .Select(t => new TeamSimpleViewModel
                                 {
-                                    Id = t.Id,
+                                    TeamId = t.Id,
                                     Name = t.Name,
                                 })
                                 .ToList()
@@ -147,7 +147,7 @@ namespace Football_Insight.Core.Services
             return await repo.AllReadonly<Team>(t => t.LeagueId == leagueId)
                 .Select(t => new TeamSimpleViewModel
                 {
-                    Id = t.Id,
+                    TeamId = t.Id,
                     Name = t.Name
                 })
                 .ToListAsync();

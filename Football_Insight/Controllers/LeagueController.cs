@@ -63,7 +63,7 @@ namespace Football_Insight.Controllers
                 
             }
 
-            return RedirectToAction(nameof(Index), new { id = result.LeagueId });
+            return RedirectToAction(nameof(Index), new { id = result.ObjecId });
         }
 
         [HttpGet]

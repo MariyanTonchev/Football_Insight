@@ -20,6 +20,9 @@ namespace Football_Insight.Infrastructure.Data.Models
         public string LogoURL { get; set; } = string.Empty;
 
         [Required]
+        public string Coach { get; set; } = null!;
+
+        [Required]
         public int LeagueId { get; set; }
 
         [Required]
@@ -27,8 +30,6 @@ namespace Football_Insight.Infrastructure.Data.Models
 
         [ForeignKey(nameof(LeagueId))]
         public League League { get; set; } = null!;
-
-        public string Coach { get; set; } = null!;
 
         [ForeignKey(nameof(StadiumId))]
         public Stadium Stadium { get; set; } = null!;

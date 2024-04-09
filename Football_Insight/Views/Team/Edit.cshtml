@@ -1,0 +1,69 @@
+﻿@model TeamFormViewModel
+
+<div class="layout-px-spacing">
+    <div class="middle-content container-xxl p-0">
+        <div class="row layout-top-spacing">
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+                <div class="widget-content widget-content-area br-8">
+                    <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <form asp-action="Edit" method="post">
+                            <div class="row g-3">
+                                     <div class="text-danger">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-2 mt-4" style="text-align: center;">
+                                        <div class="form-group">
+                                            <label asp-for="Name">Team Name</label>
+                                            <input asp-for="Name" class="form-control" />
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mt-4" style="text-align: center;">
+                                        <div class="form-group">
+                                            <label asp-for="Founded">Year Founded</label>
+                                            <input asp-for="Founded" class="form-control" />
+                                            <span asp-validation-for="Founded" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mt-4" style="text-align: center;">
+                                        <div class="form-group">
+                                            <label asp-for="LogoURL">Logo URL</label>
+                                            <input asp-for="LogoURL" class="form-control" />
+                                            <span asp-validation-for="LogoURL" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mt-4" style="text-align: center;">
+                                        <div class="form-group">
+                                            <label asp-for="Coach">Coach</label>
+                                            <input asp-for="Coach" class="form-control" />
+                                            <span asp-validation-for="Coach" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-3 mt-4" style="text-align: left;">
+                                        <label asp-for="StadiumId" class="form-label">Stadium</label>
+                                        <select asp-for="StadiumId" class="form-select" asp-items="@(new SelectList(Model.Stadiums, "Id", "Name"))">
+                                            <option value="0" selected>Select a stadium</option>
+                                        </select>
+                                        <span asp-validation-for="StadiumId" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-12" style="text-align: center;">
+                                    <a asp-action="Index" asp-controller="Team" asp-route-teamId="@Model.Id "class="btn btn-outline-success mb-2 me-4">Cancel</a>
+                                    <button type="submit" class="btn btn-outline-success mb-2 me-4">
+                                        <input type="hidden" asp-for="@Model.LeagueId" />
+                                        <input type="hidden" name="teamId" asp-for="@Model.Id" />
+                                        <span class="btn-text-inner">Edit Team</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

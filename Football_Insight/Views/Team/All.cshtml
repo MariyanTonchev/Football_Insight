@@ -4,6 +4,11 @@
     <div class="container-xl">
         <div class="row justify-content-center">
             <div class="col-lg-4">
+                <form asp-action="Create" asp-controller="Team" method="get">
+                    <button type="submit" class="btn btn-outline-success mb-2">
+                        <span class="btn-text-inner">Create Team</span>
+                    </button>
+                </form>
                 <div id="iconsAccordion" class="accordion-icons accordion">
                     @for (int i = 0; i < Model.Count; i++)
                     {
@@ -27,17 +32,19 @@
                                     </div>
                                 </section>
                             </div>
+                          
                             <div id="iconAccordion@(i)" class="collapse" aria-labelledby="heading@(i)" data-bs-parent="#iconsAccordion">
                                 <div class="card-body">
                                     <ul class="list-unstyled">
                                         @foreach (var team in Model[i].Teams)
                                         {
-                                            <li><a asp-controller="Team" asp-action="Index" asp-route-TeamId="@team.Id">@team.Name</a></li>
+                                            <li><a asp-controller="Team" asp-action="Index" asp-route-TeamId="@team.TeamId">@team.Name</a></li>
                                         }
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                       
                     }
                 </div>
             </div>
