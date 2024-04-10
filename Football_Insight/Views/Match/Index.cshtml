@@ -20,7 +20,7 @@
                         </div>       
                     </div>
                     <div class="col d-flex flex-column align-items-start justify-content-center">
-                        <a href="#" data-matchId="@Model.Id" data-teamId="@Model.HomeTeamId" data-bs-target="#goalScoredModalHome" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a href="#" data-match-id="@Model.Id" data-team-id="@Model.HomeTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
                         <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="col d-flex flex-column align-items-end justify-content-center">
-                        <a href="#" data-matchId="@Model.Id" data-teamId="@Model.AwayTeamId" data-bs-target="#goalScoredModalAway" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                        <a href="#" data-match-id="@Model.Id" data-team-id="@Model.AwayTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                             <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                         </a>
                         <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">

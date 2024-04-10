@@ -2,7 +2,7 @@
 @model GoalModalViewModel
 
 <form asp-action="Add" asp-controller="Goal" method="post">
-    <div class="modal fade" id="goalScoredModal" tabindex="-1" role="dialog" aria-labelledby="goalScoredModal" aria-hidden="true">
+    <div class="modal fade" id="goalModal" tabindex="-1" role="dialog" aria-labelledby="goalScoredModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -13,14 +13,14 @@
                 </div>
                 <div class="modal-body">
                     <label asp-for="PlayerScorerId" class="form-label">Goal scored by</label>
-                    <select asp-for="PlayerScorerId" class="form-select" asp-items="@(new SelectList(Model.Players, "Id", "Name"))">
+                    <select asp-for="PlayerScorerId" class="form-select" asp-items="@(new SelectList(Model.Players, "PlayerId", "Name"))">
                         <option value="0" selected>Select a player</option>
                     </select>
                     <span asp-validation-for="PlayerScorerId" class="text-danger"></span>
                 </div>
                 <div class="modal-body">
                     <label asp-for="PlayerAssistedId" class="form-label">Goal assisted by:</label>
-                    <select asp-for="PlayerAssistedId" class="form-select" asp-items="@(new SelectList(Model.Players, "Id", "Name"))">
+                    <select asp-for="PlayerAssistedId" class="form-select" asp-items="@(new SelectList(Model.Players, "PlayerId", "Name"))">
                         <option value="0" selected>Select a player</option>
                     </select>
                     <span asp-validation-for="PlayerAssistedId" class="text-danger"></span>

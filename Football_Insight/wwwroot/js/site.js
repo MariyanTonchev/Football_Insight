@@ -68,16 +68,17 @@
 
     $('.action-icon-col').click(function () {
         
-        var teamId = $(this).data('teamid');
-        var matchId = $(this).data('matchid');
+        var TeamId = $(this).data('team-id');
+        var MatchId = $(this).data('match-id');
 
         $.ajax({
             url: '/Goal/Add',
             type: 'GET',
-            data: { teamId: teamId, matchId: matchId },
+            data: { teamId: TeamId, matchId: MatchId },
             success: function (response) {
+                console.log(TeamId + MatchId);
                 $('#goalModalContainer').html(response);
-                $("#goalScoredModal").modal('show');
+                $("#goalModal").modal('show');
             },
             error: function (xhr, status, error) {
                 console.error("Error occurred: " + error);
