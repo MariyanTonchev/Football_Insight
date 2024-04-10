@@ -96,7 +96,7 @@ namespace Football_Insight.Core.Services
                 .Select(g => new GoalSimpleModelView
                 {
                     ScorerName = $"{g.GoalScorer.FirstName} {g.GoalScorer.LastName}",
-                    AssistantName = $"{g.GoalAssistant.FirstName} {g.GoalAssistant.LastName}",
+                    AssistantName = $"{g.GoalAssistant.FirstName} {g.GoalAssistant.LastName}".Trim(),
                     GoalTime = g.GoalMinute,
                     TeamId = g.TeamId
                 })
