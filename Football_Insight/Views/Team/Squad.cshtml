@@ -6,6 +6,14 @@
     <div class="middle-content container-xxl p-0">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+                <div style="text-align: right;">
+                    <form asp-action="Create" asp-controller="Player" method="get">
+                        <input type="hidden" name="teamId" asp-for="@Model.TeamId"/>
+                        <button type="submit" class="btn btn-outline-success mb-2 me-6">
+                            <span class="btn-text-inner">Create Player</span>
+                        </button>
+                    </form>
+                </div>
                 <div class="statbox widget box box-shadow">
                     <div class="widget-content widget-content-area">
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -34,7 +42,14 @@
                                                         <td>@player.Salary</td>
                                                         <td>@player.GoalScored</td>
                                                         <td>@player.GoalAssited</td>
-                                                        <td class="text-center"> <button class="btn btn-primary _effect--ripple waves-effect waves-light">view</button> </td>
+                                                        <td class="text-center">
+                                                            <a asp-action="Edit" asp-controller="Player" asp-route-playerId="@player.Id" class="action-icon-row">
+                                                                <i class="fa-solid fa-pencil" style="color: #FFD43B;"></i>
+                                                            </a>
+                                                            <a asp-action="Delete" asp-controller="Player" asp-route-playerId="@player.Id" class="action-icon-row">
+                                                                <i class="fa-regular fa-trash-can" style="color: #ff0000;"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 }
                                         </tbody>
