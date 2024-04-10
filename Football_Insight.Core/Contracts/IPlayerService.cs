@@ -1,18 +1,25 @@
-﻿using Football_Insight.Infrastructure.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Football_Insight.Core.Models;
+using Football_Insight.Core.Models.Player;
+using Football_Insight.Core.Models.Team;
+using Football_Insight.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Football_Insight.Core.Contracts
 {
     public interface IPlayerService
     {
-        Task<IEnumerable<Player>> GetAllPlayersAsync();
-        Task<Player> GetPlayerByIdAsync(int id);
-        Task CreatePlayerAsync(Player player);
-        Task UpdatePlayerAsync(Player player);
-        Task DeletePlayerAsync(int id);
+        PlayerFormViewModel GetCreateFomViewModel(int teamId);
+
+        Task<OperationResult> CreatePlayerAsync(PlayerFormViewModel viewModel);
+
+        Task<PlayerFormViewModel> GetEditFormViewModel(int playerId);
+
+        Task<OperationResult> UpdatePlayerAsync(PlayerFormViewModel viewModel, int playerId);
+
+        Task<PlayerSimpleViewModel> GetPlayerSimpleViewModelAsync(int playerId);
+
+        Task<OperationResult> DeletePlayerAsync(int playerId);
+
+        ICollection<SelectListItem> GetPositionsFromEnum();
     }
 }

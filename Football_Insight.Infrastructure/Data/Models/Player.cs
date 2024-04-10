@@ -33,7 +33,7 @@ namespace Football_Insight.Infrastructure.Data.Models
         [Required]
         public int TeamId { get; set; }
 
-        public PlayerPosition Position { get; set; }
+        public int Position { get; set; }
 
         [ForeignKey(nameof(TeamId))]
         public Team Team { get; set; } = null!;
