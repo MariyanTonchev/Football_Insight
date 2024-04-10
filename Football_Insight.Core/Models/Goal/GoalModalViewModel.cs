@@ -1,9 +1,11 @@
 ﻿using Football_Insight.Core.Models.Player;
+using System.ComponentModel.DataAnnotations;
 
 namespace Football_Insight.Core.Models.Goal
 {
     public class GoalModalViewModel
     {
+        [Required]
         public int PlayerScorerId { get; set; }
 
         public int PlayerAssistedId { get; set; }

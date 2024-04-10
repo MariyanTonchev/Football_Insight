@@ -39,7 +39,6 @@ namespace Football_Insight.Infrastructure.Data.Models
         public Team Team { get; set; } = null!;
 
         public ICollection<Goal> GoalsScored { get; set; } = new List<Goal>();
-        public ICollection<Goal> GoalAssisted { get; set; } = new List<Goal>();
-        public ICollection<PlayerMatch> PlayersMatches { get; set; } = new List<PlayerMatch>();
+        public ICollection<Goal> GoalsAssisted { get; set; } = new List<Goal>();
     }
 }

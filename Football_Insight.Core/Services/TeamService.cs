@@ -206,7 +206,7 @@ namespace Football_Insight.Core.Services
                     Position = (PlayerPosition)p.Position,
                     Price = p.Price,
                     Salary = p.Salary,
-                    GoalAssited = p.GoalAssisted.Count,
+                    GoalAssited = p.GoalsAssisted.Count,
                     GoalScored = p.GoalsScored.Count,
                 })
                 .ToListAsync();

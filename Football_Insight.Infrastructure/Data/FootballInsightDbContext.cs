@@ -2,7 +2,6 @@
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace Football_Insight.Infrastructure.Data
 {
@@ -17,26 +16,12 @@ namespace Football_Insight.Infrastructure.Data
         public DbSet<Match> Matches { get; set; } = null!;
         public DbSet<Team> Teams { get; set; } = null!;
         public DbSet<Player> Players { get; set; } = null!;
-        public DbSet<PlayerMatch> PlayerMatches { get; set; } = null!;
         public DbSet<Stadium> Stadiums { get; set; } = null!;
         public DbSet<Goal> Goals { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<PlayerMatch>()
-                .HasKey(pm => new { pm.PlayerId, pm.MatchId });
-
-            builder.Entity<PlayerMatch>()
-                .HasOne(pm => pm.Player)
-                .WithMany(p => p.PlayersMatches)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<PlayerMatch>()
-                .HasOne(pm => pm.Match)
-                .WithMany(m => m.PlayersMatches)
-                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Match>()
                 .HasOne(m => m.HomeTeam)
@@ -54,9 +39,10 @@ namespace Football_Insight.Infrastructure.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Player>()
-                .HasMany(p => p.GoalAssisted)
+                .HasMany(p => p.GoalsAssisted)
                 .WithOne(g => g.GoalAssistant)
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(g => g.GoalAssistantId)
+                .OnDelete(DeleteBehavior.NoAction); 
 
             builder.Entity<Team>()
                 .HasMany(t => t.Goals)
@@ -66,6 +52,10 @@ namespace Football_Insight.Infrastructure.Data
             builder.Entity<Favorite>()
                 .HasOne(f => f.User)
                 .WithMany(uf => uf.Favorites);
+
+            builder.Entity<Goal>()
+                .Property(g => g.GoalAssistantId)
+                .IsRequired(false);
 
             builder.Entity<Favorite>()
                 .HasOne(f => f.Match)

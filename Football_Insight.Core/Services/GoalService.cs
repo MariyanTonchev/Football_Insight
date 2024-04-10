@@ -40,19 +40,49 @@ namespace Football_Insight.Core.Services
                 return new OperationResult(false, "You can only add a goal when the match is in the first half or the second half.");
             }
 
+            if(viewModel.PlayerScorerId == 0)
+            {
+                return new OperationResult(false, "Goal scorer is required..");
+            }
+
             if (viewModel.PlayerAssistedId == viewModel.PlayerScorerId)
             {
                 return new OperationResult(false, "Goal scorer and assistant cannot be same person.");
             }
 
-            var goal = new Goal
+            var goal = new Goal();
+
+            if (viewModel.PlayerAssistedId == 0)
             {
-                MatchId = viewModel.MatchId,
-                GoalScorerId = viewModel.PlayerScorerId,
-                GoalAssistantId = viewModel.PlayerAssistedId,
-                GoalMinute = matchTimerService.GetMatchMinute(viewModel.MatchId),
-                TeamId = viewModel.TeamId
-            };
+                goal = new Goal
+                {
+                    MatchId = viewModel.MatchId,
+                    GoalScorerId = viewModel.PlayerScorerId,
+                    GoalMinute = matchTimerService.GetMatchMinute(viewModel.MatchId),
+                    TeamId = viewModel.TeamId
+                };
+            }
+            else
+            {
+                goal = new Goal
+                {
+                    MatchId = viewModel.MatchId,
+                    GoalScorerId = viewModel.PlayerScorerId,
+                    GoalAssistantId = viewModel.PlayerAssistedId,
+                    GoalMinute = matchTimerService.GetMatchMinute(viewModel.MatchId),
+                    TeamId = viewModel.TeamId
+                };
+            }
+
+            var match = await repository.GetByIdAsync<Match>(viewModel.MatchId);
+            if(match.HomeTeamId == goal.TeamId)
+            {
+                match.HomeScore += 1;
+            }
+            else if(match.AwayTeamId == goal.TeamId)
+            {
+                match.AwayScore += 1;
+            }
 
             await repository.AddAsync(goal);
             await repository.SaveChangesAsync();

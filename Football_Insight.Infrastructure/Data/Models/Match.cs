@@ -46,8 +46,6 @@ namespace Football_Insight.Infrastructure.Data.Models
         [ForeignKey(nameof(LeagueId))]
         public League League { get; set; } = null!;
 
-        public ICollection<PlayerMatch> PlayersMatches { get; set; } = new List<PlayerMatch>();
-
         public ICollection<Goal> Goals = new List<Goal>();
 
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();

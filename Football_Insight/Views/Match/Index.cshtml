@@ -97,12 +97,14 @@
                         </div>
                         <div class="col-6" style="text-align: @(goal.TeamId == Model.HomeTeamId ? "left" : "right");">
                             <h6>@goal.ScorerName</h6>
-                            <p>(@goal.AssistantName)</p>
+                            @if (!string.IsNullOrEmpty(goal.AssistantName))
+                            {
+                                <p>(@goal.AssistantName)</p>
+                            }
                         </div>
                         <div class="col-3 mt-2">
                             @if (goal.TeamId == Model.AwayTeamId)
                             {
-
                                 <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
                             }
                         </div>

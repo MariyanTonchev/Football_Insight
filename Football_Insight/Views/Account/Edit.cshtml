@@ -76,7 +76,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label asp-for="FavoriteTeamId">Favorite Team</label>
-                                                                        <select asp-for="FavoriteTeamId" class="form-control mb-3" placeholder="Select a teamm..." asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                                                        <select asp-for="FavoriteTeamId" class="form-control mb-3" placeholder="Select a teamm..." asp-items="@(new SelectList(Model.Teams, "TeamId", "Name"))">
                                                                             <option value="-1" selected>Select a team...</option>
                                                                         </select>
                                                                         <span asp-validation-for="FavoriteTeamId" class="text-danger"></span>
@@ -85,7 +85,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label asp-for="FavoritePlayerId">Favorite Player</label>
-                                                                        <select asp-for="FavoritePlayerId" class="form-control mb-3" placeholder="Select a player..." asp-items="@(new SelectList(Model.Players, "Id", "Name"))">
+                                                                        <select asp-for="FavoritePlayerId" class="form-control mb-3" placeholder="Select a player..." asp-items="@(new SelectList(Model.Players, "PlayerId", "Name"))">
                                                                             <option value="-1" selected>Select a player...</option>
                                                                         </select>
                                                                         <span asp-validation-for="FavoritePlayerId" class="text-danger"></span>

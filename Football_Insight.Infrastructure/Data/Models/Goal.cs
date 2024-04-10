@@ -16,22 +16,20 @@ namespace Football_Insight.Infrastructure.Data.Models
         [Required]
         public int GoalScorerId { get; set; }
 
-        [Required]
-        public int GoalAssistantId { get; set; }
+        public int? GoalAssistantId { get; set; }
 
         [Required]
         public int GoalMinute { get; set; }
 
         [ForeignKey(nameof(MatchId))]
-        public Match Match { get; set; } = null!;
+        public virtual Match Match { get; set; } = null!;
 
         [ForeignKey(nameof(TeamId))]
-        public Team Team { get; set; } = null!;
+        public virtual Team Team { get; set; } = null!;
 
         [ForeignKey(nameof(GoalScorerId))]
-        public Player GoalScorer { get; set; } = null!;
+        public virtual Player GoalScorer { get; set; } = null!;
 
-        [ForeignKey(nameof(GoalAssistantId))]
-        public Player GoalAssistant { get; set; } = null!;
+        public virtual Player? GoalAssistant { get; set; }
     }
 }
