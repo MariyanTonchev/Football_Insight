@@ -4,6 +4,8 @@ namespace Football_Insight.Core.Models.Player
 {
     public class PlayerSquadViewModel
     {
+        public int Id { get; set; }
+
         public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; } = string.Empty;
