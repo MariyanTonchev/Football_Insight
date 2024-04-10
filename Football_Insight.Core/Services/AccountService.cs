@@ -129,7 +129,7 @@ namespace Football_Insight.Core.Services
             return await repo.All<Player>()
                 .Select(p => new PlayerSimpleViewModel
                 {
-                    Id = p.Id,
+                    PlayerId = p.Id,
                     Name = $"{p.FirstName} {p.LastName}"
                 })
                 .ToListAsync();

@@ -128,7 +128,7 @@ namespace Football_Insight.Core.Services
             var players = await repo.AllReadonly<Player>(p => p.TeamId == teamId)
                         .Select(p => new PlayerSimpleViewModel
                         {
-                            Id = p.Id,
+                            PlayerId = p.Id,
                             Name = $"{p.FirstName} {p.LastName}"
                         })
                         .ToListAsync();
@@ -199,10 +199,11 @@ namespace Football_Insight.Core.Services
                 .Where(p => p.TeamId == teamId)
                 .Select(p => new PlayerSquadViewModel
                 {
+                    Id = p.Id,
                     FirstName = p.FirstName,
                     LastName = p.LastName,
                     DateOfBirth = p.DateOfBirth,
-                    Position = p.Position,
+                    Position = (PlayerPosition)p.Position,
                     Price = p.Price,
                     Salary = p.Salary,
                     GoalAssited = p.GoalAssisted.Count,
@@ -234,7 +235,7 @@ namespace Football_Insight.Core.Services
 
                 await repo.SaveChangesAsync();
 
-                return new OperationResult(true, "Tead edited successfully!");
+                return new OperationResult(true, "Team edited successfully!");
             }
             else
             {
