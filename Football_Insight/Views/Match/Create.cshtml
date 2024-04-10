@@ -20,14 +20,14 @@
                                 <div class="row justify-content-center">
                                     <div class="col-md-3" style="text-align: left;">
                                         <label asp-for="HomeTeamId" class="form-label">Home Team</label>
-                                        <select asp-for="HomeTeamId" class="form-select" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                        <select asp-for="HomeTeamId" class="form-select" asp-items="@(new SelectList(Model.Teams, "TeamId", "Name"))">
                                             <option value="0" selected>Select a team</option>
                                         </select>
                                         <span asp-validation-for="HomeTeamId" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-3" style="text-align: right;">
                                         <label asp-for="AwayTeamId" class="form-label">Away Team</label>
-                                        <select asp-for="AwayTeamId" class="form-select" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                        <select asp-for="AwayTeamId" class="form-select" asp-items="@(new SelectList(Model.Teams, "TeamId", "Name"))">
                                             <option value="0" selected>Select a team</option>
                                         </select>
                                         <span asp-validation-for="AwayTeamId" class="text-danger"></span>
