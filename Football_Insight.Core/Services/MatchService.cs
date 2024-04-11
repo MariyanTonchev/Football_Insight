@@ -55,7 +55,7 @@ namespace Football_Insight.Core.Services
                 HomeTeamId = match.HomeTeamId,
                 AwayTeamName = await teamService.GetTeamNameAsync(match.AwayTeamId),
                 AwayTeamId = match.AwayTeamId,
-                DateAndTime = match.Date.ToString(),
+                DateAndTime = match.DateAndTime.ToString(),
                 Status = match.Status,
                 LeagueId = match.LeagueId,
                 Minutes = matchTimerService.GetMatchMinute(matchId),
@@ -73,7 +73,7 @@ namespace Football_Insight.Core.Services
 
             var match = new Match
             {
-                Date = model.DateAndTime,
+                DateAndTime = model.DateAndTime,
                 HomeTeamId = model.HomeTeamId,
                 AwayTeamId = model.AwayTeamId,
                 StadiumId = stadiumId,
@@ -102,7 +102,7 @@ namespace Football_Insight.Core.Services
             {
                 match.HomeTeamId = model.HomeTeamId;
                 match.AwayTeamId = model.AwayTeamId;
-                match.Date = model.DateAndTime;
+                match.DateAndTime = model.DateAndTime;
 
                 await repo.SaveChangesAsync();
             }
@@ -120,7 +120,7 @@ namespace Football_Insight.Core.Services
                 {
                     HomeTeamId = match.HomeTeamId,
                     AwayTeamId = match.AwayTeamId,
-                    DateAndTime = match.Date,
+                    DateAndTime = match.DateAndTime,
                     LeagueId = match.LeagueId,
                     Teams = await leagueService.GetAllTeamsAsync(match.LeagueId)
                 };
@@ -239,7 +239,7 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, "Match not found.");
                 }
 
-                if (matchTimerService.GetMatchMinute(matchId) <= Constants.MessageConstants.HalfTimeMinute)
+                if (matchTimerService.GetMatchMinute(matchId) <= Constants.GlobalConstants.HalfTimeMinute)
                 {
                     return new OperationResult(false, "The match is too early for half time.");
                 }
@@ -259,13 +259,13 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, reason);
                 }
 
-                if (matchTimerService.GetMatchMinute(matchId) <= Constants.MessageConstants.HalfTimeMinute)
+                if (matchTimerService.GetMatchMinute(matchId) <= Constants.GlobalConstants.HalfTimeMinute)
                 {
                     return new OperationResult(false, "The match is too early for half time.");
                 }
 
                 match.Status = MatchStatus.HalfTime;
-                match.Minutes = Constants.MessageConstants.HalfTimeMinute;
+                match.Minutes = Constants.GlobalConstants.HalfTimeMinute;
                 await repo.SaveChangesAsync();
 
                 await matchJobService.PauseMatchJobAsync(matchId);
@@ -341,7 +341,7 @@ namespace Football_Insight.Core.Services
                     return new OperationResult(false, reason);
                 }
 
-                if (matchTimerService.GetMatchMinute(matchId) < Constants.MessageConstants.FullTimeMinute 
+                if (matchTimerService.GetMatchMinute(matchId) < Constants.GlobalConstants.FullTimeMinute 
                         || match.Status == MatchStatus.FirstHalf 
                         || match.Status == MatchStatus.Scheduled)
                 {

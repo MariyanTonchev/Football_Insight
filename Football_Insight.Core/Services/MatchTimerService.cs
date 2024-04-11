@@ -24,7 +24,7 @@ namespace Football_Insight.Core.Services
             {
                 if(cacheService.TryGetCachedItem(statusCacheKey) && memoryCache.Get<MatchStatus>(statusCacheKey) == MatchStatus.HalfTime)
                 {
-                    memoryCache.Set(minuteCacheKey, Constants.MessageConstants.HalfTimeMinute, TimeSpan.FromHours(2));
+                    memoryCache.Set(minuteCacheKey, Constants.GlobalConstants.HalfTimeMinute, TimeSpan.FromHours(2));
                     memoryCache.Set(statusCacheKey, MatchStatus.SecondHalf, TimeSpan.FromHours(2));
                 }
                 memoryCache.Set(minuteCacheKey, memoryCache.Get<int>(minuteCacheKey) + 1, TimeSpan.FromHours(2));

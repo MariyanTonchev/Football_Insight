@@ -72,8 +72,14 @@ body {
     margin-left: 10px;
 }
 
-    .action-icons-container form button {
-        background: none;
-        border: none;
-        padding: 0;
-    }
+.action-icons-container form button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.team-logo {
+    width: 25px;
+    height: 25px;
+    border-radius: 2px;
+}

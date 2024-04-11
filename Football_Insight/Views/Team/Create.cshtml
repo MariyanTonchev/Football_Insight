@@ -42,14 +42,14 @@
                                     <div class="col-md-3 mt-4" style="text-align: left;">
                                         <label asp-for="StadiumId" class="form-label">Stadium</label>
                                         <select asp-for="StadiumId" class="form-select" asp-items="@(new SelectList(Model.Stadiums, "Id", "Name"))">
-                                            <option value="0" selected>Select a stadium</option>
+                                            <option value="" selected>Select a stadium</option>
                                         </select>
                                         <span asp-validation-for="StadiumId" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-3 mt-4" style="text-align: left;">
                                         <label asp-for="LeagueId" class="form-label">League</label>
                                         <select asp-for="LeagueId" class="form-select" asp-items="@(new SelectList(Model.Leagues, "Id", "Name"))">
-                                            <option value="0" selected>Select a league</option>
+                                            <option value="" selected>Select a league</option>
                                         </select>
                                         <span asp-validation-for="LeagueId" class="text-danger"></span>
                                     </div>

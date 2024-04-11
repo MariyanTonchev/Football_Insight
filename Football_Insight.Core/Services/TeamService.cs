@@ -147,7 +147,7 @@ namespace Football_Insight.Core.Services
                     Id = m.Id,
                     HomeTeam = m.HomeTeam.Name,
                     AwayTeam = m.AwayTeam.Name,
-                    Date = m.Date.ToString(Constants.MessageConstants.DateFormat)
+                    Date = m.DateAndTime.ToString(Constants.GlobalConstants.DateFormat)
                 })
                 .ToListAsync();
 
@@ -180,7 +180,7 @@ namespace Football_Insight.Core.Services
                     AwayTeam = m.AwayTeam.Name,
                     HomeTeamGoals = m.HomeScore,
                     AwayTeamGoals = m.AwayScore,
-                    Date = m.Date.ToString()
+                    Date = m.DateAndTime.ToString()
                 })
                 .ToListAsync();
 

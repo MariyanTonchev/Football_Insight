@@ -28,7 +28,7 @@ namespace Football_Insight.Core.Services
             var trigger = TriggerBuilder.Create()
                         .WithIdentity(triggerKey)
                         .StartNow()
-                        .WithSimpleSchedule(x => x.WithIntervalInSeconds(Constants.MessageConstants.SettingSecondsInOneMinute).RepeatForever())
+                        .WithSimpleSchedule(x => x.WithIntervalInSeconds(Constants.GlobalConstants.SettingSecondsInOneMinute).RepeatForever())
                         .Build();
 
             await scheduler.ScheduleJob(job, trigger);

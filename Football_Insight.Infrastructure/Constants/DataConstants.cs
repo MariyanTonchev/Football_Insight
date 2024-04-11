@@ -8,8 +8,8 @@
         public const int PersonLastNameMaxLength = 50;
         public const int PersonLastNameMinLength = 2;
 
-        public const int PositionNameMaxLength = 25;
-        public const int PositionNameMinLength = 2;
+        public const int LeagueNameMaxLength = 25;
+        public const int LeagueNameMinLength = 2;
 
         public const int TeamNameMaxLength = 50;
         public const int TeamNameMinLength = 5;
@@ -25,5 +25,11 @@
 
         public const int TotalDigitsDecimalPrecision = 14;
         public const int DigitsAfterDecimalPoint = 2;
+
+        public const int CoachNameMaxLength = 100;
+        public const int CoachNameMinLength = 2;
+
+        public const int YearFoundMax = 2024;
+        public const int YearFoundMin = 1700;
     }
 }

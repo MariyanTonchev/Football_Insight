@@ -121,7 +121,7 @@
 @if (Model.Status == MatchStatus.FirstHalf || Model.Status == MatchStatus.HalfTime || Model.Status == MatchStatus.SecondHalf)
 {
     <script>
-        var refreshInterval = @MessageConstants.SettingSecondsInOneMinute;
+        var refreshInterval = @GlobalConstants.SettingSecondsInOneMinute;
         var matchId = '@Model.Id';
     </script>
     <script src="~/js./refreshtMatchMinutes.js"></script>

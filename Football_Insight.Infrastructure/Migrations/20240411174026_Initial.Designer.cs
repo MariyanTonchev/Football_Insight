@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Football_Insight.Infrastructure.Migrations
 {
     [DbContext(typeof(FootballInsightDbContext))]
-    [Migration("20240410193625_FullMigration3")]
-    partial class FullMigration3
+    [Migration("20240411174026_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,14 +33,16 @@ namespace Football_Insight.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Optional. The user's city. This is not required at registration and can be filled in later.");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Optional. The user's country. This is not required at registration and can be filled in later.");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -50,16 +52,22 @@ namespace Football_Insight.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("FavoritePlayerId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Optional. ID of the user's favorite player. This is not required at registration and can be filled in later.");
 
                     b.Property<int?>("FavoriteTeamId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Optional. ID of the user's favorite team. This is not required at registration and can be filled in later.");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Optional. The user's first name. This is not required at registration and can be filled in later.");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Optional. The user's last name. This is not required at registration and can be filled in later.");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -85,7 +93,8 @@ namespace Football_Insight.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PhotoPath")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Optional. Path to the user's photo. This can be updated to enhance the user's profile.");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -108,45 +117,57 @@ namespace Football_Insight.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasComment("Represents the user profile within the application, extending the IdentityUser with custom properties for a personalized experience.");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Favorite", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("The ID of the user who has marked a match as a favorite.");
 
                     b.Property<int>("MatchId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The ID of the match that has been marked as favorite by the user.");
 
                     b.HasKey("UserId", "MatchId");
 
                     b.HasIndex("MatchId");
 
                     b.ToTable("Favorite");
+
+                    b.HasComment("Represent a relationship between a user and their favorite matches.");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Goal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Unique identifier for the goal.");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("GoalAssistantId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Optional identifier of the player who assisted the goal. Can be null if there was no assist.");
 
                     b.Property<int>("GoalMinute")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The minute of the match in which the goal was scored.");
 
                     b.Property<int>("GoalScorerId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Identifier of the player who scored the goal. Foreign key that references the Player entity as the goal scorer.");
 
                     b.Property<int>("MatchId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Identifier of the match in which the goal was scored. Foreign key that references the Match entity.");
 
                     b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Identifier of the team that scored the goal. Foreign key that references the Team entity.");
 
                     b.HasKey("Id");
 
@@ -159,23 +180,30 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Goals");
+
+                    b.HasComment("Represent information about goals scored in matches.");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.League", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The unique identifier for the league.");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)")
+                        .HasComment("The name of the league.");
 
                     b.HasKey("Id");
 
                     b.ToTable("Leagues");
+
+                    b.HasComment("Represent information about league.");
 
                     b.HasData(
                         new
@@ -209,36 +237,46 @@ namespace Football_Insight.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The unique identifier for the match.");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AwayScore")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The score of the away team at the end of the match.");
 
                     b.Property<int>("AwayTeamId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Foreign key representing the away team. References the Team entity.");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("DateAndTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("The date and time when the match is scheduled to take place.");
 
                     b.Property<int>("HomeScore")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The score of the home team at the end of the match.");
 
                     b.Property<int>("HomeTeamId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Foreign key representing the home team. References the Team entity.");
 
                     b.Property<int>("LeagueId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Foreign key for the league to which this match belongs. References the League entity.");
 
                     b.Property<int>("Minutes")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The total minutes played in the match.");
 
                     b.Property<int>("StadiumId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Foreign key for the stadium where the match is held. References the Stadium entity.");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The current status of the match.");
 
                     b.HasKey("Id");
 
@@ -251,48 +289,60 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasIndex("StadiumId");
 
                     b.ToTable("Matches");
+
+                    b.HasComment("Represent information about the match.");
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The unique identifier for the player.");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("The date of birth of the player.");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("The player's first name.");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("The player's last name.");
 
                     b.Property<int>("Position")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The position of the player on the field.");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(14, 2)
-                        .HasColumnType("decimal(14,2)");
+                        .HasColumnType("decimal(14,2)")
+                        .HasComment("The transfer or market price of the player.");
 
                     b.Property<decimal>("Salary")
                         .HasPrecision(14, 2)
-                        .HasColumnType("decimal(14,2)");
+                        .HasColumnType("decimal(14,2)")
+                        .HasComment("The salary of the player.");
 
                     b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Foreign key to the Team entity. Represents the team to which the player currently belongs.");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
+
+                    b.HasComment("Represent information about the player.");
 
                     b.HasData(
                         new
@@ -367,29 +417,36 @@ namespace Football_Insight.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The unique identifier for the stadium.");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(96)
-                        .HasColumnType("nvarchar(96)");
+                        .HasColumnType("nvarchar(96)")
+                        .HasComment("The physical address of the stadium.");
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The seating capacity of the stadium.");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("The name of the stadium.");
 
                     b.Property<int>("YearBuilt")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The year when the stadium was built.");
 
                     b.HasKey("Id");
 
                     b.ToTable("Stadiums");
+
+                    b.HasComment("Represent information about the stadium.");
 
                     b.HasData(
                         new
@@ -454,31 +511,39 @@ namespace Football_Insight.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The unique identifier for the team.");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Coach")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("The name of the team current coach.");
 
                     b.Property<int>("Founded")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("The year the team was founded.");
 
                     b.Property<int>("LeagueId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Foreign key to the League entity. Indicates the league in which the team competes.");
 
                     b.Property<string>("LogoURL")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("URL to the team logo image.");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("The name of the team.");
 
                     b.Property<int>("StadiumId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Foreign key to the Stadium entity. Represents the home stadium of the team.");
 
                     b.HasKey("Id");
 
@@ -487,6 +552,8 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasIndex("StadiumId");
 
                     b.ToTable("Teams");
+
+                    b.HasComment("Represent information about the team.");
 
                     b.HasData(
                         new

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Football_Insight.Infrastructure.Migrations
 {
-    public partial class FullMigration2 : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,13 +28,13 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FavoriteTeamId = table.Column<int>(type: "int", nullable: true),
-                    FavoritePlayerId = table.Column<int>(type: "int", nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Optional. The user's first name. This is not required at registration and can be filled in later."),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Optional. The user's last name. This is not required at registration and can be filled in later."),
+                    FavoriteTeamId = table.Column<int>(type: "int", nullable: true, comment: "Optional. ID of the user's favorite team. This is not required at registration and can be filled in later."),
+                    FavoritePlayerId = table.Column<int>(type: "int", nullable: true, comment: "Optional. ID of the user's favorite player. This is not required at registration and can be filled in later."),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Optional. The user's country. This is not required at registration and can be filled in later."),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Optional. The user's city. This is not required at registration and can be filled in later."),
+                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Optional. Path to the user's photo. This can be updated to enhance the user's profile."),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -53,36 +53,39 @@ namespace Football_Insight.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
+                },
+                comment: "Represents the user profile within the application, extending the IdentityUser with custom properties for a personalized experience.");
 
             migrationBuilder.CreateTable(
                 name: "Leagues",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "The unique identifier for the league.")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false, comment: "The name of the league.")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Leagues", x => x.Id);
-                });
+                },
+                comment: "Represent information about league.");
 
             migrationBuilder.CreateTable(
                 name: "Stadiums",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "The unique identifier for the stadium.")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(96)", maxLength: 96, nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    YearBuilt = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "The name of the stadium."),
+                    Address = table.Column<string>(type: "nvarchar(96)", maxLength: 96, nullable: false, comment: "The physical address of the stadium."),
+                    Capacity = table.Column<int>(type: "int", nullable: false, comment: "The seating capacity of the stadium."),
+                    YearBuilt = table.Column<int>(type: "int", nullable: false, comment: "The year when the stadium was built.")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stadiums", x => x.Id);
-                });
+                },
+                comment: "Represent information about the stadium.");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -194,14 +197,14 @@ namespace Football_Insight.Infrastructure.Migrations
                 name: "Teams",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "The unique identifier for the team.")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Founded = table.Column<int>(type: "int", nullable: false),
-                    LogoURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Coach = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LeagueId = table.Column<int>(type: "int", nullable: false),
-                    StadiumId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "The name of the team."),
+                    Founded = table.Column<int>(type: "int", nullable: false, comment: "The year the team was founded."),
+                    LogoURL = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "URL to the team logo image."),
+                    Coach = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The name of the team current coach."),
+                    LeagueId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the League entity. Indicates the league in which the team competes."),
+                    StadiumId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the Stadium entity. Represents the home stadium of the team.")
                 },
                 constraints: table =>
                 {
@@ -218,23 +221,24 @@ namespace Football_Insight.Infrastructure.Migrations
                         principalTable: "Stadiums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
+                },
+                comment: "Represent information about the team.");
 
             migrationBuilder.CreateTable(
                 name: "Matches",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "The unique identifier for the match.")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HomeTeamId = table.Column<int>(type: "int", nullable: false),
-                    AwayTeamId = table.Column<int>(type: "int", nullable: false),
-                    StadiumId = table.Column<int>(type: "int", nullable: false),
-                    HomeScore = table.Column<int>(type: "int", nullable: false),
-                    AwayScore = table.Column<int>(type: "int", nullable: false),
-                    LeagueId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Minutes = table.Column<int>(type: "int", nullable: false)
+                    DateAndTime = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date and time when the match is scheduled to take place."),
+                    HomeTeamId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key representing the home team. References the Team entity."),
+                    AwayTeamId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key representing the away team. References the Team entity."),
+                    StadiumId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key for the stadium where the match is held. References the Stadium entity."),
+                    HomeScore = table.Column<int>(type: "int", nullable: false, comment: "The score of the home team at the end of the match."),
+                    AwayScore = table.Column<int>(type: "int", nullable: false, comment: "The score of the away team at the end of the match."),
+                    LeagueId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key for the league to which this match belongs. References the League entity."),
+                    Status = table.Column<int>(type: "int", nullable: false, comment: "The current status of the match."),
+                    Minutes = table.Column<int>(type: "int", nullable: false, comment: "The total minutes played in the match.")
                 },
                 constraints: table =>
                 {
@@ -261,21 +265,22 @@ namespace Football_Insight.Infrastructure.Migrations
                         column: x => x.HomeTeamId,
                         principalTable: "Teams",
                         principalColumn: "Id");
-                });
+                },
+                comment: "Represent information about the match.");
 
             migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "The unique identifier for the player.")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(14,2)", precision: 14, scale: 2, nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(14,2)", precision: 14, scale: 2, nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
-                    Position = table.Column<int>(type: "int", nullable: false)
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "The player's first name."),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "The player's last name."),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date of birth of the player."),
+                    Price = table.Column<decimal>(type: "decimal(14,2)", precision: 14, scale: 2, nullable: false, comment: "The transfer or market price of the player."),
+                    Salary = table.Column<decimal>(type: "decimal(14,2)", precision: 14, scale: 2, nullable: false, comment: "The salary of the player."),
+                    TeamId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the Team entity. Represents the team to which the player currently belongs."),
+                    Position = table.Column<int>(type: "int", nullable: false, comment: "The position of the player on the field.")
                 },
                 constraints: table =>
                 {
@@ -286,14 +291,15 @@ namespace Football_Insight.Infrastructure.Migrations
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
+                },
+                comment: "Represent information about the player.");
 
             migrationBuilder.CreateTable(
                 name: "Favorite",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MatchId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "The ID of the user who has marked a match as a favorite."),
+                    MatchId = table.Column<int>(type: "int", nullable: false, comment: "The ID of the match that has been marked as favorite by the user.")
                 },
                 constraints: table =>
                 {
@@ -310,19 +316,20 @@ namespace Football_Insight.Infrastructure.Migrations
                         principalTable: "Matches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
+                },
+                comment: "Represent a relationship between a user and their favorite matches.");
 
             migrationBuilder.CreateTable(
                 name: "Goals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "Unique identifier for the goal.")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MatchId = table.Column<int>(type: "int", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
-                    GoalScorerId = table.Column<int>(type: "int", nullable: false),
-                    GoalAssistantId = table.Column<int>(type: "int", nullable: false),
-                    GoalMinute = table.Column<int>(type: "int", nullable: false)
+                    MatchId = table.Column<int>(type: "int", nullable: false, comment: "Identifier of the match in which the goal was scored. Foreign key that references the Match entity."),
+                    TeamId = table.Column<int>(type: "int", nullable: false, comment: "Identifier of the team that scored the goal. Foreign key that references the Team entity."),
+                    GoalScorerId = table.Column<int>(type: "int", nullable: false, comment: "Identifier of the player who scored the goal. Foreign key that references the Player entity as the goal scorer."),
+                    GoalAssistantId = table.Column<int>(type: "int", nullable: true, comment: "Optional identifier of the player who assisted the goal. Can be null if there was no assist."),
+                    GoalMinute = table.Column<int>(type: "int", nullable: false, comment: "The minute of the match in which the goal was scored.")
                 },
                 constraints: table =>
                 {
@@ -348,7 +355,8 @@ namespace Football_Insight.Infrastructure.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id");
-                });
+                },
+                comment: "Represent information about goals scored in matches.");
 
             migrationBuilder.InsertData(
                 table: "Leagues",

@@ -11,7 +11,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            @if (Model.MatchMinute < MessageConstants.FullTimeMinute
+                            @if (Model.MatchMinute < GlobalConstants.FullTimeMinute
                                     || Model.MatchStatus == MatchStatus.FirstHalf
                                     || Model.MatchStatus == MatchStatus.Scheduled)
                             {

@@ -41,7 +41,14 @@
                                     var team = Model.Teams.ElementAt(i);
                                     <tr role="row">
                                         <td class="text-center sorting_1">@(i + 1)</td>
-                                        <td>@team.Logo @team.Name</td>
+                                        <td>
+                                            <div>
+                                                <a asp-action="Index" asp-controller="Team" asp-route-teamId="@team.Id">
+                                                    <img src="@team.Logo" alt="LOGO" class="team-logo">
+                                                    @team.Name
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td>@(team.Wins + team.Draws + team.Losses)</td>
                                         <td>@team.Wins</td>
                                         <td>@team.Draws</td>

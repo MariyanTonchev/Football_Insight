@@ -196,13 +196,13 @@ namespace Football_Insight.Core.Services
             }
 
             var matches = await repo.AllReadonly<Match>(t => t.LeagueId == leagueId)
-                .OrderByDescending(m => m.Date)
+                .OrderByDescending(m => m.DateAndTime)
                 .Select(m => new MatchLeagueViewModel
                 {
                     Id = m.Id,
                     HomeTeamName = m.HomeTeam.Name,
                     AwayTeamName = m.AwayTeam.Name,
-                    DateAndTime = m.Date.ToString(Constants.MessageConstants.DateFormat),
+                    DateAndTime = m.DateAndTime.ToString(Constants.GlobalConstants.DateFormat),
                     IsFavorite = favoriteMatchIds.Contains(m.Id)
                 })
                 .ToListAsync();
