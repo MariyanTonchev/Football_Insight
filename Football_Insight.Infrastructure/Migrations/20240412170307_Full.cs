@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Football_Insight.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Full : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -359,6 +359,24 @@ namespace Football_Insight.Infrastructure.Migrations
                 comment: "Represent information about goals scored in matches.");
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "5be746fa-daa9-4e78-b69a-b941cd932a92", "c9e6e965-a61c-4265-948c-205354fab352", "User", "USER" },
+                    { "f016f320-6d6b-4b88-a6cd-10590ef4c9eb", "c66a6d18-ac75-4873-9051-34df06f03417", "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "FavoritePlayerId", "FavoriteTeamId", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "27827782-5bdc-47e4-b34f-ed2852fa376b", 0, "", "92c68f0a-2611-4722-987a-040485d36b3d", "", "user@fi.com", true, null, null, "", "", false, null, "USER@FI.COM", "USER@FI.COM", "AQAAAAEAACcQAAAAEOryMYdDMYJaO2YJnyZHufz/sR/h/Xwh1QOU2HUQB30XcRNFT6nUG+BWHFoFfuIPRA==", null, false, "", "bb7dd250-130e-41b0-a666-7f8043171ba3", false, "user@fi.com" },
+                    { "fd35fb93-15de-4a32-b860-7d96874abc8d", 0, "", "ae13c122-0013-43b2-b43e-bb8ba2fc0224", "", "admin@fi.com", true, null, null, "", "", false, null, "ADMIN@FI.COM", "ADMIN@FI.COM", "AQAAAAEAACcQAAAAEErRuiZ+j981Avz8f0BzlxT3mImcfOXfiEwxIc8rnkFXN0ZDmt5oPHBRXEs6dYJLyw==", null, false, "", "cbc6af88-d9e8-4de4-b150-c3e6e5b150d1", false, "admin@fi.com" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Leagues",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -382,6 +400,15 @@ namespace Football_Insight.Infrastructure.Migrations
                     { 5, "Av. Pres. Castelo Branco, Rio de Janeiro", 78838, "Maracanã", 1950 },
                     { 6, "Piazzale Angelo Moratti, Milan", 80018, "San Siro", 1926 },
                     { 7, "Calz. de Tlalpan 3665, Mexico City", 87523, "Estadio Azteca", 1966 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "5be746fa-daa9-4e78-b69a-b941cd932a92", "27827782-5bdc-47e4-b34f-ed2852fa376b" },
+                    { "f016f320-6d6b-4b88-a6cd-10590ef4c9eb", "fd35fb93-15de-4a32-b860-7d96874abc8d" }
                 });
 
             migrationBuilder.InsertData(

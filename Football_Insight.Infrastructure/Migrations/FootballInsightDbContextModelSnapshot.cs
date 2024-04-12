@@ -117,6 +117,50 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
 
                     b.HasComment("Represents the user profile within the application, extending the IdentityUser with custom properties for a personalized experience.");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "27827782-5bdc-47e4-b34f-ed2852fa376b",
+                            AccessFailedCount = 0,
+                            City = "",
+                            ConcurrencyStamp = "92c68f0a-2611-4722-987a-040485d36b3d",
+                            Country = "",
+                            Email = "user@fi.com",
+                            EmailConfirmed = true,
+                            FirstName = "",
+                            LastName = "",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@FI.COM",
+                            NormalizedUserName = "USER@FI.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOryMYdDMYJaO2YJnyZHufz/sR/h/Xwh1QOU2HUQB30XcRNFT6nUG+BWHFoFfuIPRA==",
+                            PhoneNumberConfirmed = false,
+                            PhotoPath = "",
+                            SecurityStamp = "bb7dd250-130e-41b0-a666-7f8043171ba3",
+                            TwoFactorEnabled = false,
+                            UserName = "user@fi.com"
+                        },
+                        new
+                        {
+                            Id = "fd35fb93-15de-4a32-b860-7d96874abc8d",
+                            AccessFailedCount = 0,
+                            City = "",
+                            ConcurrencyStamp = "ae13c122-0013-43b2-b43e-bb8ba2fc0224",
+                            Country = "",
+                            Email = "admin@fi.com",
+                            EmailConfirmed = true,
+                            FirstName = "",
+                            LastName = "",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@FI.COM",
+                            NormalizedUserName = "ADMIN@FI.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEErRuiZ+j981Avz8f0BzlxT3mImcfOXfiEwxIc8rnkFXN0ZDmt5oPHBRXEs6dYJLyw==",
+                            PhoneNumberConfirmed = false,
+                            PhotoPath = "",
+                            SecurityStamp = "cbc6af88-d9e8-4de4-b150-c3e6e5b150d1",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@fi.com"
+                        });
                 });
 
             modelBuilder.Entity("Football_Insight.Infrastructure.Data.Models.Favorite", b =>
@@ -691,6 +735,22 @@ namespace Football_Insight.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5be746fa-daa9-4e78-b69a-b941cd932a92",
+                            ConcurrencyStamp = "c9e6e965-a61c-4265-948c-205354fab352",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "f016f320-6d6b-4b88-a6cd-10590ef4c9eb",
+                            ConcurrencyStamp = "c66a6d18-ac75-4873-9051-34df06f03417",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -780,6 +840,18 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "27827782-5bdc-47e4-b34f-ed2852fa376b",
+                            RoleId = "5be746fa-daa9-4e78-b69a-b941cd932a92"
+                        },
+                        new
+                        {
+                            UserId = "fd35fb93-15de-4a32-b860-7d96874abc8d",
+                            RoleId = "f016f320-6d6b-4b88-a6cd-10590ef4c9eb"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

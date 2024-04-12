@@ -25,6 +25,11 @@ namespace Football_Insight.Controllers
 
         public IActionResult Index(int teamId)
         {
+            if(teamId == 0)
+            {
+                return BadRequest();
+            }
+
             return View(teamId);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Data.Configurations;
+using Football_Insight.Infrastructure.Data.Configurations;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +70,9 @@ namespace Football_Insight.Infrastructure.Data
             builder.ApplyConfiguration(new StadiumConfiguration());
             builder.ApplyConfiguration(new TeamConfiguration());
             builder.ApplyConfiguration(new PlayerConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new UserRoleConfiguration());
         }
     }
 }

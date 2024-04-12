@@ -31,5 +31,10 @@
 
         public const int YearFoundMax = 2024;
         public const int YearFoundMin = 1700;
+
+        public static readonly string UserGUID = Guid.NewGuid().ToString();
+        public static readonly string AdminGUID = Guid.NewGuid().ToString();
+        public static readonly string RoleAdminGUID = Guid.NewGuid().ToString();
+        public static readonly string RoleUserGUID = Guid.NewGuid().ToString();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Football_Insight.Core.Contracts;
+using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.League;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Football_Insight.Controllers
 {
@@ -19,12 +21,12 @@ namespace Football_Insight.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int id)
         {
-            var viewModel = await leagueService.GetLeagueViewDataAsync(id);
-
-            if(leagueService == null)
+            if(id == 0)
             {
                 return NotFound();
             }
+
+            var viewModel = await leagueService.GetLeagueViewDataAsync(id);
 
             return View(viewModel);
         }
@@ -34,7 +36,21 @@ namespace Football_Insight.Controllers
         {
             var viewModel = await leagueService.GetAllLeaguesAsync();
 
-            return View(viewModel);
+            if (viewModel == null)
+            {
+                return NotFound("Leagues data not found.");
+            }
+
+            try
+            {
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                //log ex.meesage
+
+                return RedirectToAction("HandleError", "Error");
+            }
         }
 
         [HttpGet]
