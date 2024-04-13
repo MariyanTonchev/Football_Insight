@@ -16,7 +16,7 @@ namespace Football_Insight.Jobs
         {
             try
             {
-                if (context.JobDetail.JobDataMap.TryGetValue("matchId", out var matchIdObj) && int.TryParse(matchIdObj.ToString(), out int matchId) && matchId != 0)
+                if (context.JobDetail.JobDataMap.TryGetValue("matchId", out var matchObj) && int.TryParse(matchObj.ToString(), out int matchId) && matchId != 0)
                 {
                     matchTimerService.UpdateMatchMinute(matchId);
                 }

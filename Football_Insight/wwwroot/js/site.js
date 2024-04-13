@@ -72,7 +72,7 @@
         var MatchId = $(this).data('match-id');
 
         $.ajax({
-            url: '/Goal/Add',
+            url: '/Admin/Goal/Add',
             type: 'GET',
             data: { teamId: TeamId, matchId: MatchId },
             success: function (response) {

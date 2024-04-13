@@ -1,7 +1,8 @@
 ﻿using Football_Insight.Core.Models.League;
 using Football_Insight.Core.Models.Stadium;
 using Football_Insight.Core.Models.Team;
-using Football_Insight.Infrastructure.Data;
+using Football_Insight.Infrastructure.Data.Common;
+using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,20 +10,19 @@ namespace Football_Insight.Components
 {
     public class TeamMenuComponent : ViewComponent
     {
-        private readonly FootballInsightDbContext context;
+        private readonly IRepository repository;
 
-        public TeamMenuComponent(FootballInsightDbContext Context)
+        public TeamMenuComponent(IRepository _repository)
         {
-            context = Context;
+            repository = _repository;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int teamId)
         {
-            var team = await context.Teams
-                .Where(t => t.Id == teamId)
-                .Include(t => t.League)
-                .Include(t => t.Stadium)
-                .FirstOrDefaultAsync();
+            var team = await repository.AllReadonly<Team>(t => t.Id == teamId)
+                                .Include(t => t.League)
+                                .Include(t => t.Stadium)
+                                .FirstOrDefaultAsync();
 
             var viewModel = new TeamDetailedViewModel
             {

@@ -1,0 +1,141 @@
+﻿@using Football_Insight.Infrastructure.Data.Enums
+@using Football_Insight.Core.Constants;
+@model MatchDetailsViewModel
+
+<div class="container-xl">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <a asp-action="Index" asp-controller="League" asp-route-id="@Model.LeagueId" class="btn btn-outline-success mb-2 me-4">Cancel</a>
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert @(((TempData["Status"] as bool?) == true) ? "alert-success" : "alert-danger")">
+                    @TempData["Message"]
+                </div>
+            }
+            <div class="card justify-content-start" style="margin-top: 30px;">
+                <div class="row" style="text-align: center;">
+                    <div class="col-3 d-flex align-items-center justify-content-center">
+                        <div class="square-image-container">
+                            <h6>@Model.HomeTeamName</h6>
+                            <img src="~/photos/default.jpg" class="square-image" alt="First Image">
+                        </div>       
+                    </div>
+                     @if (User.IsInRole("Admin"))
+                    {
+                    <div class="col d-flex flex-column align-items-start justify-content-center">
+                        <a href="#" data-match-id="@Model.Id" data-team-id="@Model.HomeTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                            <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
+                        </a>
+                        <!-- Not implemented
+                        <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
+                            <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add red card" class="action-icon-col">
+                            <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
+                        </a>
+                        -->
+                    </div>
+                    }
+                    <div class="col-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="row">
+                            <p>@Model.DateAndTime</p>
+                        </div>
+                        <div class="row">
+                            <h1>@Model.HomeGoals - @Model.AwayGoals</h1>
+                        </div>
+                        <div class="row">
+                            <p>@Model.Status</p>
+                        </div>
+                        @if (Model.Status == MatchStatus.FirstHalf || Model.Status == MatchStatus.SecondHalf)
+                        {
+                            <div class="row" id="match-minutes">
+                                <p>@Model.Minutes min</p>
+                            </div>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="row justify-content-center">
+                                <a asp-area="Admin" asp-action="Start" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start match" class="col action-icon-row">
+                                    <i class="fa-regular fa-circle-play fa-xl" style="color: #1eff00;"></i>
+                                </a>
+                                @if (Model.Status == MatchStatus.HalfTime)
+                                {
+                                    <a asp-area="Admin" asp-action="Unpause" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Start Second Half" class="col action-icon-row">
+                                        <i class="fa-regular fa-circle-pause fa-xl" style="color: #005eff;"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-area="Admin" asp-action="Pause" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Half Time" class="col action-icon-row">
+                                        <i class="fa-regular fa-circle-pause fa-xl" style="color: #ff8800;"></i>
+                                    </a>
+                                }
+                                <a asp-area="Admin" asp-action="End" asp-controller="Match" asp-route-MatchId="@Model.Id" title="End match" class="col action-icon-row">
+                                    <i class="fa-regular fa-circle-stop fa-xl" style="color: #ff0000;"></i>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <div class="col d-flex flex-column align-items-end justify-content-center">
+                        <a href="#" data-match-id="@Model.Id" data-team-id="@Model.AwayTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                            <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
+                        </a>
+                        <!-- Not Implemented
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" style="margin-bottom: 5px;" class="action-icon-col">
+                            <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Match" asp-route-MatchId="@Model.Id" title="Add card" class="action-icon-col">
+                            <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
+                        </a>
+                        -->
+                    </div>
+                    }
+                    <div class="col-3 d-flex align-items-center justify-content-center">
+                        <div class="square-image-container">
+                            <h6>@Model.AwayTeamName</h6>
+                            <img src="~/photos/default.jpg" class="square-image" alt="Second Image">
+                        </div>
+                    </div>
+                </div>
+                @foreach (var goal in Model.Goals)
+                {
+                    <div class="row mt-4">
+                        <div class="col-3" style="text-align: right;">
+                            @if (goal.TeamId == Model.HomeTeamId)
+                            {
+                                <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                            }
+                        </div>
+                        <div class="col-6" style="text-align: @(goal.TeamId == Model.HomeTeamId ? "left" : "right");">
+                            <h6>@goal.ScorerName</h6>
+                            @if (!string.IsNullOrEmpty(goal.AssistantName))
+                            {
+                                <p>(@goal.AssistantName)</p>
+                            }
+                        </div>
+                        <div class="col-3 mt-2">
+                            @if (goal.TeamId == Model.AwayTeamId)
+                            {
+                                <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <!--Goal scored modal-->
+                <div id="goalModalContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Status == MatchStatus.FirstHalf || Model.Status == MatchStatus.HalfTime || Model.Status == MatchStatus.SecondHalf)
+{
+    <script>
+        var refreshInterval = @GlobalConstants.SettingSecondsInOneMinute;
+        var matchId = '@Model.Id';
+    </script>
+    <script src="~/js./refreshtMatchMinutes.js"></script>
+}

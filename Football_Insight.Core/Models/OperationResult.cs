@@ -15,13 +15,13 @@
 
         public OperationResult(bool success, string message, int? objectId) : this(success, message)
         {
-            ObjecId = objectId;
+            ObjectId = objectId;
         }
 
         public bool Success { get; set; }
 
         public string Message { get; set; } = string.Empty;
 
-        public int? ObjecId { get; set; }
+        public int? ObjectId { get; set; }
     }
 }

@@ -98,6 +98,11 @@ namespace Football_Insight.Core.Services
                 return new OperationResult(false, "You cannot edit a match that has started, finished, or been postponed.");
             }
 
+            if (match.HomeTeamId == model.AwayTeamId)
+            {
+
+            }
+
             if (match != null)
             {
                 match.HomeTeamId = model.HomeTeamId;

@@ -8,4 +8,6 @@
 @using Microsoft.AspNetCore.Identity
 @using Football_Insight.Infrastructure.Data.Models
 @using Football_Insight.Components
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

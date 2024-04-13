@@ -17,7 +17,8 @@ namespace Football_Insight.Infrastructure.Data.Configurations
         {
             builder.HasData(
                     new IdentityUserRole<string> { RoleId = RoleUserGUID, UserId = UserGUID },
-                    new IdentityUserRole<string> { RoleId = RoleAdminGUID, UserId = AdminGUID }
+                    new IdentityUserRole<string> { RoleId = RoleAdminGUID, UserId = AdminGUID },
+                    new IdentityUserRole<string> { RoleId = RoleUserGUID, UserId = AdminGUID}
                 );
         }
     }

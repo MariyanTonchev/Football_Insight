@@ -142,7 +142,7 @@ namespace Football_Insight.Core.Services
                 return new OperationResult(false, "You cannot delete a player with goals.");
             }
 
-            if (await HasGoals(playerId))
+            if (await HasAssists(playerId))
             {
                 return new OperationResult(false, "You cannot delete a player with assists.");
             }
@@ -165,6 +165,41 @@ namespace Football_Insight.Core.Services
             var goals = await repository.AllReadonly<Goal>().Where(g => g.GoalAssistantId == playerId).ToListAsync();
 
             return goals.Any();
+        }
+
+        public async Task<List<PlayerSimpleViewModel>> GetAllPlayersAsync()
+        {
+            var players = await repository.AllReadonly<Player>()
+                            .Select(p => new PlayerSimpleViewModel
+                            {
+                                Name = $"{p.FirstName} {p.LastName}",
+                                PlayerId = p.Id,
+                                TeamId = p.TeamId
+                            })
+                            .ToListAsync();
+
+            return players;
+        }
+
+        public async Task<PlayerSquadViewModel> GetPlayerDetailsAsync(int playerId)
+        {
+            var player = await repository.All<Player>()
+                .Where(p => p.Id == playerId)
+                .Select(p => new PlayerSquadViewModel
+                {
+                    Id = p.Id,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    DateOfBirth = p.DateOfBirth,
+                    Position = (PlayerPosition)p.Position,
+                    Price = p.Price,
+                    Salary = p.Salary,
+                    GoalAssited = p.GoalsAssisted.Count,
+                    GoalScored = p.GoalsScored.Count,
+                })
+                .FirstOrDefaultAsync();
+
+            return player;
         }
     }
 }

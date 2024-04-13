@@ -1,6 +1,6 @@
-﻿using Football_Insight.Core.Models.Account;
+﻿using Football_Insight.Core.Models;
+using Football_Insight.Core.Models.Account;
 using Football_Insight.Core.Models.Player;
-using Football_Insight.Core.Models.Team;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,9 +14,7 @@ namespace Football_Insight.Core.Contracts
 
         Task LogoutAsync();
 
-        Task EditAsync(UserEditViewModel model);
-
-        Task<List<PlayerSimpleViewModel>> GetAllPlayersAsync();
+        Task<OperationResult> EditAsync(UserEditViewModel model);
 
         Task<ApplicationUser> GetUserAsync();
 

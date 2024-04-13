@@ -1,0 +1,84 @@
+﻿@model TeamSquadViewModel
+
+@await Component.InvokeAsync(nameof(TeamMenuComponent), new { TeamId = Model.TeamId });
+
+<div class="layout-px-spacing">
+    <div class="middle-content container-xxl p-0">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+                @if (User.IsInRole("Admin"))
+                {
+                    <div style="text-align: right;">
+                        <form asp-area="Admin" asp-action="Create" asp-controller="Player" method="get">
+                            <input type="hidden" name="teamId" asp-for="@Model.TeamId"/>
+                            <button type="submit" class="btn btn-outline-success mb-2 me-6">
+                                <span class="btn-text-inner">Create Player</span>
+                            </button>
+                        </form>
+                    </div>
+                }
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-content widget-content-area">
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="dt--top-section">
+                                <div class="row">
+                                <table class="multi-table table dt-table-hover dataTable" style="width: 100%;" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        <thead>
+                                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 219px;">Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 374px;">Position</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Birth Date: activate to sort column ascending" style="width: 157px;">Birth Date</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 80px;">Transfer Price</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Transfer Price: activate to sort column ascending" style="width: 80px;">Salary</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Goals: activate to sort column ascending" style="width: 151px;">Goals</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Assists: activate to sort column ascending" style="width: 151px;">Assists</th>
+                                                <th class="text-center dt-no-sorting sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 153px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                @foreach (var player in Model.Players)
+                                                {
+                                                    <tr role="row">
+                                                        <td class="sorting_1">@player.FirstName @player.LastName</td>
+                                                        <td>@player.Position</td>
+                                                        <td>@player.DateOfBirth</td>
+                                                        <td>@player.Price</td>
+                                                        <td>@player.Salary</td>
+                                                        <td>@player.GoalScored</td>
+                                                        <td>@player.GoalAssited</td>
+                                                        <td class="text-center">
+                                                        <a asp-area="User" asp-action="Index" asp-controller="Player" asp-route-playerId="@player.Id" class="action-icon-row">
+                                                            <i class="fa-solid fa-eye fa-xl" style="color: #858585;"></i>
+                                                        </a>
+                                                        @if (User.IsInRole("Admin"))
+                                                        {
+                                                            <a asp-area="Admin" asp-action="Edit" asp-controller="Player" asp-route-playerId="@player.Id" class="action-icon-row">
+                                                                <i class="fa-solid fa-pencil" style="color: #FFD43B;"></i>
+                                                            </a>
+                                                            <a asp-area="Admin" asp-action="Delete" asp-controller="Player" asp-route-playerId="@player.Id" class="action-icon-row">
+                                                                <i class="fa-regular fa-trash-can" style="color: #ff0000;"></i>
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    </tr>
+                                                }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th rowspan="1" colspan="1">Name</th>
+                                                <th rowspan="1" colspan="1">Position</th>
+                                                <th rowspan="1" colspan="1">Birth Date</th>
+                                                <th rowspan="1" colspan="1">Transfer Price</th>
+                                                <th rowspan="1" colspan="1">Salary</th>
+                                                <th rowspan="1" colspan="1">Goals</th>
+                                                <th rowspan="1" colspan="1">Assists</th>
+                                                <th class="text-center" rowspan="1" colspan="1">Action</th>
+                                            </tr>
+                                        </tfoot>
+                                </table>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

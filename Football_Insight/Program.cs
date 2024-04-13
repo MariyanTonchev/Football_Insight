@@ -8,7 +8,17 @@ using Football_Insight.Jobs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
+using Serilog;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
+builder.Host.UseSerilog((ctx, lc) => lc
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/Foobtall-Insight-Logs.txt", rollingInterval: RollingInterval.Day));
 
 builder.Services.AddQuartz(q =>
 {
@@ -37,6 +47,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<FootballInsightDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/User/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -77,9 +92,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.UseEndpoints(endpoints =>
@@ -92,7 +104,7 @@ app.UseEndpoints(endpoints =>
     // Map controller route
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{area=User}/{controller=Home}/{action=Index}/{id?}");
 
     // Map Razor Pages
     endpoints.MapRazorPages();

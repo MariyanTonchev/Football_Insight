@@ -1,12 +1,11 @@
 ﻿using Football_Insight.Core.Contracts;
+using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Account;
-using Football_Insight.Core.Models.Player;
-using Football_Insight.Core.Models.Team;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using static Football_Insight.Infrastructure.Constants.DataConstants;
 
 namespace Football_Insight.Core.Services
 {
@@ -15,11 +14,13 @@ namespace Football_Insight.Core.Services
         private readonly IRepository repo;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ITeamService teamService;
+        private readonly IPlayerService playerService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
         public AccountService(IRepository _repo, 
                               ITeamService _teamService,
+                              IPlayerService _playerService,
                               IHttpContextAccessor _httpContextAccessor,
                               UserManager<ApplicationUser> _userManager, 
                               SignInManager<ApplicationUser> _signInManager)
@@ -28,48 +29,79 @@ namespace Football_Insight.Core.Services
             userManager = _userManager;
             teamService = _teamService;
             httpContextAccessor = _httpContextAccessor;
+            playerService = _playerService;
             signInManager = _signInManager;
         }
 
-        public async Task EditAsync(UserEditViewModel model)
+        public async Task<OperationResult> EditAsync(UserEditViewModel model)
         {
-            var user = await GetUserAsync();
-
-            if (model.Photo != null && model.Photo.Length > 0)
+            try
             {
-                var userFolder = user.Id.ToString();
-                var uploadsRootFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos/");
-                var userFolderPath = Path.Combine(uploadsRootFolder, userFolder);
+                var user = await GetUserAsync();
+                if (user == null) return new OperationResult(false, "User not found.");
 
-                if (!Directory.Exists(userFolderPath))
+                if (model.Photo != null && model.Photo.Length > 0)
                 {
-                    Directory.CreateDirectory(userFolderPath);
+                    string photoResult = await SaveUserProfilePhoto(model.Photo, user.Id);
+                    if (photoResult != "Success")
+                    {
+                        return new OperationResult(false, photoResult);
+                    }
                 }
 
-                var newFileName = "profile_picture.jpg";
-
-                var savePath = Path.Combine(userFolderPath, newFileName);
-
-                using (var fileStream = new FileStream(savePath, FileMode.Create))
-                {
-                    await model.Photo.CopyToAsync(fileStream);
-                }
-
-                user.PhotoPath = $"/photos/{userFolder}/{newFileName}";
-            }
-
-            if (model != null)
-            {
-                user.Country = model.Country != "None" ? model.Country : null;
-                user.FavoritePlayerId = model.FavoritePlayerId != -1 ? model.FavoritePlayerId : null;
-                user.FavoriteTeamId = model.FavoriteTeamId != -1 ? model.FavoriteTeamId : null;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.City = model.City;
-                user.PhoneNumber = model.Phone;
+                UpdateUserProperties(user, model);
 
                 await repo.SaveChangesAsync();
+                return new OperationResult(true, "Profile updated successfully.");
             }
+            catch (Exception ex)
+            {
+                return new OperationResult(false, $"An error occurred: {ex.Message}");
+            }
+        }
+
+        private async Task<string> SaveUserProfilePhoto(IFormFile photo, string userId)
+        {
+            var userFolder = userId.ToString();
+            var uploadsRootFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos/");
+            var userFolderPath = Path.Combine(uploadsRootFolder, userFolder);
+
+            if (!Directory.Exists(userFolderPath))
+            {
+                Directory.CreateDirectory(userFolderPath);
+            }
+
+            var newFileName = "profile_picture.jpg";
+            var savePath = Path.Combine(userFolderPath, newFileName);
+
+            try
+            {
+                using (var fileStream = new FileStream(savePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(fileStream);
+                }
+
+                var user = await GetUserAsync();
+                user.PhotoPath = $"/photos/{userFolder}/{newFileName}";
+                await repo.SaveChangesAsync();
+
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                return $"Error saving photo: {ex.Message}";
+            }
+        }
+
+        private void UpdateUserProperties(ApplicationUser user, UserEditViewModel model)
+        {
+            user.Country = model.Country != "None" ? model.Country : null;
+            user.FavoritePlayerId = model.FavoritePlayerId != -1 ? model.FavoritePlayerId : null;
+            user.FavoriteTeamId = model.FavoriteTeamId != -1 ? model.FavoriteTeamId : null;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.City = model.City;
+            user.PhoneNumber = model.Phone;
         }
 
         public async Task<UserEditViewModel> GetUserEditFormAsync()
@@ -84,7 +116,7 @@ namespace Football_Insight.Core.Services
                 Email = user.Email,
                 PhotoPath = GetUserPhotoPath(user),
                 Teams = await teamService.GetAllTeamsAsync(),
-                Players = await GetAllPlayersAsync(),
+                Players = await playerService.GetAllPlayersAsync(),
                 Country = user.Country,
                 Phone = user.PhoneNumber,
                 FavoritePlayerId = user.FavoritePlayerId,
@@ -124,17 +156,6 @@ namespace Football_Insight.Core.Services
             return !string.IsNullOrEmpty(user.PhotoPath) ? user.PhotoPath : Constants.GlobalConstants.DefaultPhotoPath;
         }
 
-        public async Task<List<PlayerSimpleViewModel>> GetAllPlayersAsync()
-        {
-            return await repo.All<Player>()
-                .Select(p => new PlayerSimpleViewModel
-                {
-                    PlayerId = p.Id,
-                    Name = $"{p.FirstName} {p.LastName}"
-                })
-                .ToListAsync();
-        }
-
         private async Task<string> GetFavoritePlayerNameAsync(ApplicationUser user)
         {
             if(user.FavoritePlayerId == null)
@@ -166,7 +187,9 @@ namespace Football_Insight.Core.Services
 
             if (result.Succeeded)
             {
+                await userManager.AddToRoleAsync(user, "User");
                 await signInManager.SignInAsync(user, isPersistent: false);
+                
                 return new RegistrationResultViewModel { Succeeded = true, User = user };
             }
 

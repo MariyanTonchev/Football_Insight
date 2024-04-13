@@ -16,9 +16,14 @@ namespace Football_Insight.Controllers
             if (statusCode == 404)
             {
                 return View("NotFound");
+            } 
+            
+            if(statusCode == 401)
+            {
+                return View("AccessDenied");
             }
 
-            return View("InternalServerError");
+            return View(nameof(InternalServerError));
         }
     }
 }

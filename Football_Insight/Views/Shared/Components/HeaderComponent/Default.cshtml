@@ -5,7 +5,14 @@
 
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-text">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link"> Football Insight </a>
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a asp-area="User" asp-controller="Home" asp-action="Index" class="nav-link"> Football Insight </a>
+                }
+                else
+                {
+                    <a class="nav-link"> Football Insight </a>
+                }
             </li>
         </ul>
 

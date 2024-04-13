@@ -216,6 +216,7 @@ namespace Football_Insight.Core.Services
                     .Select(t => new TeamTableViewModel()
                     {
                         Id = t.Id,
+                        Logo = t.LogoURL,
                         Name = t.Name,
                         Wins =
                             t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore && hm.Status == MatchStatus.Finished).Count() +
@@ -232,14 +233,16 @@ namespace Football_Insight.Core.Services
                         GoalsFor =
                             t.AwayMatches.Sum(am => am.AwayScore) +
                             t.HomeMatches.Sum(hm => hm.HomeScore),
-                        Logo = t.LogoURL,
                         Points =
                             t.HomeMatches.Where(hm => hm.HomeScore > hm.AwayScore && hm.Status == MatchStatus.Finished).Count() * 3 +
                             t.AwayMatches.Where(am => am.AwayScore > am.HomeScore && am.Status == MatchStatus.Finished).Count() * 3 +
                             t.HomeMatches.Where(hm => hm.HomeScore == hm.AwayScore && hm.Status == MatchStatus.Finished).Count() +
                             t.AwayMatches.Where(am => am.AwayScore == am.HomeScore && am.Status == MatchStatus.Finished).Count(),
                     })
-                    .OrderBy(t => t.Points)
+                    .OrderByDescending(t => t.Points)
+                    .ThenByDescending(t => t.GoalsFor - t.GoalsAgainst)
+                    .ThenByDescending(t => t.GoalsFor)
+                    .ThenBy(t => t.GoalsAgainst)
                     .ToListAsync();
 
             return teams;

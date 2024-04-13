@@ -1,7 +1,5 @@
 ﻿using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Player;
-using Football_Insight.Core.Models.Team;
-using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Football_Insight.Core.Contracts
@@ -20,6 +18,10 @@ namespace Football_Insight.Core.Contracts
 
         Task<OperationResult> DeletePlayerAsync(int playerId);
 
+        Task<List<PlayerSimpleViewModel>> GetAllPlayersAsync();
+
         ICollection<SelectListItem> GetPositionsFromEnum();
+
+        Task<PlayerSquadViewModel> GetPlayerDetailsAsync(int playerId);
     }
 }

@@ -1,0 +1,34 @@
+﻿@model LeagueFormViewModel
+
+<div class="layout-px-spacing">
+    <div class="middle-content container-xxl p-0">
+        <div class="row layout-top-spacing">
+            <div class="col-xl-6 col-lg-6 col-sm-6 layout-spacing" style="margin-left: auto; margin-right: auto;">
+                <div class="widget-content widget-content-area br-8" style=" padding-top: 30px">
+                    <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <form asp-action="Edit" method="post">
+                            <div class="row g-3">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4" style="text-align: left;">
+                                        <label asp-for="Name">League Name</label>
+                                        <div class="text-danger">
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        </div>
+                                        <input asp-for="Name" type="text" class="form-control mb-6" id="leagueName" placeholder="Enter League Name">
+                                        <input type="hidden" asp-for="Id" />
+                                    </div>
+                                </div>
+                                <div class="col-12" style="text-align: center;">
+                                    <a asp-area="User" asp-action="Index" asp-controller="League" asp-route-ID="@Model.Id" class="btn btn-outline-danger mb-2 me-4">Cancel</a>
+                                    <button type="submit" class="btn btn-outline-success mb-2 me-4">
+                                        <span class="btn-text-inner">Edit League</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

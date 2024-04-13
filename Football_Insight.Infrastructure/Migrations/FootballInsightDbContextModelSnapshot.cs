@@ -121,10 +121,10 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "27827782-5bdc-47e4-b34f-ed2852fa376b",
+                            Id = "6aa19180-1464-4858-87c9-93228a257748",
                             AccessFailedCount = 0,
                             City = "",
-                            ConcurrencyStamp = "92c68f0a-2611-4722-987a-040485d36b3d",
+                            ConcurrencyStamp = "eb0c54fa-0a2f-46ea-ac9b-2ce86038ebe7",
                             Country = "",
                             Email = "user@fi.com",
                             EmailConfirmed = true,
@@ -133,19 +133,19 @@ namespace Football_Insight.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@FI.COM",
                             NormalizedUserName = "USER@FI.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOryMYdDMYJaO2YJnyZHufz/sR/h/Xwh1QOU2HUQB30XcRNFT6nUG+BWHFoFfuIPRA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGPaXnSuD8JG8F08J8LhvJwMm4qNTKzI/FbL+xMMo4F2lvk2UrMYxPWbUkblKIhVJw==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "",
-                            SecurityStamp = "bb7dd250-130e-41b0-a666-7f8043171ba3",
+                            SecurityStamp = "d7591d28-1151-43f7-b7ba-dcbda3b9a2a7",
                             TwoFactorEnabled = false,
                             UserName = "user@fi.com"
                         },
                         new
                         {
-                            Id = "fd35fb93-15de-4a32-b860-7d96874abc8d",
+                            Id = "ca0644f5-1ad0-4799-8444-9f176bc6dc79",
                             AccessFailedCount = 0,
                             City = "",
-                            ConcurrencyStamp = "ae13c122-0013-43b2-b43e-bb8ba2fc0224",
+                            ConcurrencyStamp = "f07e26d4-cb38-44e2-82f1-eb99e90a4ea4",
                             Country = "",
                             Email = "admin@fi.com",
                             EmailConfirmed = true,
@@ -154,10 +154,10 @@ namespace Football_Insight.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FI.COM",
                             NormalizedUserName = "ADMIN@FI.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEErRuiZ+j981Avz8f0BzlxT3mImcfOXfiEwxIc8rnkFXN0ZDmt5oPHBRXEs6dYJLyw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECUuyzsw8V8LF3NZw1X9Jmd7Gkv2J/GK0xko6h5G8NFyoXo7o7K0KhJNn1hUoM4klw==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "",
-                            SecurityStamp = "cbc6af88-d9e8-4de4-b150-c3e6e5b150d1",
+                            SecurityStamp = "86bef45a-651e-43c7-aa3b-6e3d316f7363",
                             TwoFactorEnabled = false,
                             UserName = "admin@fi.com"
                         });
@@ -739,15 +739,15 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5be746fa-daa9-4e78-b69a-b941cd932a92",
-                            ConcurrencyStamp = "c9e6e965-a61c-4265-948c-205354fab352",
+                            Id = "a4ddba78-0e9e-4867-8d8b-ef116ab33e8c",
+                            ConcurrencyStamp = "0e72d1ac-a730-433c-b578-3127cbfe86df",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "f016f320-6d6b-4b88-a6cd-10590ef4c9eb",
-                            ConcurrencyStamp = "c66a6d18-ac75-4873-9051-34df06f03417",
+                            Id = "225c5ef6-bd26-49d4-9b7d-f83ea63ffa0a",
+                            ConcurrencyStamp = "e1ac66fa-8dd8-46ac-ab90-71d00692c131",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -844,13 +844,18 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "27827782-5bdc-47e4-b34f-ed2852fa376b",
-                            RoleId = "5be746fa-daa9-4e78-b69a-b941cd932a92"
+                            UserId = "6aa19180-1464-4858-87c9-93228a257748",
+                            RoleId = "a4ddba78-0e9e-4867-8d8b-ef116ab33e8c"
                         },
                         new
                         {
-                            UserId = "fd35fb93-15de-4a32-b860-7d96874abc8d",
-                            RoleId = "f016f320-6d6b-4b88-a6cd-10590ef4c9eb"
+                            UserId = "ca0644f5-1ad0-4799-8444-9f176bc6dc79",
+                            RoleId = "225c5ef6-bd26-49d4-9b7d-f83ea63ffa0a"
+                        },
+                        new
+                        {
+                            UserId = "ca0644f5-1ad0-4799-8444-9f176bc6dc79",
+                            RoleId = "a4ddba78-0e9e-4867-8d8b-ef116ab33e8c"
                         });
                 });
 

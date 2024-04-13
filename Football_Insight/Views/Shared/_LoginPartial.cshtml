@@ -1,19 +1,15 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
-
-<ul class="navbar-nav">
+﻿<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
         <div class="t-content">
             <div class="t-uppercontent">
-                <p style="padding-right:30px; padding-top: 10px;"><a asp-action="Index" asp-controller="Account">Hello, @User.Identity?.Name!</a></p>
+                <p style="padding-right:30px; padding-top: 10px;"><a asp-area="User" asp-action="Index" asp-controller="Account">Hello, @User.Identity?.Name!</a></p>
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <form  class="form-inline" asp-action="Logout" asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <form  class="form-inline" asp-area="User" asp-action="Logout" asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button class="btn btn-secondary mb-2 me-4">Logout</button>
         </form>
     </li>
@@ -21,10 +17,10 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-action="Register" asp-controller="Account">Register</a>
+        <a class="nav-link text-dark" asp-area="User" asp-action="Register" asp-controller="Account">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-action="Login" asp-controller="Account">Login</a>
+        <a class="nav-link text-dark" asp-area="User" asp-action="Login" asp-controller="Account">Login</a>
     </li>
 }
 </ul>

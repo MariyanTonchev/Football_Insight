@@ -4,7 +4,7 @@
     {
         public string ScorerName { get; set; } = string.Empty;
 
-        public string AssistantName {  get; set; } = string.Empty;
+        public string AssistantName { get; set; } = string.Empty;
 
         public int GoalTime { get; set; }
 
