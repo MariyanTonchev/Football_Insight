@@ -1,11 +1,14 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Account;
+using Football_Insight.Core.Models.Match;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using static Football_Insight.Infrastructure.Constants.DataConstants;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using static Football_Insight.Core.Constants.GlobalConstants;
 
 namespace Football_Insight.Core.Services
 {
@@ -209,6 +212,26 @@ namespace Football_Insight.Core.Services
         public async Task LogoutAsync()
         {
             await signInManager.SignOutAsync();
+        }
+
+        public async Task<List<MatchFavoriteViewModel>> GetFavoriteMatchesAsync()
+        {
+            var userId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var matches = await repo.AllReadonly<Favorite>()
+                .Where(f => f.UserId == userId)
+                .Select(f => new MatchFavoriteViewModel
+                {
+                    MatchId = f.Match.Id,
+                    HomeTeam = f.Match.HomeTeam.Name,
+                    AwayTeam = f.Match.AwayTeam.Name,
+                    MatchStatus = f.Match.Status,
+                    LeagueName = f.Match.League.Name,
+                    DateAndTime = f.Match.DateAndTime.ToString(DateAndTimeFormat)
+                })
+                .ToListAsync();
+
+            return matches;
         }
     }
 }

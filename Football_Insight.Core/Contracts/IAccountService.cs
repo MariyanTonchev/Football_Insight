@@ -1,5 +1,6 @@
 ﻿using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Account;
+using Football_Insight.Core.Models.Match;
 using Football_Insight.Core.Models.Player;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
@@ -23,5 +24,7 @@ namespace Football_Insight.Core.Contracts
         Task<UserViewModel> GetUserViewModelAsync();
 
         string GetUserPhotoPath(ApplicationUser user);
+
+        Task<List<MatchFavoriteViewModel>> GetFavoriteMatchesAsync();
     }
 }

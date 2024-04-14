@@ -183,7 +183,7 @@ namespace Football_Insight.Core.Services
 
         public async Task<PlayerSquadViewModel> GetPlayerDetailsAsync(int playerId)
         {
-            var player = await repository.All<Player>()
+            var player = await repository.AllReadonly<Player>()
                 .Where(p => p.Id == playerId)
                 .Select(p => new PlayerSquadViewModel
                 {
@@ -200,6 +200,44 @@ namespace Football_Insight.Core.Services
                 .FirstOrDefaultAsync();
 
             return player;
+        }
+
+        public async Task<List<PlayerWidgetViewModel>> GetTopScorersAsync()
+        {
+            var scorers = await repository.AllReadonly<Player>()
+                .Select(p => new PlayerWidgetViewModel
+                {
+                    PlayerId = p.Id,
+                    Name = $"{p.FirstName} {p.LastName}",
+                    Position = (PlayerPosition)p.Position,
+                    League = p.Team.League.Name,
+                    Team = p.Team.Name,
+                    GoalsContributed = p.GoalsScored.Count
+                })
+                .OrderByDescending(p => p.GoalsContributed)
+                .Take(5)
+                .ToListAsync();
+
+            return scorers;
+        }
+
+        public async Task<List<PlayerWidgetViewModel>> GetTopAssistersAsync()
+        {
+            var assisters = await repository.AllReadonly<Player>()
+                .Select(p => new PlayerWidgetViewModel
+                {
+                    PlayerId = p.Id,
+                    Name = $"{p.FirstName} {p.LastName}",
+                    Position = (PlayerPosition)p.Position,
+                    League = p.Team.League.Name,
+                    Team = p.Team.Name,
+                    GoalsContributed = p.GoalsAssisted.Count
+                })
+                .OrderByDescending(p => p.GoalsContributed)
+                .Take(5)
+                .ToListAsync();
+
+            return assisters;
         }
     }
 }

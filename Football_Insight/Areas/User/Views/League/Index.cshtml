@@ -97,9 +97,9 @@
                             <table id="individual-col-search2" class="table dt-table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
                                 <thead>
                                     <tr role="row">
-
                                         <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 50.0938px;">Date & Time</th>
                                         <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 250.203px;">Teams</th>
+                                        <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 250.203px;">Status</th>
                                         <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 50.266px;">Actions</th>
                                     </tr>
                                 </thead>
@@ -113,6 +113,7 @@
                                                     @match.HomeTeamName VS @match.AwayTeamName
                                                 </a>
                                             </td>
+                                            <td>@match.MatchStatus</td>
                                             <td>
                                                 <div class="action-icons-container" style="display: flex; align-items: center; justify-content: start;">
                                                     <a asp-action="Index" asp-controller="Match" asp-route-MatchId="@match.Id" title="View match details">

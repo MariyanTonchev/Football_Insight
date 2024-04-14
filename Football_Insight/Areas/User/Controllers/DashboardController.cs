@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Controllers;
+using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,27 +7,30 @@ using System.Diagnostics;
 
 namespace Football_Insight.Areas.User.Controllers
 {
-
     [Area("User")]
     [Authorize(Roles = "User")]
-    public class HomeController : BaseController
+    public class DashboardController : BaseController
     {
-        private readonly ILogger<HomeController> logger;
+        private readonly IDashboardService dashboardService;
+        private readonly ILogger<DashboardController> logger;
 
-        public HomeController(ILogger<HomeController> Loggerr)
+        public DashboardController(ILogger<DashboardController> Loggerr, IDashboardService _dashboardService)
         {
             logger = Loggerr;
+            dashboardService = _dashboardService;
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (User.Identity != null && !User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            return View();
+            var viewModel = await dashboardService.GetDashboardViewModelAsync();
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

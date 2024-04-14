@@ -64,6 +64,7 @@ builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IMatchJobService, MatchJobService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
@@ -99,12 +100,12 @@ app.UseEndpoints(endpoints =>
     // Map area route
     endpoints.MapControllerRoute(
         name: "areas",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+        pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
     // Map controller route
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{area=User}/{controller=Home}/{action=Index}/{id?}");
+        pattern: "{area=User}/{controller=Dashboard}/{action=Index}/{id?}");
 
     // Map Razor Pages
     endpoints.MapRazorPages();

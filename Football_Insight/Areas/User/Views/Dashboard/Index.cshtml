@@ -1,0 +1,180 @@
+﻿@model DashboardViewModel
+
+<div class="layout-px-spacing">
+    <div class="middle-content container-xxl p-0">
+         <div class="row layout-top-spacing">
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                <div class="widget widget-table-three">
+    
+                    <div class="widget-heading">
+                        <h5 class="">Top 5 Scorers</h5>
+                    </div>
+    
+                    <div class="widget-content">
+                        <div class="table-responsive">
+                            <table class="table table-scroll">
+                                <thead>
+                                    <tr>
+                                        <th><div class="th-content">Player</div></th>
+                                        <th><div class="th-content th-heading">Team</div></th>
+                                        <th><div class="th-content th-heading">League</div></th>
+                                        <th><div class="th-content">Goals</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var player in Model.TopGoalScorers)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-area="User" asp-action="Index" asp-controller="Player" asp-route-playerId="@player.PlayerId">
+                                                <div class="td-content product-name">
+                                                    <img src="~/photos/default.jpg" alt="player">
+                                                    <div class="align-self-center">
+                                                        <p class="prd-name">@player.Name</p>
+                                                        <p class="prd-category text-primary">@player.Position</p>
+                                                    </div>
+                                                </div>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <div class="td-content">
+                                                    <span>@player.Team</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td-content">
+                                                    <span>@player.League</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td-content">@player.GoalsContributed</div>
+                                            </td>
+                                        </tr> 
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                <div class="widget widget-table-three">
+
+                    <div class="widget-heading">
+                        <h5 class="">Top 5 Assisters</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="table-responsive">
+                            <table class="table table-scroll">
+                                <thead>
+                                    <tr>
+                                        <th><div class="th-content">Player</div></th>
+                                        <th><div class="th-content th-heading">Team</div></th>
+                                        <th><div class="th-content th-heading">League</div></th>
+                                        <th><div class="th-content">Goals</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var player in Model.TopAssisters)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-area="User" asp-action="Index" asp-controller="Player" asp-route-playerId="@player.PlayerId">
+                                                    <div class="td-content product-name">
+                                                        <img src="~/photos/default.jpg" alt="player">
+                                                        <div class="align-self-center">
+                                                            <p class="prd-name">@player.Name</p>
+                                                            <p class="prd-category text-primary">@player.Position</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <div class="td-content">
+                                                    <span>@player.Team</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td-content" style="text-align: left;">
+                                                    <span>@player.League</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td-content">@player.GoalsContributed</div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row layout-top-spacing">
+            <div class="col-lg-12">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-heading">
+                        <h5 class="">Favorite Matches</h5>
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div id="individual-col-search2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <table id="individual-col-search2" class="table dt-table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 50.0938px;">Date & Time</th>
+                                        <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="League: activate to sort column ascending" style="width: 250.203px;">League</th>
+                                        <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 250.203px;">Teams</th>
+                                        <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 250.203px;">Status</th>
+                                        <th tabindex="0" aria-controls="individual-col-search2" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 50.266px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var match in Model.FavoriteMatches)
+                                    {
+                                        <tr role="row">
+                                            <td>@match.DateAndTime</td>
+                                            <td>
+                                                <p>@match.LeagueName</p>
+                                            </td>
+                                            <td>
+                                                <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.MatchId">
+                                                    @match.HomeTeam VS @match.AwayTeam
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <p>@match.MatchStatus</p>
+                                            </td>
+                                            <td>
+                                                <div class="action-icons-container" style="display: flex; align-items: center; justify-content: start;">
+                                                    <a asp-action="Index" asp-controller="Match" asp-route-MatchId="@match.MatchId" title="View match details">
+                                                        <i class="fa-solid fa-eye fa-xl" style="color: #858585;"></i>
+                                                    </a>
+                                                    <form asp-area="User" asp-action="RemoveFavorite" asp-controller="Match" asp-route-matchId="@match.MatchId" method="post" style="margin-left: 10px;">
+                                                        <button type="submit" title="Remove from favorites" style="background:none;border:none;padding:0;">
+                                                            <i class="fa-solid fa-star fa-xl" style="color: #1eff00;"></i>
+                                                        </button>
+                                                    </form>
+                                                    @if (User.IsInRole("Admin"))
+                                                    {
+                                                        <a asp-area="Admin" asp-action="Edit" asp-controller="Match" asp-route-MatchId="@match.MatchId" title="Edit match" style="margin-left: 10px;">
+                                                            <i class="fa-solid fa-pencil fa-xl" style="color: #FFD43B;"></i>
+                                                        </a>
+                                                        <a asp-area="Admin" asp-action="Delete" asp-controller="Match" asp-route-MatchId="@match.MatchId" title="Delete match" style="margin-left: 10px;">
+                                                            <i class="fa-regular fa-trash-can fa-xl" style="color: #ff0000;"></i>
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

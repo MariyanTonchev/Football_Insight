@@ -11,12 +11,12 @@ namespace Football_Insight.Areas.User.Controllers
     public class AccountController : BaseController
     {
 
-        private readonly ILogger<HomeController> logger;
+        private readonly ILogger<DashboardController> logger;
         private readonly ITeamService teamService;
         private readonly IAccountService accountService;
         private readonly IPlayerService playerService;
 
-        public AccountController(ILogger<HomeController> Logger,
+        public AccountController(ILogger<DashboardController> Logger,
                                  ITeamService _teamService,
                                  IAccountService _accountService,
                                  IPlayerService _playerService)
@@ -56,7 +56,7 @@ namespace Football_Insight.Areas.User.Controllers
             {
                 if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
-                    return RedirectToAction("Index", "Home", new { Area = "User" });
+                    return RedirectToAction("Index", "Dashboard", new { Area = "User" });
                 }
 
                 return View();
@@ -78,7 +78,7 @@ namespace Football_Insight.Areas.User.Controllers
                     var result = await accountService.RegisterUserAsync(model);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Home", new { Area = "User" });
+                        return RedirectToAction("Index", "Dashboard", new { Area = "User" });
                     }
 
                     foreach (var error in result.Errors)
@@ -102,7 +102,7 @@ namespace Football_Insight.Areas.User.Controllers
             {
                 if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
-                    return RedirectToAction("Index", "Home", new { Area = "User" });
+                    return RedirectToAction("Index", "Dashboard", new { Area = "User" });
                 }
 
                 return View();
@@ -130,7 +130,7 @@ namespace Football_Insight.Areas.User.Controllers
                         return View(model);
                     }
 
-                    return RedirectToAction("Index", "Home", new { Area = "User" });
+                    return RedirectToAction("Index", "Dashboard", new { Area = "User" });
                 }
                 catch (Exception ex)
                 {

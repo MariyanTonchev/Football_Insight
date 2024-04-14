@@ -50,7 +50,7 @@ namespace Football_Insight.Areas.User.Controllers
                 var result = await matchService.AddFavoriteAsync(matchId);
                 var leagueId = (await matchService.GetMatchSimpleViewAsync(matchId)).LeagueId;
 
-                return RedirectToAction("Index", "League", new { Area = "User", Id = leagueId });
+                return RedirectToAction("Index", "Dashboard", new { Area = "User", Id = leagueId });
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace Football_Insight.Areas.User.Controllers
                     ModelState.AddModelError("", result.Message);
                 }
 
-                return RedirectToAction("Index", "League", new { Area = "User", Id = leagueId });
+                return RedirectToAction("Index", "Dashboard", new { Area = "User", Id = leagueId });
             }
             catch (Exception ex)
             {

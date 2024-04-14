@@ -23,5 +23,9 @@ namespace Football_Insight.Core.Contracts
         ICollection<SelectListItem> GetPositionsFromEnum();
 
         Task<PlayerSquadViewModel> GetPlayerDetailsAsync(int playerId);
+
+        Task<List<PlayerWidgetViewModel>> GetTopScorersAsync();
+
+        Task<List<PlayerWidgetViewModel>> GetTopAssistersAsync();
     }
 }
