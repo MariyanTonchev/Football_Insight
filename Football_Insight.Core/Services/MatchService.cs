@@ -282,7 +282,7 @@ namespace Football_Insight.Core.Services
             }
             catch (Exception)
             {
-                return new OperationResult(false, "An error occurred while starting the match.");
+                return new OperationResult(false, "An error occurred while pausing the match.");
             }
         }
 
@@ -319,7 +319,7 @@ namespace Football_Insight.Core.Services
             }
             catch (Exception)
             {
-                return new OperationResult(false, "An error occurred while starting the match.");
+                return new OperationResult(false, "An error occurred while unpausing the match.");
             }
         }
 
@@ -371,7 +371,7 @@ namespace Football_Insight.Core.Services
             }
             catch (Exception)
             {
-                return new OperationResult(false, "An error occurred while starting the match.");
+                return new OperationResult(false, "An error occurred while ending the match.");
             }
         }
 
