@@ -25,8 +25,6 @@ namespace Football_Insight.Tests.Player
         public async Task CreatePlayerAsync_Successful_ReturnsSuccessResult()
         {
             // Arrange
-            var mockRepository = new Mock<IRepository>();
-            var playerService = new PlayerService(mockRepository.Object);
             var viewModel = new PlayerFormViewModel
             {
                 FirstName = "John",
@@ -56,8 +54,6 @@ namespace Football_Insight.Tests.Player
         public async Task CreatePlayerAsync_MissingPosition_ReturnsFailureResult()
         {
             // Arrange
-            var mockRepository = new Mock<IRepository>();
-            var playerService = new PlayerService(mockRepository.Object);
             var viewModel = new PlayerFormViewModel
             {
                 FirstName = "John",
