@@ -73,6 +73,8 @@ namespace Football_Insight.Infrastructure.Data
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());
+            builder.ApplyConfiguration(new MatchConfiguration());
+            builder.ApplyConfiguration(new GoalConfiguration());
         }
     }
 }

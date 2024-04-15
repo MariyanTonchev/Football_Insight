@@ -363,8 +363,8 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "225c5ef6-bd26-49d4-9b7d-f83ea63ffa0a", "e1ac66fa-8dd8-46ac-ab90-71d00692c131", "Admin", "ADMIN" },
-                    { "a4ddba78-0e9e-4867-8d8b-ef116ab33e8c", "0e72d1ac-a730-433c-b578-3127cbfe86df", "User", "USER" }
+                    { "467b0785-ccda-40da-90e2-882be977d881", "1c063df5-31b3-4128-b1d5-b6a9af9a7993", "Admin", "ADMIN" },
+                    { "7b012121-5960-4dff-bcd4-7ee24857279a", "12db278e-a6f8-4ede-b5ee-57fbf7ac8ec5", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -372,8 +372,8 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "FavoritePlayerId", "FavoriteTeamId", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6aa19180-1464-4858-87c9-93228a257748", 0, "", "eb0c54fa-0a2f-46ea-ac9b-2ce86038ebe7", "", "user@fi.com", true, null, null, "", "", false, null, "USER@FI.COM", "USER@FI.COM", "AQAAAAEAACcQAAAAEGPaXnSuD8JG8F08J8LhvJwMm4qNTKzI/FbL+xMMo4F2lvk2UrMYxPWbUkblKIhVJw==", null, false, "", "d7591d28-1151-43f7-b7ba-dcbda3b9a2a7", false, "user@fi.com" },
-                    { "ca0644f5-1ad0-4799-8444-9f176bc6dc79", 0, "", "f07e26d4-cb38-44e2-82f1-eb99e90a4ea4", "", "admin@fi.com", true, null, null, "", "", false, null, "ADMIN@FI.COM", "ADMIN@FI.COM", "AQAAAAEAACcQAAAAECUuyzsw8V8LF3NZw1X9Jmd7Gkv2J/GK0xko6h5G8NFyoXo7o7K0KhJNn1hUoM4klw==", null, false, "", "86bef45a-651e-43c7-aa3b-6e3d316f7363", false, "admin@fi.com" }
+                    { "6b108b67-01e2-4e45-8527-35ce18296203", 0, "", "062128eb-715b-42e0-8e6a-c65356cf862f", "", "user@fi.com", true, null, null, "", "", false, null, "USER@FI.COM", "USER@FI.COM", "AQAAAAEAACcQAAAAEA8Bc7TubZN215O/abzZHtpBk7S9EIzps+Y2e2hkbWuf9lhrFGSWyTDbOOTge1el1A==", null, false, "", "0523d7f5-d03c-4bd1-89a4-1b0d45bd2361", false, "user@fi.com" },
+                    { "decc5187-d745-4493-9dc8-9bf8907f4942", 0, "", "3b964e35-6543-4293-bc82-b247c95f83f6", "", "admin@fi.com", true, null, null, "", "", false, null, "ADMIN@FI.COM", "ADMIN@FI.COM", "AQAAAAEAACcQAAAAELbcPSdQDxZilAnKr+gxROfhi5tABWv/q/zgqoYs+inf6RMewjtBkfkurYfK9b9U0w==", null, false, "", "9eea96dd-668d-4d4e-8a5b-3409d8d07c92", false, "admin@fi.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -381,11 +381,8 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Premier League" },
-                    { 2, "La Liga" },
-                    { 3, "Bundesliga" },
-                    { 4, "Serie A" },
-                    { 5, "Ligue 1" }
+                    { 1, "Super League" },
+                    { 2, "Mystic League" }
                 });
 
             migrationBuilder.InsertData(
@@ -393,13 +390,16 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "Address", "Capacity", "Name", "YearBuilt" },
                 values: new object[,]
                 {
-                    { 1, "Highbury House, 75 Drayton Park, London", 60704, "Emirates Stadium", 2006 },
-                    { 2, "Sir Matt Busby Way, Manchester", 74879, "Old Trafford", 1910 },
-                    { 3, "C. d'Aristides Maillol, 12, Barcelona", 99354, "Camp Nou", 1957 },
-                    { 4, "London, HA9 0WS", 90000, "Wembley Stadium", 2007 },
-                    { 5, "Av. Pres. Castelo Branco, Rio de Janeiro", 78838, "Maracanã", 1950 },
-                    { 6, "Piazzale Angelo Moratti, Milan", 80018, "San Siro", 1926 },
-                    { 7, "Calz. de Tlalpan 3665, Mexico City", 87523, "Estadio Azteca", 1966 }
+                    { 1, "Sir Matt Busby Way, Manchester", 74879, "Old Trafford", 1910 },
+                    { 2, "Av. de Concha Espina, 1, Madrid", 81044, "Santiago Bernabéu", 1947 },
+                    { 3, "Werner-Heisenberg-Allee 25, Munich", 75000, "Allianz Arena", 2005 },
+                    { 4, "Piazzale Angelo Moratti, Milan", 80018, "San Siro", 1926 },
+                    { 5, "Rue Henri Delaunay, Saint-Denis, Paris", 81338, "Stade de France", 1998 },
+                    { 6, "Fulham Road, Fulham, London SW6 1HS", 40343, "Stamford Bridge", 1935 },
+                    { 7, "C. d'Aristides Maillol, 12, Barcelona", 99354, "Camp Nou", 1957 },
+                    { 8, "Strobelallee 50, 44139 Dortmund, North Rhine-Westphalia, Germany", 81365, "Signal Iduna Park", 1974 },
+                    { 9, "Highbury House, 75 Drayton Park, London", 60704, "Emirates Stadium", 2006 },
+                    { 10, "Anfield Rd, Liverpool", 53394, "Anfield", 1884 }
                 });
 
             migrationBuilder.InsertData(
@@ -407,9 +407,9 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "a4ddba78-0e9e-4867-8d8b-ef116ab33e8c", "6aa19180-1464-4858-87c9-93228a257748" },
-                    { "225c5ef6-bd26-49d4-9b7d-f83ea63ffa0a", "ca0644f5-1ad0-4799-8444-9f176bc6dc79" },
-                    { "a4ddba78-0e9e-4867-8d8b-ef116ab33e8c", "ca0644f5-1ad0-4799-8444-9f176bc6dc79" }
+                    { "7b012121-5960-4dff-bcd4-7ee24857279a", "6b108b67-01e2-4e45-8527-35ce18296203" },
+                    { "467b0785-ccda-40da-90e2-882be977d881", "decc5187-d745-4493-9dc8-9bf8907f4942" },
+                    { "7b012121-5960-4dff-bcd4-7ee24857279a", "decc5187-d745-4493-9dc8-9bf8907f4942" }
                 });
 
             migrationBuilder.InsertData(
@@ -417,17 +417,44 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "Coach", "Founded", "LeagueId", "LogoURL", "Name", "StadiumId" },
                 values: new object[,]
                 {
-                    { 1, "Sir Alex", 1878, 1, "", "Manchester United", 1 },
-                    { 2, "Anceloti", 1902, 2, "", "Real Madrid", 2 },
-                    { 3, "Thomas Tuchel", 1900, 3, "", "FC Bayern Munich", 3 },
-                    { 4, "Sari", 1899, 4, "", "AC Milan", 4 },
-                    { 5, "Luis Enrique", 1970, 5, "", "Paris Saint-Germain", 5 },
-                    { 6, "Pochetino", 1905, 1, "", "Chelsea FC", 6 },
-                    { 7, "Xavi", 1899, 2, "", "FC Barcelona", 7 },
-                    { 8, "George", 1909, 3, "", "Borussia Dortmund", 2 },
-                    { 9, "Simeone Indzhagi", 1908, 4, "", "Inter Milan", 4 },
-                    { 10, "No Idea", 1950, 5, "", "Olympique Lyonnais", 3 },
-                    { 11, "Mikel Arteta", 1886, 1, "", "Arsenal", 1 }
+                    { 1, "Ten Hag", 1878, 1, "https://static.flashscore.com/res/image/data/nwSRlyWg-h2pPXz3k.png", "Manchester United", 1 },
+                    { 2, "Anceloti", 1902, 1, "https://static.flashscore.com/res/image/data/A7kHoxZA-fcDVLdrL.png", "Real Madrid", 2 },
+                    { 3, "Thomas Tuchel", 1900, 1, "https://static.flashscore.com/res/image/data/tMir8iCr-xQOIafxi.png", "FC Bayern Munich", 3 },
+                    { 4, "Sari", 1899, 1, "https://static.flashscore.com/res/image/data/htYjIjFa-fL3dmxxd.png", "AC Milan", 4 },
+                    { 5, "Luis Enrique", 1970, 1, "https://static.flashscore.com/res/image/data/EskJufg5-06Ua3sOf.png", "Paris Saint-Germain", 5 },
+                    { 6, "Pochetino", 1905, 1, "https://static.flashscore.com/res/image/data/GMmvDEdM-IROrZEJb.png", "Chelsea FC", 6 },
+                    { 7, "Xavi", 1899, 1, "https://static.flashscore.com/res/image/data/8dhw5vxS-fcDVLdrL.png", "FC Barcelona", 7 },
+                    { 8, "Edin Terzić", 1909, 1, "https://static.flashscore.com/res/image/data/Yiq1eU9r-WrjrBuU2.png", "Borussia Dortmund", 8 },
+                    { 9, "Mikel Arteta", 1886, 1, "https://static.flashscore.com/res/image/data/pfchdCg5-vcNAdtF9.png", "Arsenal", 9 },
+                    { 10, "Jurgen Klopp", 1950, 1, "https://static.flashscore.com/res/image/data/vwC9RGhl-Imx2oQd8.png", "Liverpool", 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Matches",
+                columns: new[] { "Id", "AwayScore", "AwayTeamId", "DateAndTime", "HomeScore", "HomeTeamId", "LeagueId", "Minutes", "StadiumId", "Status" },
+                values: new object[,]
+                {
+                    { 1, 1, 2, new DateTime(2023, 11, 1, 20, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, 1, 90, 1, 4 },
+                    { 2, 3, 3, new DateTime(2023, 11, 10, 18, 0, 0, 0, DateTimeKind.Unspecified), 3, 1, 1, 90, 1, 4 },
+                    { 3, 2, 1, new DateTime(2023, 11, 20, 20, 30, 0, 0, DateTimeKind.Unspecified), 1, 4, 1, 90, 4, 4 },
+                    { 4, 1, 3, new DateTime(2023, 11, 5, 21, 0, 0, 0, DateTimeKind.Unspecified), 1, 2, 1, 90, 2, 4 },
+                    { 5, 3, 2, new DateTime(2023, 11, 15, 19, 45, 0, 0, DateTimeKind.Unspecified), 0, 5, 1, 90, 5, 4 },
+                    { 6, 2, 6, new DateTime(2023, 11, 25, 17, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 1, 90, 2, 4 },
+                    { 7, 1, 6, new DateTime(2023, 11, 5, 19, 30, 0, 0, DateTimeKind.Unspecified), 4, 3, 1, 90, 3, 4 },
+                    { 8, 0, 3, new DateTime(2023, 11, 30, 20, 0, 0, 0, DateTimeKind.Unspecified), 0, 7, 1, 90, 7, 4 },
+                    { 9, 2, 3, new DateTime(2023, 12, 10, 21, 0, 0, 0, DateTimeKind.Unspecified), 1, 8, 1, 90, 8, 4 },
+                    { 10, 1, 4, new DateTime(2023, 12, 15, 18, 0, 0, 0, DateTimeKind.Unspecified), 4, 9, 1, 90, 9, 4 },
+                    { 11, 0, 4, new DateTime(2023, 12, 20, 20, 0, 0, 0, DateTimeKind.Unspecified), 2, 10, 1, 90, 10, 4 },
+                    { 12, 4, 5, new DateTime(2023, 12, 25, 17, 30, 0, 0, DateTimeKind.Unspecified), 3, 4, 1, 90, 4, 4 },
+                    { 13, 2, 6, new DateTime(2024, 1, 5, 19, 30, 0, 0, DateTimeKind.Unspecified), 2, 5, 1, 90, 5, 4 },
+                    { 14, 0, 5, new DateTime(2024, 4, 27, 20, 0, 0, 0, DateTimeKind.Unspecified), 0, 1, 1, 0, 1, 0 },
+                    { 15, 0, 7, new DateTime(2024, 4, 25, 20, 30, 0, 0, DateTimeKind.Unspecified), 0, 3, 1, 0, 3, 0 },
+                    { 16, 0, 6, new DateTime(2024, 4, 30, 18, 0, 0, 0, DateTimeKind.Unspecified), 0, 4, 1, 0, 4, 0 },
+                    { 17, 0, 10, new DateTime(2024, 4, 25, 17, 30, 0, 0, DateTimeKind.Unspecified), 0, 8, 1, 0, 8, 0 },
+                    { 18, 0, 8, new DateTime(2024, 5, 2, 21, 0, 0, 0, DateTimeKind.Unspecified), 0, 2, 1, 0, 2, 0 },
+                    { 19, 0, 3, new DateTime(2024, 5, 10, 19, 45, 0, 0, DateTimeKind.Unspecified), 0, 5, 1, 0, 5, 0 },
+                    { 20, 0, 1, new DateTime(2024, 5, 15, 20, 0, 0, 0, DateTimeKind.Unspecified), 0, 9, 1, 0, 9, 0 },
+                    { 21, 0, 4, new DateTime(2024, 5, 23, 18, 30, 0, 0, DateTimeKind.Unspecified), 0, 7, 1, 0, 7, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -435,12 +462,114 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "Position", "Price", "Salary", "TeamId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1993, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Harry", "Maguire", 1, 0m, 0m, 1 },
-                    { 2, new DateTime(1996, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marcus", "Rashford", 3, 0m, 0m, 1 },
-                    { 3, new DateTime(1995, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Andre", "Onana", 0, 0m, 0m, 1 },
-                    { 31, new DateTime(2000, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bukayo", "Saka", 3, 0m, 0m, 11 },
-                    { 32, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "William", "Salliba", 1, 0m, 0m, 11 },
-                    { 33, new DateTime(1998, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ben", "White", 1, 0m, 0m, 11 }
+                    { 1, new DateTime(1990, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Andre", "Onana", 0, 0m, 0m, 1 },
+                    { 2, new DateTime(1993, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Harry", "Maguire", 1, 0m, 0m, 1 },
+                    { 3, new DateTime(1994, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bruno", "Fernandes", 2, 0m, 0m, 1 },
+                    { 4, new DateTime(1997, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marcus", "Rashford", 3, 0m, 0m, 1 },
+                    { 5, new DateTime(1992, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thibaut", "Courtois", 0, 0m, 0m, 2 },
+                    { 6, new DateTime(1986, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "David", "Alaba", 1, 0m, 0m, 2 },
+                    { 7, new DateTime(1985, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Luka", "Modric", 2, 0m, 0m, 2 },
+                    { 8, new DateTime(1987, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Vinicius", "Junior", 3, 0m, 0m, 2 },
+                    { 9, new DateTime(1986, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Manuel", "Neuer", 0, 0m, 0m, 3 },
+                    { 10, new DateTime(1996, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lucas", "Hernandez", 1, 0m, 0m, 3 },
+                    { 11, new DateTime(1995, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Joshua", "Kimmich", 2, 0m, 0m, 3 },
+                    { 12, new DateTime(1989, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thomas", "Muller", 3, 0m, 0m, 3 },
+                    { 13, new DateTime(1995, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mike", "Maignan", 0, 0m, 0m, 4 },
+                    { 14, new DateTime(1997, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fikayo", "Tomori", 1, 0m, 0m, 4 },
+                    { 15, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Christian", "Pulisic", 2, 0m, 0m, 4 },
+                    { 16, new DateTime(1986, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Olivier", "Giroud", 3, 0m, 0m, 4 },
+                    { 17, new DateTime(1999, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gianluigi", "Donnarumma", 0, 0m, 0m, 5 },
+                    { 18, new DateTime(1994, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marquinhos", "Correa", 1, 0m, 0m, 5 },
+                    { 19, new DateTime(1992, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marco", "Verratti", 2, 0m, 0m, 5 },
+                    { 20, new DateTime(1998, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kylian", "Mbappe", 3, 0m, 0m, 5 },
+                    { 21, new DateTime(1992, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Robert", "Sanchez", 0, 0m, 0m, 6 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Players",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "Position", "Price", "Salary", "TeamId" },
+                values: new object[,]
+                {
+                    { 22, new DateTime(1984, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thiago", "Silva", 1, 0m, 0m, 6 },
+                    { 23, new DateTime(1991, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cole", "Palmer", 2, 0m, 0m, 6 },
+                    { 24, new DateTime(1999, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nicolas", "Jackson", 3, 0m, 0m, 6 },
+                    { 25, new DateTime(1992, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marc-Andre", "ter Stegen", 0, 0m, 0m, 7 },
+                    { 26, new DateTime(1987, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Eric", "Garcia", 1, 0m, 0m, 7 },
+                    { 27, new DateTime(1997, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Frenkie", "de Jong", 2, 0m, 0m, 7 },
+                    { 28, new DateTime(2002, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Robert", "Lewandovski", 3, 0m, 0m, 7 },
+                    { 29, new DateTime(1997, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gregor", "Kobel", 0, 0m, 0m, 8 },
+                    { 30, new DateTime(1988, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mats", "Hummels", 1, 0m, 0m, 8 },
+                    { 31, new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marco", "Reus", 2, 0m, 0m, 8 },
+                    { 32, new DateTime(1999, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Donyell", "Malen", 3, 0m, 0m, 8 },
+                    { 33, new DateTime(2001, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bukayo", "Saka", 3, 0m, 0m, 9 },
+                    { 34, new DateTime(1998, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "Martin", "Odegaard", 2, 0m, 0m, 9 },
+                    { 35, new DateTime(1997, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gabriel", "Magalhaes", 1, 0m, 0m, 9 },
+                    { 36, new DateTime(1998, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Aaron", "Ramsdale", 0, 0m, 0m, 9 },
+                    { 37, new DateTime(1992, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alisson", "Becker", 0, 0m, 0m, 10 },
+                    { 38, new DateTime(1991, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Virgil", "van Dijk", 1, 0m, 0m, 10 },
+                    { 39, new DateTime(1991, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thiago", "Alcântara", 2, 0m, 0m, 10 },
+                    { 40, new DateTime(1992, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mohamed", "Salah", 3, 0m, 0m, 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Goals",
+                columns: new[] { "Id", "GoalAssistantId", "GoalMinute", "GoalScorerId", "MatchId", "TeamId" },
+                values: new object[,]
+                {
+                    { 1, 3, 35, 4, 1, 1 },
+                    { 2, 4, 78, 3, 1, 1 },
+                    { 3, 7, 52, 8, 1, 2 },
+                    { 4, 3, 15, 4, 2, 1 },
+                    { 5, 2, 47, 3, 2, 1 },
+                    { 6, 4, 78, 2, 2, 1 },
+                    { 7, 11, 29, 12, 2, 3 },
+                    { 8, 10, 55, 11, 2, 3 },
+                    { 9, 12, 85, 10, 2, 3 },
+                    { 10, 3, 22, 4, 3, 1 },
+                    { 11, null, 68, 3, 3, 1 },
+                    { 12, 15, 51, 16, 3, 4 },
+                    { 13, 7, 36, 8, 4, 2 },
+                    { 14, 11, 78, 12, 4, 3 },
+                    { 15, 7, 12, 8, 5, 2 },
+                    { 16, 8, 45, 6, 5, 2 },
+                    { 17, null, 73, 7, 5, 2 },
+                    { 18, 7, 24, 8, 6, 2 },
+                    { 19, 8, 54, 6, 6, 2 },
+                    { 20, 23, 38, 24, 6, 6 },
+                    { 21, 23, 76, 22, 6, 6 },
+                    { 22, 11, 12, 12, 7, 3 },
+                    { 23, 10, 28, 11, 7, 3 },
+                    { 24, 12, 53, 10, 7, 3 },
+                    { 25, null, 79, 9, 7, 3 },
+                    { 26, 23, 65, 24, 7, 6 },
+                    { 27, 11, 18, 12, 9, 3 },
+                    { 28, 10, 57, 11, 9, 3 },
+                    { 29, 31, 73, 32, 9, 8 },
+                    { 30, 34, 11, 33, 10, 9 },
+                    { 31, 35, 27, 34, 10, 9 },
+                    { 32, null, 49, 33, 10, 9 },
+                    { 33, 33, 68, 34, 10, 9 },
+                    { 34, 15, 78, 16, 10, 4 },
+                    { 35, 39, 32, 40, 11, 10 },
+                    { 36, 40, 71, 38, 11, 10 },
+                    { 37, 15, 11, 16, 12, 4 },
+                    { 38, 16, 34, 14, 12, 4 },
+                    { 39, 14, 78, 15, 12, 4 },
+                    { 40, 19, 22, 20, 12, 5 },
+                    { 41, 20, 45, 18, 12, 5 },
+                    { 42, null, 60, 20, 12, 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Goals",
+                columns: new[] { "Id", "GoalAssistantId", "GoalMinute", "GoalScorerId", "MatchId", "TeamId" },
+                values: new object[,]
+                {
+                    { 43, null, 85, 17, 12, 5 },
+                    { 44, 19, 18, 20, 13, 5 },
+                    { 45, 20, 52, 18, 13, 5 },
+                    { 46, 23, 37, 24, 13, 6 },
+                    { 47, 24, 76, 22, 13, 6 }
                 });
 
             migrationBuilder.CreateIndex(

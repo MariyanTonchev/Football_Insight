@@ -9,11 +9,8 @@ namespace Football_Insight.Data.Configurations
         public void Configure(EntityTypeBuilder<League> builder)
         {
             builder.HasData(
-                new League { Id = 1, Name = "Premier League" },
-                new League { Id = 2, Name = "La Liga" },
-                new League { Id = 3, Name = "Bundesliga" },
-                new League { Id = 4, Name = "Serie A" },
-                new League { Id = 5, Name = "Ligue 1" }
+                new League { Id = 1, Name = "Super League" },
+                new League { Id = 2, Name = "Mystic League" }
             );
         }
     }
