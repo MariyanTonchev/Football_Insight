@@ -41,8 +41,8 @@ namespace Football_Insight.Tests.Team
                 LeagueId = 1
             };
 
-            mockRepository.Setup(repo => repo.GetByIdAsync<League>(viewModel.LeagueId))
-                .ReturnsAsync(new League()); 
+            mockRepository.Setup(repo => repo.GetByIdAsync<DataModels.League>(viewModel.LeagueId))
+                .ReturnsAsync(new DataModels.League()); 
 
             mockRepository.Setup(repo => repo.GetByIdAsync<Stadium>(viewModel.StadiumId))
                 .ReturnsAsync(new Stadium());

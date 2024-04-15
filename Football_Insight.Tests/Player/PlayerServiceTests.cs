@@ -1,11 +1,11 @@
 using Football_Insight.Core.Models.Player;
 using Football_Insight.Core.Services;
 using Football_Insight.Infrastructure.Data.Common;
-using DataModels = Football_Insight.Infrastructure.Data.Models;
-using Moq;
-using Football_Insight.Infrastructure.Data.Models;
 using Football_Insight.Infrastructure.Data.Enums;
+using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Moq;
+using DataModels = Football_Insight.Infrastructure.Data.Models;
 
 namespace Football_Insight.Tests.Player
 {
@@ -269,22 +269,22 @@ namespace Football_Insight.Tests.Player
             var players = new List<DataModels.Player>
                         {
                             new DataModels.Player { Id = 1, FirstName = "John", LastName = "Smith", Position = 1, 
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }}, 
-                                GoalsScored = new List<Goal>{new Goal(), new Goal()}},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
+                                GoalsScored = new List < Goal > { new Goal() }},
                             new DataModels.Player { Id = 2, FirstName = "Jane", LastName = "Doe", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }}, 
-                                GoalsScored = new List<Goal>{new Goal()}},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
+                                GoalsScored = new List < Goal > { new Goal() }},
                             new DataModels.Player { Id = 3, FirstName = "Alice", LastName = "Johnson", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }}, 
-                                GoalsScored = new List<Goal>{new Goal(), new Goal(), new Goal()}},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
+                                GoalsScored = new List < Goal > { new Goal() }},
                             new DataModels.Player { Id = 4, FirstName = "Bob", LastName = "Brown", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }}, 
-                                GoalsScored = new List<Goal>{new Goal(), new Goal(), new Goal(), new Goal()}},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
+                                GoalsScored = new List < Goal > { new Goal() }},
                             new DataModels.Player { Id = 5, FirstName = "Carol", LastName = "Martinez", Position = 3,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }}, 
-                                GoalsScored = new List<Goal>{new Goal()}},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
+                                GoalsScored = new List < Goal > { new Goal() }},
                             new DataModels.Player { Id = 6, FirstName = "Dave", LastName = "Wilson", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }}, 
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
                                 GoalsScored = new List<Goal>()}
                         }.AsAsyncQueryable();
 
@@ -313,22 +313,22 @@ namespace Football_Insight.Tests.Player
             var players = new List<DataModels.Player>
                         {
                             new DataModels.Player { Id = 1, FirstName = "John", LastName = "Smith", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
                                 GoalsAssisted = new List<Goal>{new Goal(), new Goal()}},
                             new DataModels.Player { Id = 2, FirstName = "Jane", LastName = "Doe", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
                                 GoalsAssisted = new List<Goal>{new Goal()}},
                             new DataModels.Player { Id = 3, FirstName = "Alice", LastName = "Johnson", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
                                 GoalsAssisted = new List<Goal>{new Goal(), new Goal(), new Goal()}},
                             new DataModels.Player { Id = 4, FirstName = "Bob", LastName = "Brown", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
                                 GoalsAssisted = new List<Goal>{new Goal(), new Goal(), new Goal(), new Goal()}},
                             new DataModels.Player { Id = 5, FirstName = "Carol", LastName = "Martinez", Position = 3,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
                                 GoalsAssisted = new List<Goal>{new Goal()}},
                             new DataModels.Player { Id = 6, FirstName = "Dave", LastName = "Wilson", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new League { Name = "League One" }},
+                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
                                 GoalsAssisted = new List<Goal>()}
                         }.AsAsyncQueryable();
 

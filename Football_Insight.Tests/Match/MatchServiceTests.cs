@@ -1,10 +1,8 @@
 ﻿using Football_Insight.Core.Contracts;
 using Football_Insight.Core.Models.Match;
-using Football_Insight.Core.Models.Team;
 using Football_Insight.Core.Services;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
-using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
