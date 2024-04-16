@@ -1,6 +1,7 @@
 ﻿using Football_Insight.Core.Models;
 using Football_Insight.Core.Models.Player;
 using Football_Insight.Core.Models.Team;
+using Football_Insight.Infrastructure.Data.Models;
 
 namespace Football_Insight.Core.Contracts
 {
@@ -29,5 +30,7 @@ namespace Football_Insight.Core.Contracts
         Task<List<PlayerSimpleViewModel>> GetSquadAsync(int teamId);
 
         Task<string> GetTeamNameAsync(int id);
+
+        Task<Team> GetTeamAsync(int teamId);
     }
 }

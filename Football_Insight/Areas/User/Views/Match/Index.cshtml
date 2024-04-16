@@ -16,26 +16,28 @@
                 <div class="row" style="text-align: center;">
                     <div class="col-3 d-flex align-items-center justify-content-center">
                         <div class="square-image-container">
-                            <h6>@Model.HomeTeamName</h6>
-                            <img src="~/photos/default.jpg" class="square-image" alt="First Image">
+                            <h6>@Model.HomeTeam.Name</h6>
+                            <img src="@Model.HomeTeam.LogoURL" class="square-image" alt="First Image">
                         </div>
                     </div>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <div class="col d-flex flex-column align-items-start justify-content-center">
-                            <a href="#" data-match-id="@Model.Id" data-team-id="@Model.HomeTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+
+                    <div class="col d-flex flex-column align-items-start justify-content-center">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a href="#" data-match-id="@Model.Id" data-team-id="@Model.HomeTeam.TeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                                 <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                             </a>
                             <!-- Not implemented
-                            <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
+                            <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeam.TeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
                                 <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
                             </a>
-                            <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add red card" class="action-icon-col">
+                            <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeam.TeamId" title="Add red card" class="action-icon-col">
                                 <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
                             </a>
                             -->
-                        </div>
-                    }
+                        }
+                    </div>
+
                     <div class="col-4 d-flex flex-column align-items-center justify-content-center">
                         <div class="row">
                             <p>@Model.DateAndTime</p>
@@ -76,10 +78,11 @@
                             </div>
                         }
                     </div>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <div class="col d-flex flex-column align-items-end justify-content-center">
-                            <a href="#" data-match-id="@Model.Id" data-team-id="@Model.AwayTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+
+                    <div class="col d-flex flex-column align-items-end justify-content-center">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a href="#" data-match-id="@Model.Id" data-team-id="@Model.AwayTeam.TeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
                                 <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
                             </a>
                             <!-- Not Implemented
@@ -90,12 +93,13 @@
                                 <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
                             </a>
                             -->
-                        </div>
-                    }
+                        }
+                    </div>
+
                     <div class="col-3 d-flex align-items-center justify-content-center">
                         <div class="square-image-container">
-                            <h6>@Model.AwayTeamName</h6>
-                            <img src="@Model." class="square-image" alt="Second Image">
+                            <h6>@Model.AwayTeam.Name</h6>
+                            <img src="@Model.AwayTeam.LogoURL" class="square-image" alt="Second Image">
                         </div>
                     </div>
                 </div>
@@ -103,7 +107,7 @@
                 {
                     <div class="row mt-4">
                         <div class="col-3 mt-2" style="text-align: right;">
-                            @if (goal.TeamId == Model.HomeTeamId)
+                            @if (goal.TeamId == Model.HomeTeam.TeamId)
                             {
                                 @if (User.IsInRole("Admin"))
                                 {
@@ -124,7 +128,7 @@
                                 }
                             }
                         </div>
-                        <div class="col-6" style="text-align: @(goal.TeamId == Model.HomeTeamId ? "left" : "right");">
+                        <div class="col-6" style="text-align: @(goal.TeamId == Model.HomeTeam.TeamId ? "left" : "right");">
                             <h6>@goal.ScorerName</h6>
                             @if (!string.IsNullOrEmpty(goal.AssistantName))
                             {
@@ -132,7 +136,7 @@
                             }
                         </div>
                         <div class="col-3 mt-2" style="text-align: right;">
-                            @if (goal.TeamId == Model.AwayTeamId)
+                            @if (goal.TeamId == Model.AwayTeam.TeamId)
                             {
                                 <div style="display: flex; align-items: center; justify-content: flex-start; margin-top: -8px;">
                                     <p style="margin-right: 5px;"><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>

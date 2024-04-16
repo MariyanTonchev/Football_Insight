@@ -1,4 +1,5 @@
 ﻿using Football_Insight.Core.Models.Goal;
+using Football_Insight.Core.Models.Team;
 using Football_Insight.Infrastructure.Data.Enums;
 
 
@@ -10,14 +11,6 @@ namespace Football_Insight.Core.Models.Match
 
         public string DateAndTime { get; set; } = string.Empty;
 
-        public string HomeTeamName { get; set; } = string.Empty;
-
-        public int HomeTeamId { get; set; }
-
-        public string AwayTeamName { get; set; } = string.Empty;
-
-        public int AwayTeamId { get; set; }
-
         public int LeagueId { get; set; }
 
         public MatchStatus Status { get; set; }
@@ -27,6 +20,10 @@ namespace Football_Insight.Core.Models.Match
         public int HomeGoals { get; set; }
 
         public int AwayGoals { get; set; }
+
+        public TeamDetailedViewModel AwayTeam { get; set; } = null!;
+
+        public TeamDetailedViewModel HomeTeam { get; set; } = null!;
 
         public ICollection<GoalSimpleModelView> Goals { get; set; } = new List<GoalSimpleModelView>();
     }

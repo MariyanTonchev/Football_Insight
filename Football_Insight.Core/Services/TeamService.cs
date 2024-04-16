@@ -244,7 +244,7 @@ namespace Football_Insight.Core.Services
             }
         }
 
-        private async Task<Team> GetTeamAsync(int teamId) => await repo.GetByIdAsync<Team>(teamId);
+        public async Task<Team> GetTeamAsync(int teamId) => await repo.GetByIdAsync<Team>(teamId);
 
         private async Task<bool> HasMatches(int teamId)
         {

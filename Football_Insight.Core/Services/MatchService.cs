@@ -47,14 +47,28 @@ namespace Football_Insight.Core.Services
         public async Task<MatchDetailsViewModel> GetMatchDetailsAsync(int matchId)
         {
             var match = await GetMatchAsync(matchId);
+            var homeTeam = await teamService.GetTeamAsync(match.HomeTeamId);
+            var awayTeam = await teamService.GetTeamAsync(match.AwayTeamId);
 
             var viewModel = new MatchDetailsViewModel
             {
                 Id = match.Id,
-                HomeTeamName = await teamService.GetTeamNameAsync(match.HomeTeamId),
-                HomeTeamId = match.HomeTeamId,
-                AwayTeamName = await teamService.GetTeamNameAsync(match.AwayTeamId),
-                AwayTeamId = match.AwayTeamId,
+                HomeTeam = new Models.Team.TeamDetailedViewModel
+                                {
+                                    TeamId = homeTeam.Id,
+                                    Coach = homeTeam.Coach,
+                                    Founded = homeTeam.Founded,
+                                    LogoURL = homeTeam.LogoURL,
+                                    Name = homeTeam.Name,
+                                },
+                AwayTeam = new Models.Team.TeamDetailedViewModel
+                                {
+                                    TeamId = awayTeam.Id,
+                                    Coach = awayTeam.Coach,
+                                    Founded = awayTeam.Founded,
+                                    LogoURL =awayTeam.LogoURL,
+                                    Name = awayTeam.Name,
+                                },
                 DateAndTime = match.DateAndTime.ToString(),
                 Status = match.Status,
                 LeagueId = match.LeagueId,
