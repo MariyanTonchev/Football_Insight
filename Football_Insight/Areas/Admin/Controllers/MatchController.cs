@@ -39,8 +39,8 @@ namespace Football_Insight.Areas.Admin.Controllers
 
                 if (teams == null || !teams.Any()) 
                 {
-                    ViewBag.ErrorMessage = "No teams available for this league or league does not exist.";
-                    return View();
+                    TempData["ErrorMessage"] = "No teams available for this league.";
+                    return RedirectToAction("Index", "League", new {Area = "User", Id = leagueId});
                 }
 
                 var viewModel = new MatchFormViewModel()

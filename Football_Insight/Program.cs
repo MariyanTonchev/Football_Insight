@@ -12,6 +12,8 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 builder.Host.UseSerilog((ctx, lc) => lc
     .MinimumLevel.Debug()
