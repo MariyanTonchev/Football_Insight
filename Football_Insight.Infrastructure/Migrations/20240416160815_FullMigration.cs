@@ -363,8 +363,8 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "467b0785-ccda-40da-90e2-882be977d881", "1c063df5-31b3-4128-b1d5-b6a9af9a7993", "Admin", "ADMIN" },
-                    { "7b012121-5960-4dff-bcd4-7ee24857279a", "12db278e-a6f8-4ede-b5ee-57fbf7ac8ec5", "User", "USER" }
+                    { "4ea6ee34-1586-44f6-bc7f-81a6ce2acf1a", "4f4b0cc0-3496-492a-9c25-309234e7828c", "User", "USER" },
+                    { "dd657ba7-8f87-4385-877f-0e8150a995ec", "0172fd07-c17b-4f6b-95f1-747002396d70", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -372,8 +372,8 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "FavoritePlayerId", "FavoriteTeamId", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6b108b67-01e2-4e45-8527-35ce18296203", 0, "", "062128eb-715b-42e0-8e6a-c65356cf862f", "", "user@fi.com", true, null, null, "", "", false, null, "USER@FI.COM", "USER@FI.COM", "AQAAAAEAACcQAAAAEA8Bc7TubZN215O/abzZHtpBk7S9EIzps+Y2e2hkbWuf9lhrFGSWyTDbOOTge1el1A==", null, false, "", "0523d7f5-d03c-4bd1-89a4-1b0d45bd2361", false, "user@fi.com" },
-                    { "decc5187-d745-4493-9dc8-9bf8907f4942", 0, "", "3b964e35-6543-4293-bc82-b247c95f83f6", "", "admin@fi.com", true, null, null, "", "", false, null, "ADMIN@FI.COM", "ADMIN@FI.COM", "AQAAAAEAACcQAAAAELbcPSdQDxZilAnKr+gxROfhi5tABWv/q/zgqoYs+inf6RMewjtBkfkurYfK9b9U0w==", null, false, "", "9eea96dd-668d-4d4e-8a5b-3409d8d07c92", false, "admin@fi.com" }
+                    { "5960fd2f-7d29-4b42-8f4d-b0a8979fc967", 0, "", "1e6924a7-7b0d-4c13-bc30-facb3be34aa3", "", "user@fi.com", true, null, null, "", "", false, null, "USER@FI.COM", "USER@FI.COM", "AQAAAAEAACcQAAAAENJXpWT/ruiW3gnR4AnLEVddOlahR3/cdnQ89RfFmstcttxGsdE/yC3y8HFlIRyTwg==", null, false, "", "5df85cba-a3ba-4fcc-a09f-585381136ae6", false, "user@fi.com" },
+                    { "a78b1097-2433-4333-8168-048827f0eab7", 0, "", "2d2fc009-0ab5-4dd4-a236-5e23289f4be4", "", "admin@fi.com", true, null, null, "", "", false, null, "ADMIN@FI.COM", "ADMIN@FI.COM", "AQAAAAEAACcQAAAAEFzPmoGqFVcc7nn+GhhIFVGBPpS4wMXPfLqBoUTXzP69naVKSQAki8ga68isBTfHpQ==", null, false, "", "1c5c3dd3-814d-4f5d-8530-40efc9879430", false, "admin@fi.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -407,9 +407,9 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "7b012121-5960-4dff-bcd4-7ee24857279a", "6b108b67-01e2-4e45-8527-35ce18296203" },
-                    { "467b0785-ccda-40da-90e2-882be977d881", "decc5187-d745-4493-9dc8-9bf8907f4942" },
-                    { "7b012121-5960-4dff-bcd4-7ee24857279a", "decc5187-d745-4493-9dc8-9bf8907f4942" }
+                    { "4ea6ee34-1586-44f6-bc7f-81a6ce2acf1a", "5960fd2f-7d29-4b42-8f4d-b0a8979fc967" },
+                    { "4ea6ee34-1586-44f6-bc7f-81a6ce2acf1a", "a78b1097-2433-4333-8168-048827f0eab7" },
+                    { "dd657ba7-8f87-4385-877f-0e8150a995ec", "a78b1097-2433-4333-8168-048827f0eab7" }
                 });
 
             migrationBuilder.InsertData(
@@ -462,27 +462,27 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "Position", "Price", "Salary", "TeamId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1990, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Andre", "Onana", 0, 0m, 0m, 1 },
-                    { 2, new DateTime(1993, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Harry", "Maguire", 1, 0m, 0m, 1 },
-                    { 3, new DateTime(1994, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bruno", "Fernandes", 2, 0m, 0m, 1 },
-                    { 4, new DateTime(1997, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marcus", "Rashford", 3, 0m, 0m, 1 },
-                    { 5, new DateTime(1992, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thibaut", "Courtois", 0, 0m, 0m, 2 },
-                    { 6, new DateTime(1986, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "David", "Alaba", 1, 0m, 0m, 2 },
-                    { 7, new DateTime(1985, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Luka", "Modric", 2, 0m, 0m, 2 },
-                    { 8, new DateTime(1987, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Vinicius", "Junior", 3, 0m, 0m, 2 },
-                    { 9, new DateTime(1986, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Manuel", "Neuer", 0, 0m, 0m, 3 },
-                    { 10, new DateTime(1996, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lucas", "Hernandez", 1, 0m, 0m, 3 },
-                    { 11, new DateTime(1995, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Joshua", "Kimmich", 2, 0m, 0m, 3 },
-                    { 12, new DateTime(1989, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thomas", "Muller", 3, 0m, 0m, 3 },
-                    { 13, new DateTime(1995, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mike", "Maignan", 0, 0m, 0m, 4 },
-                    { 14, new DateTime(1997, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fikayo", "Tomori", 1, 0m, 0m, 4 },
-                    { 15, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Christian", "Pulisic", 2, 0m, 0m, 4 },
-                    { 16, new DateTime(1986, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Olivier", "Giroud", 3, 0m, 0m, 4 },
-                    { 17, new DateTime(1999, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gianluigi", "Donnarumma", 0, 0m, 0m, 5 },
-                    { 18, new DateTime(1994, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marquinhos", "Correa", 1, 0m, 0m, 5 },
-                    { 19, new DateTime(1992, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marco", "Verratti", 2, 0m, 0m, 5 },
-                    { 20, new DateTime(1998, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kylian", "Mbappe", 3, 0m, 0m, 5 },
-                    { 21, new DateTime(1992, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Robert", "Sanchez", 0, 0m, 0m, 6 }
+                    { 1, new DateTime(1990, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Andre", "Onana", 0, 15000000m, 250000m, 1 },
+                    { 2, new DateTime(1993, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Harry", "Maguire", 1, 35000000m, 4500000m, 1 },
+                    { 3, new DateTime(1994, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bruno", "Fernandes", 2, 75000000m, 6000000m, 1 },
+                    { 4, new DateTime(1997, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marcus", "Rashford", 3, 55000000m, 5000000m, 1 },
+                    { 5, new DateTime(1992, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thibaut", "Courtois", 0, 50000000m, 5000000m, 2 },
+                    { 6, new DateTime(1986, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "David", "Alaba", 1, 35000000m, 4500000m, 2 },
+                    { 7, new DateTime(1985, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Luka", "Modric", 2, 30000000m, 8000000m, 2 },
+                    { 8, new DateTime(1987, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Vinicius", "Junior", 3, 80000000m, 5000000m, 2 },
+                    { 9, new DateTime(1986, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Manuel", "Neuer", 0, 20000000m, 7000000m, 3 },
+                    { 10, new DateTime(1996, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lucas", "Hernandez", 1, 60000000m, 4500000m, 3 },
+                    { 11, new DateTime(1995, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Joshua", "Kimmich", 2, 85000000m, 8000000m, 3 },
+                    { 12, new DateTime(1989, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thomas", "Muller", 3, 40000000m, 7000000m, 3 },
+                    { 13, new DateTime(1995, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mike", "Maignan", 0, 25000000m, 3000000m, 4 },
+                    { 14, new DateTime(1997, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fikayo", "Tomori", 1, 28000000m, 3000000m, 4 },
+                    { 15, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Christian", "Pulisic", 2, 50000000m, 5000000m, 4 },
+                    { 16, new DateTime(1986, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Olivier", "Giroud", 3, 20000000m, 4000000m, 4 },
+                    { 17, new DateTime(1999, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gianluigi", "Donnarumma", 0, 10000000m, 4503000m, 5 },
+                    { 18, new DateTime(1994, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marquinhos", "Correa", 1, 20000000m, 4000000m, 5 },
+                    { 19, new DateTime(1992, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marco", "Verratti", 2, 55000000m, 6000000m, 5 },
+                    { 20, new DateTime(1998, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kylian", "Mbappe", 3, 180000000m, 18000000m, 5 },
+                    { 21, new DateTime(1992, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Robert", "Sanchez", 0, 12000000m, 2500000m, 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -490,25 +490,25 @@ namespace Football_Insight.Infrastructure.Migrations
                 columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "Position", "Price", "Salary", "TeamId" },
                 values: new object[,]
                 {
-                    { 22, new DateTime(1984, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thiago", "Silva", 1, 0m, 0m, 6 },
-                    { 23, new DateTime(1991, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cole", "Palmer", 2, 0m, 0m, 6 },
-                    { 24, new DateTime(1999, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nicolas", "Jackson", 3, 0m, 0m, 6 },
-                    { 25, new DateTime(1992, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marc-Andre", "ter Stegen", 0, 0m, 0m, 7 },
-                    { 26, new DateTime(1987, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Eric", "Garcia", 1, 0m, 0m, 7 },
-                    { 27, new DateTime(1997, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Frenkie", "de Jong", 2, 0m, 0m, 7 },
-                    { 28, new DateTime(2002, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Robert", "Lewandovski", 3, 0m, 0m, 7 },
-                    { 29, new DateTime(1997, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gregor", "Kobel", 0, 0m, 0m, 8 },
-                    { 30, new DateTime(1988, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mats", "Hummels", 1, 0m, 0m, 8 },
-                    { 31, new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marco", "Reus", 2, 0m, 0m, 8 },
-                    { 32, new DateTime(1999, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Donyell", "Malen", 3, 0m, 0m, 8 },
-                    { 33, new DateTime(2001, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bukayo", "Saka", 3, 0m, 0m, 9 },
-                    { 34, new DateTime(1998, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "Martin", "Odegaard", 2, 0m, 0m, 9 },
-                    { 35, new DateTime(1997, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gabriel", "Magalhaes", 1, 0m, 0m, 9 },
-                    { 36, new DateTime(1998, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Aaron", "Ramsdale", 0, 0m, 0m, 9 },
-                    { 37, new DateTime(1992, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alisson", "Becker", 0, 0m, 0m, 10 },
-                    { 38, new DateTime(1991, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Virgil", "van Dijk", 1, 0m, 0m, 10 },
-                    { 39, new DateTime(1991, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thiago", "Alcântara", 2, 0m, 0m, 10 },
-                    { 40, new DateTime(1992, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mohamed", "Salah", 3, 0m, 0m, 10 }
+                    { 22, new DateTime(1984, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thiago", "Silva", 1, 5000000m, 5000000m, 6 },
+                    { 23, new DateTime(1991, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cole", "Palmer", 2, 8000000m, 1000000m, 6 },
+                    { 24, new DateTime(1999, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nicolas", "Jackson", 3, 7000000m, 900000m, 6 },
+                    { 25, new DateTime(1992, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marc-Andre", "ter Stegen", 0, 45000000m, 7500000m, 7 },
+                    { 26, new DateTime(1987, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Eric", "Garcia", 1, 25000000m, 3000000m, 7 },
+                    { 27, new DateTime(1997, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Frenkie", "de Jong", 2, 80000000m, 6000000m, 7 },
+                    { 28, new DateTime(2002, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Robert", "Lewandowski", 3, 90000000m, 10000000m, 7 },
+                    { 29, new DateTime(1997, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gregor", "Kobel", 0, 15000000m, 2000000m, 8 },
+                    { 30, new DateTime(1988, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mats", "Hummels", 1, 10000000m, 5000000m, 8 },
+                    { 31, new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marco", "Reus", 2, 30000000m, 7000000m, 8 },
+                    { 32, new DateTime(1999, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Donyell", "Malen", 3, 20000000m, 1500000m, 8 },
+                    { 33, new DateTime(2001, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bukayo", "Saka", 3, 35000000m, 3000000m, 9 },
+                    { 34, new DateTime(1998, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "Martin", "Odegaard", 2, 45000000m, 4000000m, 9 },
+                    { 35, new DateTime(1997, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gabriel", "Magalhaes", 1, 25000000m, 2000000m, 9 },
+                    { 36, new DateTime(1998, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Aaron", "Ramsdale", 0, 18000000m, 3000000m, 9 },
+                    { 37, new DateTime(1992, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alisson", "Becker", 0, 60000000m, 8000000m, 10 },
+                    { 38, new DateTime(1991, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Virgil", "van Dijk", 1, 75000000m, 8500000m, 10 },
+                    { 39, new DateTime(1991, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Thiago", "Alcântara", 2, 40000000m, 7000000m, 10 },
+                    { 40, new DateTime(1992, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mohamed", "Salah", 3, 120000000m, 10000000m, 10 }
                 });
 
             migrationBuilder.InsertData(

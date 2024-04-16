@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Football_Insight.Infrastructure.Migrations
 {
     [DbContext(typeof(FootballInsightDbContext))]
-    [Migration("20240415210444_FullMigration")]
+    [Migration("20240416160815_FullMigration")]
     partial class FullMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,10 +123,10 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6b108b67-01e2-4e45-8527-35ce18296203",
+                            Id = "5960fd2f-7d29-4b42-8f4d-b0a8979fc967",
                             AccessFailedCount = 0,
                             City = "",
-                            ConcurrencyStamp = "062128eb-715b-42e0-8e6a-c65356cf862f",
+                            ConcurrencyStamp = "1e6924a7-7b0d-4c13-bc30-facb3be34aa3",
                             Country = "",
                             Email = "user@fi.com",
                             EmailConfirmed = true,
@@ -135,19 +135,19 @@ namespace Football_Insight.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@FI.COM",
                             NormalizedUserName = "USER@FI.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA8Bc7TubZN215O/abzZHtpBk7S9EIzps+Y2e2hkbWuf9lhrFGSWyTDbOOTge1el1A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENJXpWT/ruiW3gnR4AnLEVddOlahR3/cdnQ89RfFmstcttxGsdE/yC3y8HFlIRyTwg==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "",
-                            SecurityStamp = "0523d7f5-d03c-4bd1-89a4-1b0d45bd2361",
+                            SecurityStamp = "5df85cba-a3ba-4fcc-a09f-585381136ae6",
                             TwoFactorEnabled = false,
                             UserName = "user@fi.com"
                         },
                         new
                         {
-                            Id = "decc5187-d745-4493-9dc8-9bf8907f4942",
+                            Id = "a78b1097-2433-4333-8168-048827f0eab7",
                             AccessFailedCount = 0,
                             City = "",
-                            ConcurrencyStamp = "3b964e35-6543-4293-bc82-b247c95f83f6",
+                            ConcurrencyStamp = "2d2fc009-0ab5-4dd4-a236-5e23289f4be4",
                             Country = "",
                             Email = "admin@fi.com",
                             EmailConfirmed = true,
@@ -156,10 +156,10 @@ namespace Football_Insight.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FI.COM",
                             NormalizedUserName = "ADMIN@FI.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELbcPSdQDxZilAnKr+gxROfhi5tABWv/q/zgqoYs+inf6RMewjtBkfkurYfK9b9U0w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFzPmoGqFVcc7nn+GhhIFVGBPpS4wMXPfLqBoUTXzP69naVKSQAki8ga68isBTfHpQ==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "",
-                            SecurityStamp = "9eea96dd-668d-4d4e-8a5b-3409d8d07c92",
+                            SecurityStamp = "1c5c3dd3-814d-4f5d-8530-40efc9879430",
                             TwoFactorEnabled = false,
                             UserName = "admin@fi.com"
                         });
@@ -1075,8 +1075,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Andre",
                             LastName = "Onana",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 15000000m,
+                            Salary = 250000m,
                             TeamId = 1
                         },
                         new
@@ -1086,8 +1086,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Harry",
                             LastName = "Maguire",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 35000000m,
+                            Salary = 4500000m,
                             TeamId = 1
                         },
                         new
@@ -1097,8 +1097,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Bruno",
                             LastName = "Fernandes",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 75000000m,
+                            Salary = 6000000m,
                             TeamId = 1
                         },
                         new
@@ -1108,8 +1108,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Marcus",
                             LastName = "Rashford",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 55000000m,
+                            Salary = 5000000m,
                             TeamId = 1
                         },
                         new
@@ -1119,8 +1119,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Thibaut",
                             LastName = "Courtois",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 50000000m,
+                            Salary = 5000000m,
                             TeamId = 2
                         },
                         new
@@ -1130,8 +1130,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "David",
                             LastName = "Alaba",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 35000000m,
+                            Salary = 4500000m,
                             TeamId = 2
                         },
                         new
@@ -1141,8 +1141,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Luka",
                             LastName = "Modric",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 30000000m,
+                            Salary = 8000000m,
                             TeamId = 2
                         },
                         new
@@ -1152,8 +1152,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Vinicius",
                             LastName = "Junior",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 80000000m,
+                            Salary = 5000000m,
                             TeamId = 2
                         },
                         new
@@ -1163,8 +1163,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Manuel",
                             LastName = "Neuer",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 20000000m,
+                            Salary = 7000000m,
                             TeamId = 3
                         },
                         new
@@ -1174,8 +1174,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Lucas",
                             LastName = "Hernandez",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 60000000m,
+                            Salary = 4500000m,
                             TeamId = 3
                         },
                         new
@@ -1185,8 +1185,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Joshua",
                             LastName = "Kimmich",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 85000000m,
+                            Salary = 8000000m,
                             TeamId = 3
                         },
                         new
@@ -1196,8 +1196,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Thomas",
                             LastName = "Muller",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 40000000m,
+                            Salary = 7000000m,
                             TeamId = 3
                         },
                         new
@@ -1207,8 +1207,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Mike",
                             LastName = "Maignan",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 25000000m,
+                            Salary = 3000000m,
                             TeamId = 4
                         },
                         new
@@ -1218,8 +1218,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Fikayo",
                             LastName = "Tomori",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 28000000m,
+                            Salary = 3000000m,
                             TeamId = 4
                         },
                         new
@@ -1229,8 +1229,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Christian",
                             LastName = "Pulisic",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 50000000m,
+                            Salary = 5000000m,
                             TeamId = 4
                         },
                         new
@@ -1240,8 +1240,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Olivier",
                             LastName = "Giroud",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 20000000m,
+                            Salary = 4000000m,
                             TeamId = 4
                         },
                         new
@@ -1251,8 +1251,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Gianluigi",
                             LastName = "Donnarumma",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 10000000m,
+                            Salary = 4503000m,
                             TeamId = 5
                         },
                         new
@@ -1262,8 +1262,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Marquinhos",
                             LastName = "Correa",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 20000000m,
+                            Salary = 4000000m,
                             TeamId = 5
                         },
                         new
@@ -1273,8 +1273,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Marco",
                             LastName = "Verratti",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 55000000m,
+                            Salary = 6000000m,
                             TeamId = 5
                         },
                         new
@@ -1284,8 +1284,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Kylian",
                             LastName = "Mbappe",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 180000000m,
+                            Salary = 18000000m,
                             TeamId = 5
                         },
                         new
@@ -1295,8 +1295,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Robert",
                             LastName = "Sanchez",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 12000000m,
+                            Salary = 2500000m,
                             TeamId = 6
                         },
                         new
@@ -1306,8 +1306,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Thiago",
                             LastName = "Silva",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 5000000m,
+                            Salary = 5000000m,
                             TeamId = 6
                         },
                         new
@@ -1317,8 +1317,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Cole",
                             LastName = "Palmer",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 8000000m,
+                            Salary = 1000000m,
                             TeamId = 6
                         },
                         new
@@ -1328,8 +1328,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Nicolas",
                             LastName = "Jackson",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 7000000m,
+                            Salary = 900000m,
                             TeamId = 6
                         },
                         new
@@ -1339,8 +1339,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Marc-Andre",
                             LastName = "ter Stegen",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 45000000m,
+                            Salary = 7500000m,
                             TeamId = 7
                         },
                         new
@@ -1350,8 +1350,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Eric",
                             LastName = "Garcia",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 25000000m,
+                            Salary = 3000000m,
                             TeamId = 7
                         },
                         new
@@ -1361,8 +1361,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Frenkie",
                             LastName = "de Jong",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 80000000m,
+                            Salary = 6000000m,
                             TeamId = 7
                         },
                         new
@@ -1370,10 +1370,10 @@ namespace Football_Insight.Infrastructure.Migrations
                             Id = 28,
                             DateOfBirth = new DateTime(2002, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Robert",
-                            LastName = "Lewandovski",
+                            LastName = "Lewandowski",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 90000000m,
+                            Salary = 10000000m,
                             TeamId = 7
                         },
                         new
@@ -1383,8 +1383,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Gregor",
                             LastName = "Kobel",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 15000000m,
+                            Salary = 2000000m,
                             TeamId = 8
                         },
                         new
@@ -1394,8 +1394,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Mats",
                             LastName = "Hummels",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 10000000m,
+                            Salary = 5000000m,
                             TeamId = 8
                         },
                         new
@@ -1405,8 +1405,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Marco",
                             LastName = "Reus",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 30000000m,
+                            Salary = 7000000m,
                             TeamId = 8
                         },
                         new
@@ -1416,8 +1416,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Donyell",
                             LastName = "Malen",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 20000000m,
+                            Salary = 1500000m,
                             TeamId = 8
                         },
                         new
@@ -1427,8 +1427,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Bukayo",
                             LastName = "Saka",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 35000000m,
+                            Salary = 3000000m,
                             TeamId = 9
                         },
                         new
@@ -1438,8 +1438,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Martin",
                             LastName = "Odegaard",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 45000000m,
+                            Salary = 4000000m,
                             TeamId = 9
                         },
                         new
@@ -1449,8 +1449,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Gabriel",
                             LastName = "Magalhaes",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 25000000m,
+                            Salary = 2000000m,
                             TeamId = 9
                         },
                         new
@@ -1460,8 +1460,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Aaron",
                             LastName = "Ramsdale",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 18000000m,
+                            Salary = 3000000m,
                             TeamId = 9
                         },
                         new
@@ -1471,8 +1471,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Alisson",
                             LastName = "Becker",
                             Position = 0,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 60000000m,
+                            Salary = 8000000m,
                             TeamId = 10
                         },
                         new
@@ -1482,8 +1482,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Virgil",
                             LastName = "van Dijk",
                             Position = 1,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 75000000m,
+                            Salary = 8500000m,
                             TeamId = 10
                         },
                         new
@@ -1493,8 +1493,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Thiago",
                             LastName = "Alcântara",
                             Position = 2,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 40000000m,
+                            Salary = 7000000m,
                             TeamId = 10
                         },
                         new
@@ -1504,8 +1504,8 @@ namespace Football_Insight.Infrastructure.Migrations
                             FirstName = "Mohamed",
                             LastName = "Salah",
                             Position = 3,
-                            Price = 0m,
-                            Salary = 0m,
+                            Price = 120000000m,
+                            Salary = 10000000m,
                             TeamId = 10
                         });
                 });
@@ -1808,15 +1808,15 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7b012121-5960-4dff-bcd4-7ee24857279a",
-                            ConcurrencyStamp = "12db278e-a6f8-4ede-b5ee-57fbf7ac8ec5",
+                            Id = "4ea6ee34-1586-44f6-bc7f-81a6ce2acf1a",
+                            ConcurrencyStamp = "4f4b0cc0-3496-492a-9c25-309234e7828c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "467b0785-ccda-40da-90e2-882be977d881",
-                            ConcurrencyStamp = "1c063df5-31b3-4128-b1d5-b6a9af9a7993",
+                            Id = "dd657ba7-8f87-4385-877f-0e8150a995ec",
+                            ConcurrencyStamp = "0172fd07-c17b-4f6b-95f1-747002396d70",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -1913,18 +1913,18 @@ namespace Football_Insight.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6b108b67-01e2-4e45-8527-35ce18296203",
-                            RoleId = "7b012121-5960-4dff-bcd4-7ee24857279a"
+                            UserId = "5960fd2f-7d29-4b42-8f4d-b0a8979fc967",
+                            RoleId = "4ea6ee34-1586-44f6-bc7f-81a6ce2acf1a"
                         },
                         new
                         {
-                            UserId = "decc5187-d745-4493-9dc8-9bf8907f4942",
-                            RoleId = "467b0785-ccda-40da-90e2-882be977d881"
+                            UserId = "a78b1097-2433-4333-8168-048827f0eab7",
+                            RoleId = "dd657ba7-8f87-4385-877f-0e8150a995ec"
                         },
                         new
                         {
-                            UserId = "decc5187-d745-4493-9dc8-9bf8907f4942",
-                            RoleId = "7b012121-5960-4dff-bcd4-7ee24857279a"
+                            UserId = "a78b1097-2433-4333-8168-048827f0eab7",
+                            RoleId = "4ea6ee34-1586-44f6-bc7f-81a6ce2acf1a"
                         });
                 });
 
