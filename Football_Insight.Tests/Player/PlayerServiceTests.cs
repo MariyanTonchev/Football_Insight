@@ -263,91 +263,59 @@ namespace Football_Insight.Tests.Player
         }
 
         [Fact]
-        public async Task GetTopScorersAsync_ReturnsTopFiveScorersOrderedByGoals()
+        public async Task GetTopScorersAsync_ReturnsTopScorersOrderedByGoals()
         {
             // Arrange
-            var mockRepository = new Mock<IRepository>();
             var players = new List<DataModels.Player>
-                        {
-                            new DataModels.Player { Id = 1, FirstName = "John", LastName = "Smith", Position = 1, 
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
-                                GoalsScored = new List < Goal > { new Goal() }},
-                            new DataModels.Player { Id = 2, FirstName = "Jane", LastName = "Doe", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
-                                GoalsScored = new List < Goal > { new Goal() }},
-                            new DataModels.Player { Id = 3, FirstName = "Alice", LastName = "Johnson", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
-                                GoalsScored = new List < Goal > { new Goal() }},
-                            new DataModels.Player { Id = 4, FirstName = "Bob", LastName = "Brown", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
-                                GoalsScored = new List < Goal > { new Goal() }},
-                            new DataModels.Player { Id = 5, FirstName = "Carol", LastName = "Martinez", Position = 3,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
-                                GoalsScored = new List < Goal > { new Goal() }},
-                            new DataModels.Player { Id = 6, FirstName = "Dave", LastName = "Wilson", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }}, 
-                                GoalsScored = new List<Goal>()}
-                        }.AsAsyncQueryable();
+                            {
+                                new DataModels.Player { Id = 1, FirstName = "John", LastName = "Doe", Position = (int)PlayerPosition.Forward, Team = new DataModels.Team { Id = 1, Name = "Team A", League = new DataModels.League { Id = 1, Name = "League A" }, HomeMatches = new List<DataModels.Match>(), AwayMatches = new List<DataModels.Match>() }, GoalsScored = new List<Goal> { new Goal(), new Goal() } },
+                                new DataModels.Player { Id = 2, FirstName = "Jane", LastName = "Smith", Position = (int)PlayerPosition.Midfielder, Team = new DataModels.Team { Id = 1, Name = "Team A", League = new DataModels.League { Id = 1, Name = "League A" }, HomeMatches = new List<DataModels.Match>(), AwayMatches = new List<DataModels.Match>() }, GoalsScored = new List<Goal> { new Goal() } },
+                                new DataModels.Player { Id = 3, FirstName = "Alice", LastName = "Johnson", Position = (int)PlayerPosition.Defender, Team = new DataModels.Team { Id = 2, Name = "Team B", League = new DataModels.League { Id = 1, Name = "League A" }, HomeMatches = new List<DataModels.Match>(), AwayMatches = new List<DataModels.Match>() }, GoalsScored = new List<Goal> { new Goal(), new Goal(), new Goal() } }
+                            }.AsAsyncQueryable();
 
-            mockRepository.Setup(repo => repo.AllReadonly<DataModels.Player>()).Returns(players);
+            var playersQueryable = players.AsQueryable();
 
-            var playerService = new PlayerService(mockRepository.Object);
+            mockRepository.Setup(repo => repo.AllReadonly<DataModels.Player>()).Returns(playersQueryable);
 
             // Act
             var result = await playerService.GetTopScorersAsync();
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(5, result.Count);
-            Assert.Equal(4, result[0].PlayerId);
-            Assert.Equal(3, result[1].PlayerId);
-            Assert.Equal(1, result[2].PlayerId);
-            Assert.Equal(2, result[3].PlayerId);
-            Assert.Equal(5, result[4].PlayerId); 
+            Assert.Equal(3, result.Count);
+            Assert.Equal(3, result[0].GoalsContributed); // Alice Johnson with 3 goals
+            Assert.Equal(2, result[1].GoalsContributed); // John Doe with 2 goals
+            Assert.Equal(1, result[2].GoalsContributed); // Jane Smith with 1 goal
+            Assert.Equal("Alice Johnson", result[0].Name);
+            Assert.Equal("John Doe", result[1].Name);
+            Assert.Equal("Jane Smith", result[2].Name);
         }
 
         [Fact]
-        public async Task GetTopScorersAsync_ReturnsTopFiveAssistentsOrderedByAssists()
+        public async Task GetTopAssistersAsync_ReturnsTopAssistersOrderedByAssists()
         {
             // Arrange
-            var mockRepository = new Mock<IRepository>();
             var players = new List<DataModels.Player>
-                        {
-                            new DataModels.Player { Id = 1, FirstName = "John", LastName = "Smith", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
-                                GoalsAssisted = new List<Goal>{new Goal(), new Goal()}},
-                            new DataModels.Player { Id = 2, FirstName = "Jane", LastName = "Doe", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
-                                GoalsAssisted = new List<Goal>{new Goal()}},
-                            new DataModels.Player { Id = 3, FirstName = "Alice", LastName = "Johnson", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
-                                GoalsAssisted = new List<Goal>{new Goal(), new Goal(), new Goal()}},
-                            new DataModels.Player { Id = 4, FirstName = "Bob", LastName = "Brown", Position = 2,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
-                                GoalsAssisted = new List<Goal>{new Goal(), new Goal(), new Goal(), new Goal()}},
-                            new DataModels.Player { Id = 5, FirstName = "Carol", LastName = "Martinez", Position = 3,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
-                                GoalsAssisted = new List<Goal>{new Goal()}},
-                            new DataModels.Player { Id = 6, FirstName = "Dave", LastName = "Wilson", Position = 1,
-                                Team = new DataModels.Team {  Name = "Team A", League = new DataModels.League { Name = "League One" }},
-                                GoalsAssisted = new List<Goal>()}
-                        }.AsAsyncQueryable();
+                                {
+                                    new DataModels.Player { Id = 1, FirstName = "John", LastName = "Doe", Position = (int)PlayerPosition.Forward, Team = new DataModels.Team { Id = 1, Name = "Team A", League = new DataModels.League { Id = 1, Name = "League A" }}, GoalsAssisted = new List<Goal> { new Goal(), new Goal() }},
+                                    new DataModels.Player { Id = 2, FirstName = "Jane", LastName = "Smith", Position = (int)PlayerPosition.Midfielder, Team = new DataModels.Team { Id = 1, Name = "Team A", League = new DataModels.League { Id = 1, Name = "League A" }}, GoalsAssisted = new List<Goal> { new Goal() }},
+                                    new DataModels.Player { Id = 3, FirstName = "Alice", LastName = "Johnson", Position = (int)PlayerPosition.Defender, Team = new DataModels.Team { Id = 2, Name = "Team B", League = new DataModels.League { Id = 1, Name = "League A" }}, GoalsAssisted = new List<Goal> { new Goal(), new Goal(), new Goal() }}
+                                }.AsAsyncQueryable();
 
             mockRepository.Setup(repo => repo.AllReadonly<DataModels.Player>()).Returns(players);
-
-            var playerService = new PlayerService(mockRepository.Object);
 
             // Act
             var result = await playerService.GetTopAssistersAsync();
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(5, result.Count);
-            Assert.Equal(4, result[0].PlayerId);
-            Assert.Equal(3, result[1].PlayerId);
-            Assert.Equal(1, result[2].PlayerId);
-            Assert.Equal(2, result[3].PlayerId);
-            Assert.Equal(5, result[4].PlayerId);
+            Assert.Equal(3, result.Count);
+            Assert.Equal(3, result[0].GoalsContributed); // Alice Johnson with 3 assists
+            Assert.Equal(2, result[1].GoalsContributed); // John Doe with 2 assists
+            Assert.Equal(1, result[2].GoalsContributed); // Jane Smith with 1 assist
+            Assert.Equal("Alice Johnson", result[0].Name);
+            Assert.Equal("John Doe", result[1].Name);
+            Assert.Equal("Jane Smith", result[2].Name);
         }
     }
 }
