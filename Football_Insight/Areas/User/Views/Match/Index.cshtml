@@ -18,23 +18,23 @@
                         <div class="square-image-container">
                             <h6>@Model.HomeTeamName</h6>
                             <img src="~/photos/default.jpg" class="square-image" alt="First Image">
-                        </div>       
+                        </div>
                     </div>
-                     @if (User.IsInRole("Admin"))
+                    @if (User.IsInRole("Admin"))
                     {
-                    <div class="col d-flex flex-column align-items-start justify-content-center">
-                        <a href="#" data-match-id="@Model.Id" data-team-id="@Model.HomeTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
-                            <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
-                        </a>
-                        <!-- Not implemented
-                        <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
-                            <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
-                        </a>
-                        <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add red card" class="action-icon-col">
-                            <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
-                        </a>
-                        -->
-                    </div>
+                        <div class="col d-flex flex-column align-items-start justify-content-center">
+                            <a href="#" data-match-id="@Model.Id" data-team-id="@Model.HomeTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                                <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
+                            </a>
+                            <!-- Not implemented
+                            <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add yellow card" style="margin-bottom: 5px;" class="action-icon-col">
+                                <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
+                            </a>
+                            <a asp-action="Delete" asp-controller="Match" asp-route-teamId="@Model.HomeTeamId" title="Add red card" class="action-icon-col">
+                                <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
+                            </a>
+                            -->
+                        </div>
                     }
                     <div class="col-4 d-flex flex-column align-items-center justify-content-center">
                         <div class="row">
@@ -78,19 +78,19 @@
                     </div>
                     @if (User.IsInRole("Admin"))
                     {
-                    <div class="col d-flex flex-column align-items-end justify-content-center">
-                        <a href="#" data-match-id="@Model.Id" data-team-id="@Model.AwayTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
-                            <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
-                        </a>
-                        <!-- Not Implemented
-                        <a style="margin-bottom: 5px;" class="action-icon-col">
-                            <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
-                        </a>
-                        <a title="Add card" class="action-icon-col">
-                            <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
-                        </a>
-                        -->
-                    </div>
+                        <div class="col d-flex flex-column align-items-end justify-content-center">
+                            <a href="#" data-match-id="@Model.Id" data-team-id="@Model.AwayTeamId" data-bs-target="#goalModal" title="Add goal" style="margin-bottom: 5px;" class="action-icon-col">
+                                <i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i>
+                            </a>
+                            <!-- Not Implemented
+                            <a style="margin-bottom: 5px;" class="action-icon-col">
+                                <i class="fa-regular fa-file fa-xl" style="color: #e9ed1d;"></i>
+                            </a>
+                            <a title="Add card" class="action-icon-col">
+                                <i class="fa-regular fa-file fa-xl" style="color: #ff0000;"></i>
+                            </a>
+                            -->
+                        </div>
                     }
                     <div class="col-3 d-flex align-items-center justify-content-center">
                         <div class="square-image-container">
@@ -105,7 +105,23 @@
                         <div class="col-3" style="text-align: right;">
                             @if (goal.TeamId == Model.HomeTeamId)
                             {
-                                <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                                        <form asp-action="Delete" asp-controller="Goal" asp-area="Admin" method="post" style="margin-right: 5px; margin-top: -8px;">
+                                            <input type="hidden" name="matchId" asp-for="@Model.Id" />
+                                            <input type="hidden" name="goalId" asp-for="@goal.GoalId" />
+                                            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                                <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+                                            </button>
+                                        </form>
+                                        <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                                }
                             }
                         </div>
                         <div class="col-6" style="text-align: @(goal.TeamId == Model.HomeTeamId ? "left" : "right");">
@@ -118,7 +134,19 @@
                         <div class="col-3 mt-2">
                             @if (goal.TeamId == Model.AwayTeamId)
                             {
-                                <p><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                                <div style="display: flex; align-items: center; justify-content: flex-start; margin-top: -8px;">
+                                    <p style="margin-right: 5px;"><i class="fa-regular fa-futbol fa-xl" style="color: #1eff00;"></i> @goal.GoalTime'</p>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <form asp-action="Delete" asp-controller="Goal" asp-area="Admin" method="post" style="margin-right: 5px; margin-top: -8px;">
+                                            <input type="hidden" name="matchId" asp-for="@Model.Id" />
+                                            <input type="hidden" name="goalId" asp-for="@goal.GoalId" />
+                                            <button type="submit" style="background:none;border:none;padding:0; cursor: pointer;">
+                                                <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
                             }
                         </div>
                     </div>

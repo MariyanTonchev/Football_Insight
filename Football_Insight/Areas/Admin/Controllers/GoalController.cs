@@ -60,5 +60,25 @@ namespace Football_Insight.Areas.Admin.Controllers
                 return View(viewModel);
             }
         }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int goalId, int matchId)
+        {
+            try
+            {
+                var result = await goalService.DeleteGoalAsync(goalId);
+
+                TempData["Status"] = result.Success;
+                TempData["Message"] = result.Message;
+
+                return RedirectToAction("Index", "Match", new { Area = "User", MatchId = matchId });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while trying to delete a goal with ID: {GoalId}", goalId);
+                ModelState.AddModelError("", "An unexpected error occurred.");
+                return RedirectToAction("Index", "Match", new { Area = "User", MatchId = matchId });
+            }
+        }
     }
 }

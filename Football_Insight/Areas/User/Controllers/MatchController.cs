@@ -11,8 +11,7 @@ namespace Football_Insight.Areas.User.Controllers
         private readonly ILogger<MatchController> logger;
 
         public MatchController(IMatchService _matchService, 
-                        ILogger<MatchController> _logger, 
-                        IMatchTimerService _matchTimerService)
+                        ILogger<MatchController> _logger)
         {
             matchService = _matchService;
             logger = _logger;

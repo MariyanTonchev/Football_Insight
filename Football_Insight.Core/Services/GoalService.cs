@@ -95,6 +95,7 @@ namespace Football_Insight.Core.Services
             var goals = await repository.AllReadonly<Goal>(g => g.MatchId == matchId)
                 .Select(g => new GoalSimpleModelView
                 {
+                    GoalId = g.Id,
                     ScorerName = $"{g.GoalScorer.FirstName} {g.GoalScorer.LastName}",
                     AssistantName = $"{g.GoalAssistant.FirstName} {g.GoalAssistant.LastName}".Trim(),
                     GoalTime = g.GoalMinute,
@@ -103,6 +104,37 @@ namespace Football_Insight.Core.Services
                 .ToListAsync();
 
             return goals;
+        }
+
+        public async Task<OperationResult> DeleteGoalAsync(int goalId)
+        {
+            var goal = await repository.GetByIdAsync<Goal>(goalId);
+
+            if (goal == null)
+            {
+                return new OperationResult(false, "Goal not found!");
+            }
+
+            var match = await repository.GetByIdAsync<Match>(goal.MatchId);
+
+            if (match.Status == MatchStatus.Finished)
+            {
+                return new OperationResult(false, "Cannot delete a goal from a match that has ended.");
+            }
+
+            if (match.HomeTeamId == goal.TeamId)
+            {
+                match.HomeScore -= 1;
+            }
+            else if (match.AwayTeamId == goal.TeamId)
+            {
+                match.AwayScore -= 1;
+            }
+
+            await repository.RemoveAsync(goal);
+            await repository.SaveChangesAsync();
+
+            return new OperationResult(true, $"Successfully deleted {goal.Id}!");
         }
     }
 }

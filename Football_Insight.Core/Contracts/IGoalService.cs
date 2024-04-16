@@ -8,5 +8,7 @@ namespace Football_Insight.Core.Contracts
         Task<OperationResult> AddGoalAsync(GoalModalViewModel viewModel);
 
         Task<List<GoalSimpleModelView>> GetGoalsAsync(int matchId);
+
+        Task<OperationResult> DeleteGoalAsync(int goalId);
     }
 }

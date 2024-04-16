@@ -83,3 +83,16 @@ body {
     height: 25px;
     border-radius: 2px;
 }
+
+.btn-icon-only {
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    color: inherit; /* Use the current text color */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+    .btn-icon-only:focus, .btn-icon-only:hover {
+        background: none; /* Ensure no background on hover/focus */
+        outline: none; /* Remove focus outline */
+    }

@@ -2,6 +2,8 @@
 {
     public class GoalSimpleModelView
     {
+        public int GoalId { get; set; }
+
         public string ScorerName { get; set; } = string.Empty;
 
         public string AssistantName { get; set; } = string.Empty;
