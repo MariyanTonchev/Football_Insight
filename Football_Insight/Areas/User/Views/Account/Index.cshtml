@@ -26,17 +26,32 @@
                         <div class="user-info-list">
                             <div class="">
                                 <ul class="contacts-block list-unstyled" style="max-width: 300px !important;">
-                                    @if(!string.IsNullOrEmpty(Model.FavoriteTeam))
+                                    @if (!string.IsNullOrEmpty(Model.FavoriteTeam))
                                     {
                                         <li class="contacts-block__item">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee me-3"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                                            <span style="margin-right: 14px;">
+                                                <svg width="24" height="24" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                                    <polygon fill="none" stroke="currentColor" stroke-width="10"
+                                                             points="100,10 129,79 199,79 144,129 163,199 100,159 37,199 56,129 1,79 71,79" />
+                                                    <rect x="95" y="90" width="10" height="60" fill="currentColor" />
+                                                    <rect x="75" y="90" width="50" height="10" fill="currentColor" />
+                                                </svg>
+
+                                            </span>
                                             @Model.FavoriteTeam
                                         </li>
                                     }
                                     @if (!string.IsNullOrEmpty(Model.FavoritePlayer))
                                     {
                                         <li class="contacts-block__item">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee me-3"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                                            <span style="margin-right: 14px;">
+                                                <svg width="24" height="24" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                                    <polygon fill="none" stroke="currentColor" stroke-width="10"
+                                                             points="100,10 129,79 199,79 144,129 163,199 100,159 37,199 56,129 1,79 71,79" />
+                                                    <text x="50%" y="60%" fill="currentColor" font-size="90" font-family="Arial"
+                                                          text-anchor="middle" dominant-baseline="central">P</text>
+                                                </svg>
+                                            </span>
                                             @Model.FavoritePlayer
                                         </li>
                                     }
@@ -44,7 +59,7 @@
                                     {
                                         <li class="contacts-block__item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin me-3"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                            @if(!string.IsNullOrEmpty(Model.Country) && !string.IsNullOrEmpty(Model.City))
+                                            @if (!string.IsNullOrEmpty(Model.Country) && !string.IsNullOrEmpty(Model.City))
                                             {
                                                 <span>@Model.Country, @Model.City</span>
                                             }
@@ -59,8 +74,10 @@
                                         </li>
                                     }
                                     <li class="contacts-block__item">
-                                        <a href="mailto:example@mail.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail me-3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                            @Model.Email</a>
+                                        <a href="mailto:example@mail.com">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail me-3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                            @Model.Email
+                                        </a>
                                     </li>
                                     @if (!string.IsNullOrEmpty(Model.Phone))
                                     {
