@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\photos\cd2a69b3-eb97-41f9-945f-a23a9e5a0031\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Football_Insight.Core\Football_Insight.Core.csproj" />
     <ProjectReference Include="..\Football_Insight.Infrastructure\Football_Insight.Infrastructure.csproj" />
   </ItemGroup>
