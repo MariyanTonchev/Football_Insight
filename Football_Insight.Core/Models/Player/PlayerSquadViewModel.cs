@@ -10,7 +10,7 @@ namespace Football_Insight.Core.Models.Player
 
         public string LastName { get; set; } = string.Empty;
 
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; } = string.Empty;
 
         public decimal Price { get; set; }
 

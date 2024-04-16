@@ -95,14 +95,14 @@
                     <div class="col-3 d-flex align-items-center justify-content-center">
                         <div class="square-image-container">
                             <h6>@Model.AwayTeamName</h6>
-                            <img src="~/photos/default.jpg" class="square-image" alt="Second Image">
+                            <img src="@Model." class="square-image" alt="Second Image">
                         </div>
                     </div>
                 </div>
                 @foreach (var goal in Model.Goals)
                 {
                     <div class="row mt-4">
-                        <div class="col-3" style="text-align: right;">
+                        <div class="col-3 mt-2" style="text-align: right;">
                             @if (goal.TeamId == Model.HomeTeamId)
                             {
                                 @if (User.IsInRole("Admin"))
@@ -131,7 +131,7 @@
                                 <p>(@goal.AssistantName)</p>
                             }
                         </div>
-                        <div class="col-3 mt-2">
+                        <div class="col-3 mt-2" style="text-align: right;">
                             @if (goal.TeamId == Model.AwayTeamId)
                             {
                                 <div style="display: flex; align-items: center; justify-content: flex-start; margin-top: -8px;">

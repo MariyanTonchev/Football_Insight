@@ -7,6 +7,7 @@ using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using static Football_Insight.Core.Constants.GlobalConstants;
 
 namespace Football_Insight.Core.Services
 {
@@ -147,7 +148,7 @@ namespace Football_Insight.Core.Services
                     Id = m.Id,
                     HomeTeam = m.HomeTeam.Name,
                     AwayTeam = m.AwayTeam.Name,
-                    Date = m.DateAndTime.ToString(Constants.GlobalConstants.DateFormat)
+                    Date = m.DateAndTime.ToString(DateAndTimeFormat)
                 })
                 .ToListAsync();
 
@@ -180,7 +181,7 @@ namespace Football_Insight.Core.Services
                     AwayTeam = m.AwayTeam.Name,
                     HomeTeamGoals = m.HomeScore,
                     AwayTeamGoals = m.AwayScore,
-                    Date = m.DateAndTime.ToString()
+                    Date = m.DateAndTime.ToString(DateAndTimeFormat)
                 })
                 .ToListAsync();
 
@@ -202,7 +203,7 @@ namespace Football_Insight.Core.Services
                     Id = p.Id,
                     FirstName = p.FirstName,
                     LastName = p.LastName,
-                    DateOfBirth = p.DateOfBirth,
+                    DateOfBirth = p.DateOfBirth.ToString(DateFormat),
                     Position = (PlayerPosition)p.Position,
                     Price = p.Price,
                     Salary = p.Salary,

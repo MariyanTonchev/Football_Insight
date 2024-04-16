@@ -22,12 +22,12 @@
     <div class="card style-3">
         <img src="@Model.LogoURL" class="card-img-top" alt="LOGO" style="width: 150px; height: 150px; object-fit: fill;">
         <div class="card-body px-0 py-0 align-self-center">
-            <h5 class="card-title mb-3">@Model.Name</h5>
-            <p class="card-category mb-1">@Model.Founded</p>
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-category">Team Founded: @Model.Founded</p>
+            <p>Stadium Name: @Model.Stadium.Name</p>
             <div class="media mt-4 mb-0 pt-1">
                 <div class="media-body">
-                    <h4 class="media-heading mb-1">Coach</h4>
-                    <p class="media-text">@Model.Coach</p>
+                    <p class="media-text">Manager: @Model.Coach</p>
                 </div>
             </div>
         </div>

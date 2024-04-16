@@ -1,5 +1,6 @@
 using Football_Insight.Core.Models.Player;
 using Football_Insight.Core.Services;
+using static Football_Insight.Core.Constants.GlobalConstants;
 using Football_Insight.Infrastructure.Data.Common;
 using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
@@ -253,7 +254,7 @@ namespace Football_Insight.Tests.Player
             Assert.Equal(playerId, result.Id);
             Assert.Equal("John", result.FirstName);
             Assert.Equal("Doe", result.LastName);
-            Assert.Equal(new DateTime(1990, 01, 01), result.DateOfBirth);
+            Assert.Equal(new DateTime(1990, 01, 01).ToString(DateFormat), result.DateOfBirth);
             Assert.Equal(PlayerPosition.Defender, result.Position);
             Assert.Equal(100000m, result.Price);
             Assert.Equal(5000m, result.Salary);
