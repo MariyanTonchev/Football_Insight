@@ -16,5 +16,8 @@ namespace Football_Insight.Core.Models.Player
 
         public int GoalsContributed {  get; set; }
 
+        public int TeamId { get; set; }
+
+        public int LeagueId { get; set; }
     }
 }

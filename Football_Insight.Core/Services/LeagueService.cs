@@ -204,6 +204,8 @@ namespace Football_Insight.Core.Services
                     AwayTeamName = m.AwayTeam.Name,
                     DateAndTime = m.DateAndTime.ToString(Constants.GlobalConstants.DateAndTimeFormat),
                     MatchStatus = m.Status,
+                    HomeGoals = m.HomeScore,
+                    AwayGoals = m.AwayScore,
                     IsFavorite = favoriteMatchIds.Contains(m.Id)
                 })
                 .ToListAsync();

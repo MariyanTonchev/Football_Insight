@@ -115,9 +115,18 @@
                                             <tr role="row">
                                                 <td>@match.DateAndTime</td>
                                                 <td>
-                                                    <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id">
-                                                        @match.HomeTeamName VS @match.AwayTeamName
-                                                    </a>
+                                                    @if (match.MatchStatus == MatchStatus.Scheduled)
+                                                    {
+                                                        <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id">
+                                                            @match.HomeTeamName VS @match.AwayTeamName
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id">
+                                                            @match.HomeTeamName @match.HomeGoals - @match.AwayGoals @match.AwayTeamName
+                                                        </a>
+                                                    }
                                                 </td>
                                                 <td>@match.MatchStatus</td>
                                                 <td>

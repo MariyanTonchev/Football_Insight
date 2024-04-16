@@ -10,7 +10,7 @@
                 {
                     <div style="text-align: right;">
                         <form asp-area="Admin" asp-action="Create" asp-controller="Player" method="get">
-                            <input type="hidden" name="teamId" asp-for="@Model.TeamId"/>
+                            <input type="hidden" name="teamId" asp-for="@Model.TeamId" />
                             <button type="submit" class="btn btn-outline-success mb-2 me-6">
                                 <span class="btn-text-inner">Create Player</span>
                             </button>
@@ -22,9 +22,10 @@
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                             <div class="dt--top-section">
                                 <div class="row">
-                                <table class="multi-table table dt-table-hover dataTable" style="width: 100%;" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <table class="multi-table table dt-table-hover dataTable" style="width: 100%;" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                         <thead>
-                                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 219px;">Name</th>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 219px;">Name</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 374px;">Position</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Birth Date: activate to sort column ascending" style="width: 157px;">Birth Date</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 80px;">Transfer Price</th>
@@ -35,17 +36,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                @foreach (var player in Model.Players)
-                                                {
-                                                    <tr role="row">
-                                                        <td class="sorting_1">@player.FirstName @player.LastName</td>
-                                                        <td>@player.Position</td>
-                                                        <td>@player.DateOfBirth</td>
-                                                        <td>@player.Price</td>
-                                                        <td>@player.Salary</td>
-                                                        <td>@player.GoalScored</td>
-                                                        <td>@player.GoalAssited</td>
-                                                        <td class="text-center">
+                                            @foreach (var player in Model.Players)
+                                            {
+                                                <tr role="row">
+                                                    <td class="sorting_1">
+                                                        <a asp-area="User" asp-action="Index" asp-controller="Player" asp-route-playerId="@player.Id">
+                                                            @player.FirstName @player.LastName
+                                                        </a>
+                                                    </td>
+                                                    <td>@player.Position</td>
+                                                    <td>@player.DateOfBirth</td>
+                                                    <td>@player.Price</td>
+                                                    <td>@player.Salary</td>
+                                                    <td>@player.GoalScored</td>
+                                                    <td>@player.GoalAssited</td>
+                                                    <td class="text-center">
                                                         <a asp-area="User" asp-action="Index" asp-controller="Player" asp-route-playerId="@player.Id" class="action-icon-row">
                                                             <i class="fa-solid fa-eye fa-xl" style="color: #858585;"></i>
                                                         </a>
@@ -59,8 +64,8 @@
                                                             </a>
                                                         }
                                                     </td>
-                                                    </tr>
-                                                }
+                                                </tr>
+                                            }
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -74,11 +79,11 @@
                                                 <th class="text-center" rowspan="1" colspan="1">Action</th>
                                             </tr>
                                         </tfoot>
-                                </table>
-                        </div>    
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>

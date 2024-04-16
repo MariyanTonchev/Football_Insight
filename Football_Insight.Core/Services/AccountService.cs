@@ -227,7 +227,10 @@ namespace Football_Insight.Core.Services
                     AwayTeam = f.Match.AwayTeam.Name,
                     MatchStatus = f.Match.Status,
                     LeagueName = f.Match.League.Name,
-                    DateAndTime = f.Match.DateAndTime.ToString(DateAndTimeFormat)
+                    DateAndTime = f.Match.DateAndTime.ToString(DateAndTimeFormat),
+                    LeagueId = f.Match.LeagueId,
+                    HomeGoals = f.Match.HomeScore,
+                    AwayGoals = f.Match.AwayScore
                 })
                 .ToListAsync();
 

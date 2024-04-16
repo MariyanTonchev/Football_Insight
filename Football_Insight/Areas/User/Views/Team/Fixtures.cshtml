@@ -22,7 +22,11 @@
                                     {
                                         <tr role="row">
                                             <td>@match.Date</td>
-                                            <td>@match.HomeTeam VS @match.AwayTeam</td>
+                                            <td>
+                                                <a asp-area="User" asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id">
+                                                    @match.HomeTeam VS @match.AwayTeam
+                                                </a>
+                                            </td>
                                             <td>
                                                 <a asp-area="User" asp-action="Index" asp-controller="Match" asp-route-matchId="@match.Id" class="action-icon-row">
                                                     <i class="fa-solid fa-eye fa-xl" style="color: #858585;"></i>

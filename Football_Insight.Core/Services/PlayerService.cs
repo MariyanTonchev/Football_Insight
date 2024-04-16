@@ -213,7 +213,9 @@ namespace Football_Insight.Core.Services
                     Position = (PlayerPosition)p.Position,
                     League = p.Team.League.Name,
                     Team = p.Team.Name,
-                    GoalsContributed = p.GoalsScored.Count
+                    GoalsContributed = p.GoalsScored.Count,
+                    TeamId = p.Team.Id,
+                    LeagueId = p.Team.LeagueId,
                 })
                 .OrderByDescending(p => p.GoalsContributed)
                 .Take(5)
@@ -232,7 +234,9 @@ namespace Football_Insight.Core.Services
                     Position = (PlayerPosition)p.Position,
                     League = p.Team.League.Name,
                     Team = p.Team.Name,
-                    GoalsContributed = p.GoalsAssisted.Count
+                    GoalsContributed = p.GoalsAssisted.Count,
+                    TeamId = p.Team.Id,
+                    LeagueId = p.Team.LeagueId
                 })
                 .OrderByDescending(p => p.GoalsContributed)
                 .Take(5)

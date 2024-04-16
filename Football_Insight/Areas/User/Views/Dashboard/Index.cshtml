@@ -2,14 +2,14 @@
 
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
-         <div class="row layout-top-spacing">
+        <div class="row layout-top-spacing">
             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-table-three">
-    
+
                     <div class="widget-heading">
                         <h5 class="">Top 5 Scorers</h5>
                     </div>
-    
+
                     <div class="widget-content">
                         <div class="table-responsive">
                             <table class="table table-scroll">
@@ -22,34 +22,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(var player in Model.TopGoalScorers)
+                                    @foreach (var player in Model.TopGoalScorers)
                                     {
                                         <tr>
                                             <td>
                                                 <a asp-area="User" asp-action="Index" asp-controller="Player" asp-route-playerId="@player.PlayerId">
-                                                <div class="td-content product-name">
-                                                    <img src="~/photos/default.jpg" alt="player">
-                                                    <div class="align-self-center">
-                                                        <p class="prd-name">@player.Name</p>
-                                                        <p class="prd-category text-primary">@player.Position</p>
+                                                    <div class="td-content product-name">
+                                                        <img src="~/photos/default.jpg" alt="player">
+                                                        <div class="align-self-center">
+                                                            <p class="prd-name">@player.Name</p>
+                                                            <p class="prd-category text-primary">@player.Position</p>
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 </a>
                                             </td>
                                             <td>
-                                                <div class="td-content">
-                                                    <span>@player.Team</span>
-                                                </div>
+                                                <a asp-area="User" asp-action="Index" asp-controller="Team" asp-route-teamId="@player.TeamId">
+                                                    <div class="td-content">
+                                                        <span>@player.Team</span>
+                                                    </div>
+                                                </a>
                                             </td>
                                             <td>
-                                                <div class="td-content">
-                                                    <span>@player.League</span>
-                                                </div>
+                                                <a asp-area="User" asp-action="Index" asp-controller="League" asp-route-Id="@player.LeagueId">
+                                                    <div class="td-content">
+                                                        <span>@player.League</span>
+                                                    </div>
+                                                </a>
                                             </td>
                                             <td>
                                                 <div class="td-content">@player.GoalsContributed</div>
                                             </td>
-                                        </tr> 
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -91,14 +95,18 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <div class="td-content">
-                                                    <span>@player.Team</span>
-                                                </div>
+                                                <a asp-area="User" asp-action="Index" asp-controller="Team" asp-route-teamId="@player.TeamId">
+                                                    <div class="td-content">
+                                                        <span>@player.Team</span>
+                                                    </div>
+                                                </a>
                                             </td>
                                             <td>
-                                                <div class="td-content" style="text-align: left;">
-                                                    <span>@player.League</span>
-                                                </div>
+                                                <a asp-area="User" asp-action="Index" asp-controller="League" asp-route-Id="@player.LeagueId">
+                                                    <div class="td-content">
+                                                        <span>@player.League</span>
+                                                    </div>
+                                                </a>
                                             </td>
                                             <td>
                                                 <div class="td-content">@player.GoalsContributed</div>
@@ -136,12 +144,23 @@
                                         <tr role="row">
                                             <td>@match.DateAndTime</td>
                                             <td>
-                                                <p>@match.LeagueName</p>
+                                                <a asp-area="User" asp-action="Index" asp-controller="League" asp-route-Id="@match.LeagueId">
+                                                    <p>@match.LeagueName</p>
+                                                </a>
                                             </td>
                                             <td>
-                                                <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.MatchId">
-                                                    @match.HomeTeam VS @match.AwayTeam
-                                                </a>
+                                                @if(match.MatchStatus == MatchStatus.Scheduled)
+                                                {
+                                                    <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.MatchId">
+                                                        @match.HomeTeam VS @match.AwayTeam
+                                                    </a>
+                                                } 
+                                                else
+                                                {
+                                                    <a asp-action="Index" asp-controller="Match" asp-route-matchId="@match.MatchId">
+                                                        @match.HomeTeam @match.HomeGoals - @match.AwayGoals @match.AwayTeam
+                                                    </a>
+                                                }
                                             </td>
                                             <td>
                                                 <p>@match.MatchStatus</p>

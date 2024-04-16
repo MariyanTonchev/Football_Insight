@@ -14,6 +14,10 @@ namespace Football_Insight.Core.Models.Match
 
         public MatchStatus MatchStatus { get; set; }
 
+        public int HomeGoals { get; set; }
+
+        public int AwayGoals { get; set; } 
+
         public bool IsFavorite { get; set; }
     }
 }
