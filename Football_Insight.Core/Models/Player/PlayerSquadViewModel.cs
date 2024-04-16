@@ -12,9 +12,9 @@ namespace Football_Insight.Core.Models.Player
 
         public string DateOfBirth { get; set; } = string.Empty;
 
-        public decimal Price { get; set; }
+        public string Price { get; set; } = string.Empty;
 
-        public decimal Salary { get; set; }
+        public string Salary { get; set; } = string.Empty;
 
         public PlayerPosition Position { get; set; }
 

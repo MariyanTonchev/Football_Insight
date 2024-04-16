@@ -6,6 +6,7 @@ using Football_Insight.Infrastructure.Data.Enums;
 using Football_Insight.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using static Football_Insight.Core.Constants.GlobalConstants;
 
 namespace Football_Insight.Core.Services
@@ -193,8 +194,8 @@ namespace Football_Insight.Core.Services
                     LastName = p.LastName,
                     DateOfBirth = p.DateOfBirth.ToString(DateFormat),
                     Position = (PlayerPosition)p.Position,
-                    Price = p.Price,
-                    Salary = p.Salary,
+                    Price = p.Price.ToString(CurrencyFormat),
+                    Salary = p.Salary.ToString(CurrencyFormat),
                     GoalAssited = p.GoalsAssisted.Count,
                     GoalScored = p.GoalsScored.Count,
                 })

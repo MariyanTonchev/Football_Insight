@@ -20,6 +20,6 @@
 
         public const string UserRole = "User";
 
-
+        public const string CurrencyFormat = "C";
     }
 }

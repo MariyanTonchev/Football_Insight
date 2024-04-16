@@ -256,8 +256,8 @@ namespace Football_Insight.Tests.Player
             Assert.Equal("Doe", result.LastName);
             Assert.Equal(new DateTime(1990, 01, 01).ToString(DateFormat), result.DateOfBirth);
             Assert.Equal(PlayerPosition.Defender, result.Position);
-            Assert.Equal(100000m, result.Price);
-            Assert.Equal(5000m, result.Salary);
+            Assert.Equal(100000m.ToString(CurrencyFormat), result.Price);
+            Assert.Equal(5000m.ToString(CurrencyFormat), result.Salary);
             Assert.Equal(0, result.GoalAssited);
             Assert.Equal(0, result.GoalScored);
         }
