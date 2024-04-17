@@ -21,3 +21,5 @@
   </ul>
   <li>Thats it!</li>
 </ol>
+
+Additionally, the application is published on Azure and can be accessed from this *[Link](https://footballinsight20240416202033.azurewebsites.net)*.
