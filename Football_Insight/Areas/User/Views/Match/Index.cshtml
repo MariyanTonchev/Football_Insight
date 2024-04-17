@@ -166,8 +166,28 @@
 @if (Model.Status == MatchStatus.FirstHalf || Model.Status == MatchStatus.HalfTime || Model.Status == MatchStatus.SecondHalf)
 {
     <script>
-        var refreshInterval = @GlobalConstants.SettingSecondsInOneMinute;
-        var matchId = '@Model.Id';
+        $(document).ready(function () {
+            var refreshInterval = @GlobalConstants.SettingSecondsInOneMinute;
+            var matchId = '@Model.Id';
+
+            if (typeof refreshInterval !== 'undefined' && typeof matchId !== 'undefined') {
+                setInterval(refreshMatchMinutes, refreshInterval * 1000);
+
+                function refreshMatchMinutes() {
+                    $.ajax({
+                        url: '/Admin/Match/GetMatchMinute',
+                        data: { matchId: matchId },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#match-minutes').html(`<p>${data.minutes} min</p>`);
+                        },
+                        error: function () {
+                            console.log('Error retrieving match minutes.');
+                        }
+                    });
+                }
+            }
+        });
     </script>
-    <script src="~/js./refreshtMatchMinutes.js"></script>
 }

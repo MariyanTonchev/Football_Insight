@@ -4,7 +4,7 @@
 
         function refreshMatchMinutes() {
             $.ajax({
-                url: '/Admin/Match/GetMatchMinute', // You might need to adjust the URL based on your routing setup
+                url: '/Admin/Match/GetMatchMinute',
                 data: { matchId: matchId },
                 type: 'GET',
                 dataType: 'json',
